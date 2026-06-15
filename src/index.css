@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-base text-term font-mono;
+    margin: 0;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(0, 255, 102, 0.05), transparent 45%),
+      radial-gradient(circle at 100% 100%, rgba(55, 230, 255, 0.04), transparent 40%);
+    background-attachment: fixed;
+  }
+
+  /* Atmosfera: vinheta radial nas bordas da viewport */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 49;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 52%,
+      rgba(0, 0, 0, 0.35) 88%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+
+  /* CRT scanlines (finas, ~4%) sobre toda a tela */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.14) 3px,
+      rgba(0, 0, 0, 0) 4px
+    );
+    mix-blend-mode: multiply;
+  }
+
+  /* Grão/ruído sutil de fundo via SVG noise */
+  #root::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 48;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05080a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1c2a28;
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0a8f43;
+  }
+}
+
+@layer components {
+  /* clipped cockpit corners — chanfro mais pronunciado */
+  .clip-hud {
+    clip-path: polygon(
+      0 12px,
+      12px 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      12px 100%,
+      0 calc(100% - 12px)
+    );
+  }
+  .clip-hud-sm {
+    clip-path: polygon(
+      0 7px,
+      7px 0,
+      calc(100% - 7px) 0,
+      100% 7px,
+      100% calc(100% - 7px),
+      calc(100% - 7px) 100%,
+      7px 100%,
+      0 calc(100% - 7px)
+    );
+  }
+
+  .text-glow {
+    text-shadow: 0 0 6px rgba(0, 255, 102, 0.6);
+  }
+  .text-glow-amber {
+    text-shadow: 0 0 6px rgba(255, 176, 0, 0.6);
+  }
+  .text-glow-danger {
+    text-shadow: 0 0 7px rgba(255, 65, 54, 0.7);
+  }
+
+  /* ── Hierarquia tipográfica HUD ───────────────────────────────── */
+  /* Nível 1 — valor principal */
+  .t-value {
+    @apply font-bold tabular-nums text-term text-glow;
+    letter-spacing: -0.01em;
+  }
+  /* Nível 2 — label de painel (verde escuro, tracking alto) */
+  .t-label {
+    @apply text-[10px] font-bold uppercase;
+    letter-spacing: 0.24em;
+    color: #1a5c33;
+  }
+  /* Nível 3 — dado secundário (cinza-esverdeado) */
+  .t-sub {
+    @apply text-[11px];
+    color: #5c7068;
+  }
+  /* Nível 4 — crítico / alerta */
+  .t-crit {
+    @apply font-bold tabular-nums text-amber text-glow-amber;
+  }
+}
