@@ -1,0 +1,12 @@
+AMPERÊ — Dashboard NILM (protótipo de alta fidelidade)
+FIAP • Startup One • Checkpoint "É Hora de Prototipar"
+
+Repositório GitHub:
+https://github.com/GuilhermeCostaProenca/ampere-dashboard
+
+Como rodar localmente:
+  npm install
+  npm run dev
+
+Conta: GuilhermeCostaProenca
+Visibilidade: público
