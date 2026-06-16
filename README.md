@@ -9,6 +9,25 @@ identifica, via IA, o consumo individual de cada aparelho da casa — exibindo t
 
 ---
 
+## 🖥️ Telas
+
+### Dashboard
+![Dashboard](docs/01-dashboard.png)
+
+### Aparelhos (NILM)
+![Aparelhos](docs/02-aparelhos.png)
+
+### Alertas
+![Alertas](docs/03-alertas.png)
+
+### Relatório mensal
+![Relatório](docs/04-relatorio.png)
+
+### Configurações
+![Configurações](docs/05-config.png)
+
+---
+
 ## 🎨 Estética
 
 Painel de controle estilo **HUD NASA/ESA / cockpit**:
