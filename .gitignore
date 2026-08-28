@@ -10,3 +10,11 @@ dist-ssr
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts
+
+# ── credenciais — NUNCA versionar ────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+server/.env
+server/.env.local
+server/dist
