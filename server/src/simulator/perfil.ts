@@ -80,7 +80,7 @@ function planoDoDia(dia: number, diaSemana: number): Record<string, boolean[]> {
   // Chuveiro: banho da manhã todo dia; banho da noite em ~metade dos dias.
   const banhoManha = 26 + (rng() < 0.4 ? 1 : 0) // 06:30 / 06:45
   plano.chuveiro![banhoManha] = true
-  if (rng() < 0.5) plano.chuveiro![79] = true // 19:45
+  if (rng() < 0.5) plano.chuveiro![78] = true // 19:30
 
   // Ar-condicionado: nos dias quentes pega tarde (13h-14h), noite (20h-23h) e
   // madrugada (00h-00h45); nos dias amenos fica só na janela da noite.
@@ -104,8 +104,10 @@ function planoDoDia(dia: number, diaSemana: number): Record<string, boolean[]> {
   // é o que forma o patamar típico de ~1.340 W no pico da noite.
   for (let f = 80; f <= 87; f++) plano['tv-eletronicos']![f] = true
 
-  // Iluminação: 18h30–19h45.
-  for (let f = 74; f <= 79; f++) plano.iluminacao![f] = true
+  // Iluminação: 18h15–19h30. Termina uma fatia antes de o ar-condicionado e a
+  // TV entrarem (20h), para não empilhar um desliga e dois liga no mesmo
+  // instante — o que é o caso ruim do detector de degraus.
+  for (let f = 73; f <= 78; f++) plano.iluminacao![f] = true
 
   return plano
 }

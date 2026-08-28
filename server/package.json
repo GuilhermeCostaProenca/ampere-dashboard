@@ -10,7 +10,8 @@
     "start": "node dist/index.js",
     "seed": "tsx src/seed/index.ts",
     "simulate": "tsx src/simulator/index.ts",
-    "check:perfil": "tsx src/seed/calibracao.ts"
+    "check:perfil": "tsx src/seed/calibracao.ts",
+    "check:nilm": "tsx src/nilm/avaliacao.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
