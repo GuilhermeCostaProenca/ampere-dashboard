@@ -1,8 +1,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// AMPERÊ — MOCK DATA LAYER
-// Todos os dados desta tela são SIMULADOS (leituras NILM fictícias).
-// Esta camada isola o front-end da fonte de dados. Na Fase 5 (Cloud), basta
-// trocar os exports por chamadas a uma API/banco mantendo os mesmos tipos.
+// AMPERÊ — MOCK DATA LAYER (fallback de desenvolvimento)
+// A fonte de dados do produto passou a ser a API (src/api/client.ts) sobre o
+// banco em nuvem. Este arquivo continua no repositório como modo offline,
+// ativado por VITE_USE_MOCK=true e adaptado em src/api/mockAdapter.ts.
+// Os valores aqui espelham os mesmos números validados em campo.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type FlagColor = 'verde' | 'amarela' | 'vermelha-1' | 'vermelha-2'
@@ -69,14 +70,14 @@ function curve(base: number, peakHours: number[], peakBoost: number, noise = 0.1
 // ── Estado geral / Dashboard ───────────────────────────────────────────────────
 
 export const tariffFlag: TariffFlag = {
-  color: 'vermelha-1',
-  label: 'VERMELHA P1',
-  extraPerKwh: 0.0445,
+  color: 'amarela',
+  label: 'AMARELA',
+  extraPerKwh: 0.01885,
 }
 
 export const dashboard = {
   monthEstimateBRL: 187,
-  monthDeltaPct: 12, // +12% vs mês anterior
+  monthDeltaPct: -4.6, // -4,6% vs mês anterior (R$196 -> R$187)
   nowWatts: 1340,
   todayCostBRL: 7.2,
   todayActiveHours: 6.2,
@@ -213,26 +214,26 @@ export const alerts: AlertItem[] = [
 // ── Relatório mensal ───────────────────────────────────────────────────────────
 
 export const monthlyReport = {
-  totalBRL: 312,
-  totalKwh: 210,
+  totalBRL: 187,
+  totalKwh: 215,
   flag: tariffFlag,
   slices: [
-    { name: 'Ar-condicionado', costBRL: 145 },
-    { name: 'Chuveiro', costBRL: 72 },
-    { name: 'Geladeira', costBRL: 44 },
-    { name: 'Outros', costBRL: 51 },
+    { name: 'Ar-condicionado', costBRL: 89 },
+    { name: 'Chuveiro', costBRL: 42 },
+    { name: 'Geladeira', costBRL: 23 },
+    { name: 'Outros', costBRL: 33 },
   ] as ReportSlice[],
-  tip: 'Concentre o uso do ar-condicionado fora dos horários de pico (18h–21h). Em bandeira vermelha, isso pode economizar até R$18 no próximo ciclo.',
+  tip: 'Concentre o uso do ar-condicionado fora dos horários de pico (18h–21h). Em bandeira amarela, isso pode economizar até R$18 no próximo ciclo.',
 }
 
 // Histórico dos últimos 6 meses (R$) — para o painel de tendência do relatório
 export const monthlyHistory: { month: string; costBRL: number }[] = [
-  { month: 'JAN', costBRL: 268 },
-  { month: 'FEV', costBRL: 245 },
-  { month: 'MAR', costBRL: 291 },
-  { month: 'ABR', costBRL: 277 },
-  { month: 'MAI', costBRL: 298 },
-  { month: 'JUN', costBRL: 312 },
+  { month: 'MAR', costBRL: 218 },
+  { month: 'ABR', costBRL: 211 },
+  { month: 'MAI', costBRL: 209 },
+  { month: 'JUN', costBRL: 205 },
+  { month: 'JUL', costBRL: 196 },
+  { month: 'AGO', costBRL: 187 },
 ]
 
 // Soma das potências ativas no momento (derivado dos aparelhos)

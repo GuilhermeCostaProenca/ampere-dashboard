@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import type { DeviceReading } from '../data/mock'
+import type { PontoSerie } from '../api/types'
 
 // Tooltip estilo terminal
 function ScopeTooltip({ active, payload, label }: any) {
@@ -23,7 +23,7 @@ function ScopeTooltip({ active, payload, label }: any) {
 }
 
 interface ScopeProps {
-  data: DeviceReading[]
+  data: PontoSerie[]
   height?: number
   color?: string // hex
   fillId?: string
@@ -59,7 +59,7 @@ export function Scope({ data, height = 200, color = '#00ff66', fillId = 'scopeFi
           </defs>
           <CartesianGrid stroke="#13201d" strokeDasharray="2 4" vertical={true} />
           <XAxis
-            dataKey="hour"
+            dataKey="hora"
             tick={{ fill: '#5c7068', fontSize: 9, fontFamily: 'JetBrains Mono' }}
             interval={3}
             axisLine={{ stroke: '#1c2a28' }}

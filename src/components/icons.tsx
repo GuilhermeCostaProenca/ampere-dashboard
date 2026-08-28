@@ -11,47 +11,62 @@ import {
   Tv,
   WashingMachine,
 } from 'lucide-react'
-import type { AlertItem } from '../data/mock'
+import type { TipoAlerta } from '../api/types'
 
-// Mapeia o id do aparelho (mock.ts intocado) para um ícone de linha monocromático.
-const DEVICE_ICONS: Record<string, LucideIcon> = {
+// Os ids agora são UUIDs vindos de dim_aparelho, então o ícone é escolhido
+// pela categoria (dim_aparelho.categoria) com o nome como desempate.
+const ICONES_CATEGORIA: Record<string, LucideIcon> = {
+  Climatização: Snowflake,
+  Aquecimento: ShowerHead,
+  Refrigeração: Refrigerator,
+  Lavanderia: WashingMachine,
+  Eletrônicos: Tv,
+  Iluminação: Lightbulb,
+}
+
+const ICONES_NOME: Record<string, LucideIcon> = {
   'ar-condicionado': Snowflake,
   chuveiro: ShowerHead,
   geladeira: Refrigerator,
-  'maquina-lavar': WashingMachine,
-  'tv-eletronicos': Tv,
-  iluminacao: Lightbulb,
+  'máquina de lavar': WashingMachine,
+  'tv + eletrônicos': Tv,
+  iluminação: Lightbulb,
 }
 
 export function DeviceIcon({
-  id,
+  categoria,
+  nome,
   size = 18,
   className = '',
 }: {
-  id: string
+  categoria?: string
+  nome?: string
   size?: number
   className?: string
 }) {
-  const Icon = DEVICE_ICONS[id] ?? Plug
+  const Icon =
+    (categoria ? ICONES_CATEGORIA[categoria] : undefined) ??
+    (nome ? ICONES_NOME[nome.toLowerCase()] : undefined) ??
+    Plug
   return <Icon size={size} strokeWidth={1.6} className={className} />
 }
 
 // Glifos de alerta consistentes (linha, não emoji do sistema).
-const ALERT_ICONS: Record<AlertItem['kind'], LucideIcon> = {
+const ICONES_ALERTA: Record<TipoAlerta, LucideIcon> = {
   'over-average': Activity,
   'no-signal': TriangleAlert,
   achievement: CircleCheck,
 }
 
 export function AlertIcon({
-  kind,
+  tipo,
   size = 18,
   className = '',
 }: {
-  kind: AlertItem['kind']
+  tipo: TipoAlerta
   size?: number
   className?: string
 }) {
-  const Icon = ALERT_ICONS[kind]
+  const Icon = ICONES_ALERTA[tipo] ?? Activity
   return <Icon size={size} strokeWidth={1.6} className={className} />
 }

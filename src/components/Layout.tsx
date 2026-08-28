@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { TariffFlagBadge } from './TariffFlag'
+import { api } from '../api/client'
+import { useRecurso } from '../hooks/useRecurso'
+import { useAuth } from '../auth/AuthContext'
 
 const NAV = [
   { to: '/', label: 'Início', icon: '◰', end: true },
@@ -38,6 +41,12 @@ function Logo() {
 }
 
 export function Layout() {
+  const { usuario, sair } = useAuth()
+  // Status do sensor e bandeira vigente vêm da API (atualiza a cada minuto).
+  const { dados } = useRecurso(() => api.configuracoes(), [], { intervaloMs: 60_000 })
+
+  const sensorOnline = dados?.sensor.status === 'online'
+
   return (
     <div className="min-h-full">
       {/* ── Sidebar (desktop) ─────────────────────────────────────────── */}
@@ -64,29 +73,47 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
+
         <div className="border-t border-line px-4 py-3 text-[9px] leading-relaxed text-muted">
           <div className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-term shadow-glow" />
-            SENSOR ONLINE
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                sensorOnline ? 'bg-term shadow-glow' : 'bg-amber shadow-glow-amber animate-blink'
+              }`}
+            />
+            {dados ? (sensorOnline ? 'SENSOR ONLINE' : 'SENSOR OFFLINE') : 'CONECTANDO…'}
           </div>
-          <div className="mt-1">PROTÓTIPO • DADOS SIMULADOS</div>
-          <div className="opacity-60">v0.1.0 — FIAP Startup One</div>
+          {usuario && (
+            <div className="mt-2 truncate text-term-dim" title={usuario.email}>
+              {usuario.nome}
+            </div>
+          )}
+          <button
+            onClick={sair}
+            className="mt-1.5 text-[9px] uppercase tracking-widest text-muted transition-colors hover:text-danger"
+          >
+            ◂ Encerrar sessão
+          </button>
+          <div className="mt-2 opacity-60">v1.0.0 — FIAP Startup One</div>
         </div>
       </aside>
 
       {/* ── Conteúdo ───────────────────────────────────────────────────── */}
       <div className="md:pl-56">
-        {/* Top bar */}
         <header className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-line bg-base/85 px-4 py-3 backdrop-blur">
           <div className="md:hidden">
             <Logo />
           </div>
           <div className="hidden items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-muted md:flex">
-            <span className="h-1.5 w-1.5 rounded-full bg-term shadow-glow animate-blink" />
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                sensorOnline ? 'bg-term shadow-glow animate-blink' : 'bg-amber shadow-glow-amber'
+              }`}
+            />
             Telemetria ao vivo • <Clock />
           </div>
           <div className="flex items-center gap-3">
-            <TariffFlagBadge />
+            <TariffFlagBadge bandeira={dados?.tarifa ?? null} />
           </div>
         </header>
 
