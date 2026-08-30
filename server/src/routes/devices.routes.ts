@@ -4,7 +4,7 @@ import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { naoEncontrado } from '../lib/errors.js'
 import { dispositivoDoUsuario, estadoAparelhos } from '../services/dispositivo.js'
-import { janela24h, janelaMes } from '../services/periodos.js'
+import { fatorProjecaoMes, janela24h, janelaMes } from '../services/periodos.js'
 import { mediaDaCategoria } from '../services/referencias.js'
 import { calcularRoi } from '../services/roi.js'
 import { PLANO_PRO } from '../services/planos.js'
@@ -30,6 +30,8 @@ devicesRouter.get(
       estadoAparelhos(usuario.id),
     ])
 
+    // Mesma base do dashboard: custo estimado para o mes fechado.
+    const fator = fatorProjecaoMes()
     const lista = ((aparelhos.data ?? []) as any[]).map((a) => {
       const est = estado.get(a.aparelho_id)
       return {
@@ -39,8 +41,9 @@ devicesRouter.get(
         potencia_nominal_w: a.potencia_nominal_w,
         status: est?.status ?? 'no-signal',
         potencia_atual_w: est?.potencia_w ?? 0,
-        custo_mes_brl: Number(Number(a.custo_brl).toFixed(2)),
-        energia_mes_kwh: Number(Number(a.energia_kwh).toFixed(2)),
+        custo_mes_brl: Number((Number(a.custo_brl) * fator).toFixed(2)),
+        custo_acumulado_brl: Number(Number(a.custo_brl).toFixed(2)),
+        energia_mes_kwh: Number((Number(a.energia_kwh) * fator).toFixed(2)),
         horas_ativas_mes: Number(a.horas_ativas ?? 0),
         media_categoria_brl: mediaDaCategoria(a.categoria),
       }
@@ -90,7 +93,8 @@ devicesRouter.get(
     ])
 
     const linha = ((custos.data ?? []) as any[]).find((a) => a.aparelho_id === id)
-    const custoMes = Number(Number(linha?.custo_brl ?? 0).toFixed(2))
+    const acumulado = Number(Number(linha?.custo_brl ?? 0).toFixed(2))
+    const custoMes = Number((acumulado * fatorProjecaoMes()).toFixed(2))
     const est = estado.get(String(id))
 
     const porHora = new Map(
@@ -115,7 +119,10 @@ devicesRouter.get(
         status: est?.status ?? 'no-signal',
         potencia_atual_w: est?.potencia_w ?? 0,
         custo_mes_brl: custoMes,
-        energia_mes_kwh: Number(Number(linha?.energia_kwh ?? 0).toFixed(2)),
+        custo_acumulado_brl: acumulado,
+        energia_mes_kwh: Number(
+          (Number(linha?.energia_kwh ?? 0) * fatorProjecaoMes()).toFixed(2),
+        ),
         horas_ativas_mes: Number(linha?.horas_ativas ?? 0),
         media_categoria_brl: mediaDaCategoria(aparelho.categoria),
       },

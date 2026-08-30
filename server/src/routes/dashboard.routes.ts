@@ -3,7 +3,14 @@ import { db } from '../lib/supabase.js'
 import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { dispositivoDoUsuario, estadoAparelhos, ultimaLeitura } from '../services/dispositivo.js'
-import { janela24h, janelaHoje, janelaMes, janelaMesAnterior, projetarMes } from '../services/periodos.js'
+import {
+  fatorProjecaoMes,
+  janela24h,
+  janelaHoje,
+  janelaMes,
+  janelaMesAnterior,
+  projetarMes,
+} from '../services/periodos.js'
 import { bandeiraApresentavel, tarifaVigente } from '../services/tarifa.js'
 
 export const dashboardRouter = Router()
@@ -75,6 +82,10 @@ dashboardRouter.get(
       0,
     )
 
+    // O ranking e projetado na mesma base do total do mes: mostrar "gasto
+    // estimado R$187" ao lado de um acumulado parcial por aparelho faria os
+    // numeros da tela nao fecharem entre si.
+    const fator = fatorProjecaoMes(agora)
     const top = ((aparelhos.data ?? []) as any[])
       .filter((a) => Number(a.custo_brl) > 0)
       .slice(0, 3)
@@ -84,7 +95,8 @@ dashboardRouter.get(
           id: a.aparelho_id,
           nome: a.nome,
           categoria: a.categoria,
-          custo_brl: Number(Number(a.custo_brl).toFixed(2)),
+          custo_brl: Number((Number(a.custo_brl) * fator).toFixed(2)),
+          custo_acumulado_brl: Number(Number(a.custo_brl).toFixed(2)),
           potencia_atual_w: est?.potencia_w ?? 0,
           status: est?.status ?? 'no-signal',
         }

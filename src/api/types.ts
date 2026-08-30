@@ -34,7 +34,10 @@ export interface TopAparelho {
   id: string
   nome: string
   categoria: string
+  /** Custo estimado para o mes fechado (projecao). */
   custo_brl: number
+  /** Custo efetivamente acumulado ate agora no ciclo. */
+  custo_acumulado_brl: number
   potencia_atual_w: number
   status: StatusAparelho
 }
@@ -56,7 +59,10 @@ export interface Aparelho {
   potencia_nominal_w: number
   status: StatusAparelho
   potencia_atual_w: number
+  /** Custo estimado para o mes fechado (projecao). */
   custo_mes_brl: number
+  /** Custo efetivamente acumulado ate agora no ciclo. */
+  custo_acumulado_brl: number
   energia_mes_kwh: number
   horas_ativas_mes: number
   media_categoria_brl: number

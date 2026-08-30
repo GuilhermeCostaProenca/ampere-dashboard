@@ -54,11 +54,21 @@ export async function registrarLeituras(
     })
   }
 
-  const { error: erroLeituras } = await db
+  // ignoreDuplicates + select devolve SO as linhas realmente inseridas.
+  const { data: inseridas, error: erroLeituras } = await db
     .from('fato_leitura_agregada')
     .upsert(linhas, { onConflict: 'dispositivo_id,registrado_em', ignoreDuplicates: true })
+    .select('registrado_em')
 
   if (erroLeituras) throw new Error(`Falha ao gravar leituras: ${erroLeituras.message}`)
+
+  // Instantes que ainda nao existiam. So eles alimentam o NILM: rodar o
+  // detector sobre leitura ja processada gera evento novo a cada reenvio,
+  // porque o ruido do sensor desloca degraus e muda a atribuicao. O resultado
+  // seria custo inflado a cada reprocessamento.
+  const novosInstantes = new Set(
+    (inseridas ?? []).map((l) => Date.parse(l.registrado_em as string)),
+  )
 
   await db
     .from('dim_dispositivo')
@@ -68,6 +78,17 @@ export async function registrarLeituras(
     })
     .eq('id', dispositivoId)
 
+  if (novosInstantes.size === 0) {
+    return {
+      leituras_gravadas: 0,
+      leituras_ignoradas: linhas.length,
+      eventos_detectados: 0,
+      eventos_novos: 0,
+    }
+  }
+
+  // O contexto anterior entra na serie para o detector enxergar o degrau na
+  // fronteira do lote, mas so vira evento o que cai num instante novo.
   const serie: AmostraAgregada[] = [
     ...contexto,
     ...ordenadas.map((l) => ({ registrado_em: l.registrado_em, potencia_w: l.potencia_w })),
@@ -75,10 +96,15 @@ export async function registrarLeituras(
 
   const detectados = detector
     .detectar(serie)
-    .filter((e) => Date.parse(e.registrado_em) >= Date.parse(ordenadas[0]!.registrado_em))
+    .filter((e) => novosInstantes.has(Date.parse(e.registrado_em)))
 
   if (detectados.length === 0) {
-    return { leituras_gravadas: linhas.length, eventos_detectados: 0 }
+    return {
+      leituras_gravadas: novosInstantes.size,
+      leituras_ignoradas: linhas.length - novosInstantes.size,
+      eventos_detectados: 0,
+      eventos_novos: 0,
+    }
   }
 
   const mapa = await garantirAparelhos(usuarioId, [
@@ -126,10 +152,25 @@ export async function registrarLeituras(
     })
   }
 
-  const { error: erroEventos } = await db.from('fato_evento_aparelho').insert(eventos)
+  // Idempotente: reprocessar a mesma janela (batch rodado duas vezes, ou buffer
+  // reenviado pelo ESP32 apos queda de rede) nao duplica o evento -- o mesmo
+  // aparelho, no mesmo instante, com a mesma transicao e o mesmo evento.
+  const { data: gravados, error: erroEventos } = await db
+    .from('fato_evento_aparelho')
+    .upsert(eventos, {
+      onConflict: 'aparelho_id,registrado_em,tipo_evento',
+      ignoreDuplicates: true,
+    })
+    .select('id')
+
   if (erroEventos) throw new Error(`Falha ao gravar eventos: ${erroEventos.message}`)
 
-  return { leituras_gravadas: linhas.length, eventos_detectados: eventos.length }
+  return {
+    leituras_gravadas: novosInstantes.size,
+    leituras_ignoradas: linhas.length - novosInstantes.size,
+    eventos_detectados: eventos.length,
+    eventos_novos: gravados?.length ?? 0,
+  }
 }
 
 /** Ultima leitura antes do lote, para detectar degrau na fronteira. */

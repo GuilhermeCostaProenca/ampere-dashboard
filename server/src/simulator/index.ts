@@ -77,7 +77,12 @@ async function publicar(chave: string, leituras: Leitura[]) {
   if (!resposta.ok) {
     throw new Error(`HTTP ${resposta.status} — ${JSON.stringify(corpo)}`)
   }
-  return corpo as { leituras_gravadas: number; eventos_detectados: number }
+  return corpo as {
+    leituras_gravadas: number
+    leituras_ignoradas: number
+    eventos_detectados: number
+    eventos_novos: number
+  }
 }
 
 // ── Modo batch: reconstrói as últimas N horas de uma vez ─────────────────────
@@ -100,15 +105,22 @@ async function rodarBatch(chave: string) {
   log(`modo batch: ${leituras.length} leituras (${HORAS}h) -> ${API}`)
 
   let gravadas = 0
+  let ignoradas = 0
   let eventos = 0
+  let novos = 0
   for (let i = 0; i < leituras.length; i += 200) {
     const r = await publicar(chave, leituras.slice(i, i + 200))
     gravadas += r.leituras_gravadas
+    ignoradas += r.leituras_ignoradas
     eventos += r.eventos_detectados
+    novos += r.eventos_novos
     process.stdout.write(`\r[node] enviadas ${Math.min(i + 200, leituras.length)}/${leituras.length}`)
   }
   process.stdout.write('\n')
-  log(`concluído: ${gravadas} leituras gravadas · ${eventos} eventos detectados pelo NILM`)
+  log(
+    `concluído: ${gravadas} leituras novas · ${ignoradas} já existiam · ` +
+      `${eventos} degraus detectados · ${novos} eventos gravados`,
+  )
 }
 
 // ── Modo contínuo: telemetria ao vivo para a demonstração ────────────────────
@@ -137,7 +149,7 @@ async function rodarContinuo(chave: string) {
       log(
         `${agora.toLocaleTimeString('pt-BR', { hour12: false })}  ` +
           `${String(Math.round(potencia)).padStart(5)} W  ` +
-          `[${nomes}]  eventos=${r.eventos_detectados}`,
+          `[${nomes}]  NILM: ${r.eventos_detectados} degraus / ${r.eventos_novos} novos`,
       )
     } catch (e) {
       log(`falha ao publicar: ${e instanceof Error ? e.message : e}`)

@@ -3,7 +3,7 @@ import { db } from '../lib/supabase.js'
 import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { dispositivoDoUsuario, estadoAparelhos } from '../services/dispositivo.js'
-import { janelaMes, janelaMesAnterior } from '../services/periodos.js'
+import { fatorProjecaoMes, janelaMes, janelaMesAnterior } from '../services/periodos.js'
 import { mediaDaCategoria } from '../services/referencias.js'
 
 export const alertsRouter = Router()
@@ -73,23 +73,28 @@ alertsRouter.get(
       ((passado.data ?? []) as any[]).map((a) => [a.aparelho_id, Number(a.custo_brl)]),
     )
 
+    const fator = fatorProjecaoMes()
     const alertas: Alerta[] = []
 
     for (const a of (atual.data ?? []) as any[]) {
       const custo = Number(a.custo_brl)
+      const custoProjetado = custo * fator
       const est = estado.get(a.aparelho_id)
       const media = mediaDaCategoria(a.categoria)
       const anteriorCusto = custoAnterior.get(a.aparelho_id) ?? 0
 
-      // 1. Carga ligada agora e acima da media da categoria
-      if (est?.status === 'on' && media > 0 && custo > media) {
-        const pct = Math.round(((custo - media) / media) * 100)
+      // 1. Gasto do mes acima da media da categoria.
+      // Nao exige a carga ligada AGORA: e uma afirmacao sobre o mes, nao sobre
+      // o instante. Exigir 'on' fazia o alerta sumir sempre que o aparelho
+      // estivesse desligado, que e a maior parte do dia.
+      if (media > 0 && custoProjetado > media) {
+        const pct = Math.round(((custoProjetado - media) / media) * 100)
         alertas.push({
           id: `acima-${a.aparelho_id}`,
           tipo: 'over-average',
           titulo: `${a.nome} ${pct}% acima da media`,
-          detalhe: `Custo no mes ${brl(custo)} contra ${brl(media)} em residencias equivalentes.`,
-          em: est.registrado_em,
+          detalhe: `Custo estimado do mes ${brl(custoProjetado)} contra ${brl(media)} em residencias equivalentes.`,
+          em: est?.registrado_em ?? null,
           aparelho_id: a.aparelho_id,
         })
       }
@@ -149,9 +154,14 @@ alertsRouter.get(
     const ordem: Record<Tipo, number> = { 'no-signal': 0, 'over-average': 1, achievement: 2 }
     alertas.sort((a, b) => ordem[a.tipo] - ordem[b.tipo])
 
+    // Uma conquista por aparelho vira seis cards identicos e afoga o que
+    // importa. Mantem so as duas maiores reducoes.
+    const conquistas = alertas.filter((a) => a.tipo === 'achievement').slice(0, 2)
+    const relevantes = [...alertas.filter((a) => a.tipo !== 'achievement'), ...conquistas]
+
     res.json({
-      alertas: alertas.map((a) => ({ ...a, ha: tempoRelativo(a.em) })),
-      total: alertas.length,
+      alertas: relevantes.map((a) => ({ ...a, ha: tempoRelativo(a.em) })),
+      total: relevantes.length,
     })
   }),
 )

@@ -77,7 +77,11 @@ export function DeviceDetail() {
           />
         </Panel>
         <Panel>
-          <Metric label="Custo no mês" value={BRL(aparelho.custo_mes_brl)} />
+          <Metric
+            label="Custo estimado no mês"
+            value={BRL(aparelho.custo_mes_brl)}
+            sub={`${BRL(aparelho.custo_acumulado_brl)} acumulados no ciclo`}
+          />
         </Panel>
         <Panel>
           <Metric

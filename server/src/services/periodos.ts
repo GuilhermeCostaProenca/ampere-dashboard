@@ -51,10 +51,19 @@ export function janela24h(agora = new Date()): Janela {
  * para o mes inteiro. E o numero que o usuario ve como "gasto estimado do mes".
  */
 export function projetarMes(gastoAteAgora: number, agora = new Date()): number {
+  return gastoAteAgora * fatorProjecaoMes(agora)
+}
+
+/**
+ * Quanto falta do mes, em multiplicador. Usado para projetar o total e o custo
+ * de cada aparelho na MESMA base -- senao o painel mostraria um total estimado
+ * ao lado de custos acumulados, e os numeros nao fechariam entre si.
+ */
+export function fatorProjecaoMes(agora = new Date()): number {
   const { inicio, fim } = janelaMes(agora)
   const decorrido = Math.max(1, agora.getTime() - inicio.getTime())
   const total = fim.getTime() - inicio.getTime()
-  return gastoAteAgora * (total / decorrido)
+  return total / decorrido
 }
 
 export const MESES_PT = [
