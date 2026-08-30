@@ -75,8 +75,8 @@ reportsRouter.get(
     const dica = maior
       ? `${maior.nome} responde por ${Math.round(
           (maior.custo_brl / Math.max(totalBrl, 0.01)) * 100,
-        )}% da conta (${brl(maior.custo_brl)}). Concentrar o uso fora do pico (18h-21h) e o ajuste com maior efeito neste ciclo.`
-      : 'Ainda nao ha leituras suficientes neste ciclo para gerar uma recomendacao.'
+        )}% da conta (${brl(maior.custo_brl)}). Concentrar o uso fora do pico (18h–21h) é o ajuste com maior efeito neste ciclo.`
+      : 'Ainda não há leituras suficientes neste ciclo para gerar uma recomendação.'
 
     res.json({
       periodo: {

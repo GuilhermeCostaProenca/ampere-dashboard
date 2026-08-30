@@ -24,11 +24,11 @@ function tempoRelativo(iso: string | null): string {
   const ms = Date.now() - Date.parse(iso)
   const min = Math.floor(ms / 60000)
   if (min < 2) return 'agora'
-  if (min < 60) return `ha ${min} min`
+  if (min < 60) return `há ${min} min`
   const h = Math.floor(min / 60)
-  if (h < 24) return `ha ${h}h`
+  if (h < 24) return `há ${h}h`
   const d = Math.floor(h / 24)
-  return d === 1 ? 'ontem' : `ha ${d} dias`
+  return d === 1 ? 'ontem' : `há ${d} dias`
 }
 
 const brl = (v: number) => `R$${v.toFixed(2).replace('.', ',')}`
@@ -92,8 +92,8 @@ alertsRouter.get(
         alertas.push({
           id: `acima-${a.aparelho_id}`,
           tipo: 'over-average',
-          titulo: `${a.nome} ${pct}% acima da media`,
-          detalhe: `Custo estimado do mes ${brl(custoProjetado)} contra ${brl(media)} em residencias equivalentes.`,
+          titulo: `${a.nome} ${pct}% acima da média`,
+          detalhe: `Custo estimado do mês ${brl(custoProjetado)} contra ${brl(media)} em residências equivalentes.`,
           em: est?.registrado_em ?? null,
           aparelho_id: a.aparelho_id,
         })
@@ -110,9 +110,9 @@ alertsRouter.get(
           alertas.push({
             id: `sem-sinal-${a.aparelho_id}`,
             tipo: 'no-signal',
-            titulo: `${a.nome} sem leitura ha ${horas >= 1 ? horas + 'h' : Math.floor(silencioMin) + ' min'}`,
+            titulo: `${a.nome} sem leitura há ${horas >= 1 ? horas + 'h' : Math.floor(silencioMin) + ' min'}`,
             detalhe:
-              `O NILM nao detecta a assinatura deste aparelho ha ${Math.floor(silencioMin)} min, ` +
+              `O NILM não detecta a assinatura deste aparelho há ${Math.floor(silencioMin)} min, ` +
               `bem acima do ritmo habitual (${Math.round(r.gapP90Min)} min). Verifique o sensor.`,
             em: r.ultimo,
             aparelho_id: a.aparelho_id,
@@ -126,8 +126,8 @@ alertsRouter.get(
         alertas.push({
           id: `conquista-${a.aparelho_id}`,
           tipo: 'achievement',
-          titulo: `Reducao conquistada: -${pct}% em ${a.nome}`,
-          detalhe: `Gasto abaixo do mes anterior (${brl(anteriorCusto)} -> ${brl(custo)}). Continue assim.`,
+          titulo: `Redução conquistada: -${pct}% em ${a.nome}`,
+          detalhe: `Gasto abaixo do mês anterior (${brl(anteriorCusto)} → ${brl(custo)}). Continue assim.`,
           em: est?.registrado_em ?? null,
           aparelho_id: a.aparelho_id,
         })
@@ -143,9 +143,9 @@ alertsRouter.get(
       alertas.unshift({
         id: 'sensor-mudo',
         tipo: 'no-signal',
-        titulo: 'Sensor sem comunicacao',
+        titulo: 'Sensor sem comunicação',
         detalhe: Number.isFinite(minutosMudo)
-          ? `O Amperê Node nao envia leituras ha ${Math.floor(minutosMudo)} min. Sem isso o NILM para de identificar cargas.`
+          ? `O Amperê Node não envia leituras há ${Math.floor(minutosMudo)} min. Sem isso o NILM para de identificar cargas.`
           : 'O Amperê Node nunca reportou. Rode o simulador ou ligue o dispositivo.',
         em: dispositivo.ultimo_contato,
       })

@@ -70,12 +70,12 @@ export async function registrarLeituras(
     (inseridas ?? []).map((l) => Date.parse(l.registrado_em as string)),
   )
 
+  // ultimo_contato e QUANDO o dispositivo falou com a API, nao o instante da
+  // leitura. Um backfill de dados antigos nao pode fazer um sensor que acabou
+  // de reportar parecer offline.
   await db
     .from('dim_dispositivo')
-    .update({
-      status_conexao: 'online',
-      ultimo_contato: ordenadas[ordenadas.length - 1]!.registrado_em,
-    })
+    .update({ status_conexao: 'online', ultimo_contato: new Date().toISOString() })
     .eq('id', dispositivoId)
 
   if (novosInstantes.size === 0) {

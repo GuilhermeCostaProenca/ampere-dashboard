@@ -72,7 +72,7 @@ devicesRouter.get(
       .eq('usuario_id', usuario.id)
       .maybeSingle()
 
-    if (!aparelho) throw naoEncontrado('Aparelho nao encontrado no inventario')
+    if (!aparelho) throw naoEncontrado('Aparelho não encontrado no inventário')
 
     const mes = janelaMes()
     const ultimas24h = janela24h()

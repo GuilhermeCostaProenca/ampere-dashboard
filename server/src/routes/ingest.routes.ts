@@ -32,7 +32,7 @@ ingestRouter.post(
       .eq('id', dispositivoId)
       .single()
 
-    if (!dispositivo) throw naoAutorizado('Dispositivo sem usuario vinculado')
+    if (!dispositivo) throw naoAutorizado('Dispositivo sem usuário vinculado')
 
     const resultado = await registrarLeituras(dispositivoId, dispositivo.usuario_id, body.leituras)
 
