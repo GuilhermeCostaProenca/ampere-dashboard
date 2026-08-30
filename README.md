@@ -29,6 +29,26 @@ consumo de cada aparelho — mostrando tudo em **R$**, não em kWh.
 ### Configurações
 ![Configurações](docs/05-config.png)
 
+### Detalhe do aparelho (ROI bloqueado no plano Free)
+![Detalhe do aparelho](docs/06-detalhe-aparelho.png)
+
+> Todas as telas acima são capturas do sistema rodando contra o banco em nuvem,
+> geradas por `npm run shots`.
+
+---
+
+## 🌐 Ambiente em nuvem
+
+| | |
+| --- | --- |
+| **Provedor** | Supabase (PostgreSQL gerenciado) |
+| **Projeto** | `ampere` · região `us-west-2` |
+| **URL** | `https://mykkhodwculqhvcpsyng.supabase.co` |
+| **Migrations aplicadas** | 8 |
+| **Volume** | 8.640 leituras agregadas · 4.514 eventos de aparelho · 2.162 horas em `dim_tempo` |
+
+**Conta de demonstração:** `demo@ampere.app` / `ampere2026`
+
 ---
 
 ## 🏗️ Arquitetura
@@ -229,11 +249,14 @@ No painel do Supabase, aplique as migrations de [`supabase/migrations/`](supabas
 na ordem (SQL Editor, ou `supabase db push` com a CLI):
 
 ```
-20260828120000_schema_inicial.sql        tabelas, FKs e índices
-20260828120100_rls_politicas.sql         RLS e políticas por usuário
-20260828120200_dimensoes_referencia.sql  tarifa vigente e planos
-20260828120300_funcoes_agregacao.sql     agregações em SQL
-20260828120400_saude_aparelhos.sql       ritmo de detecção por aparelho
+20260828120000_schema_inicial.sql          tabelas, FKs e índices
+20260828120100_rls_politicas.sql           RLS e políticas por usuário
+20260828120200_dimensoes_referencia.sql    tarifa vigente e planos
+20260828120300_funcoes_agregacao.sql       agregações em SQL
+20260828120400_saude_aparelhos.sql         ritmo de detecção por aparelho
+20260830170000_fuso_nas_agregacoes.sql     hora e mês em horário de Brasília
+20260830173000_curva_aparelho_por_ocupacao.sql  curva do aparelho por tempo ligado
+20260830174500_evento_idempotente.sql      chave natural única do evento
 ```
 
 ### 2. Back-end
@@ -263,6 +286,11 @@ npm run dev                  # http://localhost:5173
 ```bash
 cd server && npm run simulate
 ```
+
+### 5. Regerar as screenshots (opcional)
+
+Com API e front no ar, `npm run shots` autentica, navega pelas 6 telas e
+grava os PNGs em `docs/`.
 
 ---
 
