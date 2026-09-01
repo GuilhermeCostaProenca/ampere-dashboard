@@ -1,12 +1,29 @@
-AMPERÊ — Dashboard NILM (protótipo de alta fidelidade)
-FIAP • Startup One • Checkpoint "É Hora de Prototipar"
+AMPERÊ — MVP NILM (front-end + back-end + banco em nuvem)
+FIAP • Startup One • Fase 5 • CP5 "MVP Completo: Programando a Solução"
 
 Repositório GitHub:
-https://github.com/GuilhermeCostaProenca/ampere-dashboard
+  https://github.com/GuilhermeCostaProenca/ampere-dashboard
+  Conta: GuilhermeCostaProenca · Visibilidade: público
+
+Vídeo (YouTube, não listado):
+  [PREENCHER ANTES DA ENTREGA]
+
+Aplicação publicada:
+  Front-end: [PREENCHER — Vercel]
+  Back-end:  [PREENCHER — Render]
+
+Banco de dados em nuvem:
+  Supabase (PostgreSQL) — projeto "ampere", região us-west-2
+  8 migrations versionadas em supabase/migrations/
+  Star Schema: 6 dimensões + 2 fatos, RLS por usuário
+
+Conta de demonstração:
+  demo@ampere.app / ampere2026
 
 Como rodar localmente:
-  npm install
-  npm run dev
+  1. Aplicar as migrations de supabase/migrations/ no projeto Supabase
+  2. Back-end:   cd server && cp .env.example .env && npm install && npm run seed && npm run dev
+  3. Front-end:  cp .env.example .env.local && npm install && npm run dev
+  4. Telemetria ao vivo (opcional): cd server && npm run simulate
 
-Conta: GuilhermeCostaProenca
-Visibilidade: público
+Instruções completas no README.md.

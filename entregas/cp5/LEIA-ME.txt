@@ -1,0 +1,28 @@
+ENTREGA CP5 — "MVP Completo: Programando a Solução e Produzindo um Produto"
+FIAP • Startup One • Fase 5
+
+O .ZIP entregue na plataforma FIAP ON deve conter:
+
+  [ ] documentacao-cp5.pdf     Partes 1, 2 e 3 do documento
+  [ ] apresentacao-cp5.pdf     Slides do pitch (com o link do vídeo)
+  [ ] link-do-video.txt        YouTube, não listado, até 5 min
+  [ ] link do repositório GitHub (também citado no documento)
+
+Conteúdo exigido no documento:
+
+  Parte 1 — Versão atual do projeto
+            Evoluções desde a entrega anterior (CP4).
+
+  Parte 2 — Estratégia de mercado e viabilidade financeira
+            Go to Market Canvas: segmento de clientes, proposta de valor,
+            canais de aquisição, estratégia de preço e promoção, métricas.
+            Análise financeira: custos fixos e variáveis, modelo de receita,
+            fluxo de caixa (mínimo 6 meses), breakeven, CAC, LTV e margem
+            de contribuição.
+
+  Parte 3 — Protótipo funcional de alta fidelidade
+            Front-end e back-end com programação real, banco de dados
+            implementado em nuvem. Mínimo ~80% de conclusão.
+
+A entrega da Parte 3 está no repositório. Os artefatos do CP4 ficaram
+arquivados em entregas/cp4/ para consulta.
