@@ -4,7 +4,7 @@ import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { naoEncontrado } from '../lib/errors.js'
 import { dispositivoDoUsuario, estadoAparelhos } from '../services/dispositivo.js'
-import { fatorProjecaoMes, janela24h, janelaMes } from '../services/periodos.js'
+import { estimarMes, janela24h, janela30d, janelaMes } from '../services/periodos.js'
 import { mediaDaCategoria } from '../services/referencias.js'
 import { calcularRoi } from '../services/roi.js'
 import { PLANO_PRO } from '../services/planos.js'
@@ -20,34 +20,49 @@ devicesRouter.get(
   async_(async (req, res) => {
     const usuario = req.usuario!
     const mes = janelaMes()
+    const ultimos30d = janela30d()
 
-    const [aparelhos, estado] = await Promise.all([
+    const [aparelhos, aparelhos30d, estado] = await Promise.all([
       db.rpc('custo_por_aparelho', {
         p_usuario: usuario.id,
         p_inicio: mes.inicio.toISOString(),
         p_fim: mes.fim.toISOString(),
       }),
+      db.rpc('custo_por_aparelho', {
+        p_usuario: usuario.id,
+        p_inicio: ultimos30d.inicio.toISOString(),
+        p_fim: ultimos30d.fim.toISOString(),
+      }),
       estadoAparelhos(usuario.id),
     ])
 
-    // Mesma base do dashboard: custo estimado para o mes fechado.
-    const fator = fatorProjecaoMes()
-    const lista = ((aparelhos.data ?? []) as any[]).map((a) => {
-      const est = estado.get(a.aparelho_id)
-      return {
-        id: a.aparelho_id,
-        nome: a.nome,
-        categoria: a.categoria,
-        potencia_nominal_w: a.potencia_nominal_w,
-        status: est?.status ?? 'no-signal',
-        potencia_atual_w: est?.potencia_w ?? 0,
-        custo_mes_brl: Number((Number(a.custo_brl) * fator).toFixed(2)),
-        custo_acumulado_brl: Number(Number(a.custo_brl).toFixed(2)),
-        energia_mes_kwh: Number((Number(a.energia_kwh) * fator).toFixed(2)),
-        horas_ativas_mes: Number(a.horas_ativas ?? 0),
-        media_categoria_brl: mediaDaCategoria(a.categoria),
-      }
-    })
+    const em30d = new Map(
+      ((aparelhos30d.data ?? []) as any[]).map((a) => [
+        a.aparelho_id as string,
+        { custo: Number(a.custo_brl), energia: Number(a.energia_kwh) },
+      ]),
+    )
+
+    // Mesma base do dashboard: estimativa de fechamento do mes.
+    const lista = ((aparelhos.data ?? []) as any[])
+      .map((a) => {
+        const est = estado.get(a.aparelho_id)
+        const ref = em30d.get(a.aparelho_id) ?? { custo: 0, energia: 0 }
+        return {
+          id: a.aparelho_id,
+          nome: a.nome,
+          categoria: a.categoria,
+          potencia_nominal_w: a.potencia_nominal_w,
+          status: est?.status ?? 'no-signal',
+          potencia_atual_w: est?.potencia_w ?? 0,
+          custo_mes_brl: Number(estimarMes(Number(a.custo_brl), ref.custo).toFixed(2)),
+          custo_acumulado_brl: Number(Number(a.custo_brl).toFixed(2)),
+          energia_mes_kwh: Number(estimarMes(Number(a.energia_kwh), ref.energia).toFixed(2)),
+          horas_ativas_mes: Number(a.horas_ativas ?? 0),
+          media_categoria_brl: mediaDaCategoria(a.categoria),
+        }
+      })
+      .sort((x, y) => y.custo_mes_brl - x.custo_mes_brl)
 
     res.json({
       aparelhos: lista,
@@ -76,13 +91,19 @@ devicesRouter.get(
 
     const mes = janelaMes()
     const ultimas24h = janela24h()
+    const ultimos30d = janela30d()
     await dispositivoDoUsuario(usuario.id)
 
-    const [custos, serie, estado] = await Promise.all([
+    const [custos, custos30d, serie, estado] = await Promise.all([
       db.rpc('custo_por_aparelho', {
         p_usuario: usuario.id,
         p_inicio: mes.inicio.toISOString(),
         p_fim: mes.fim.toISOString(),
+      }),
+      db.rpc('custo_por_aparelho', {
+        p_usuario: usuario.id,
+        p_inicio: ultimos30d.inicio.toISOString(),
+        p_fim: ultimos30d.fim.toISOString(),
       }),
       db.rpc('serie_aparelho_por_hora', {
         p_aparelho: id,
@@ -93,8 +114,9 @@ devicesRouter.get(
     ])
 
     const linha = ((custos.data ?? []) as any[]).find((a) => a.aparelho_id === id)
+    const linha30d = ((custos30d.data ?? []) as any[]).find((a) => a.aparelho_id === id)
     const acumulado = Number(Number(linha?.custo_brl ?? 0).toFixed(2))
-    const custoMes = Number((acumulado * fatorProjecaoMes()).toFixed(2))
+    const custoMes = Number(estimarMes(acumulado, Number(linha30d?.custo_brl ?? 0)).toFixed(2))
     const est = estado.get(String(id))
 
     const porHora = new Map(
@@ -121,7 +143,7 @@ devicesRouter.get(
         custo_mes_brl: custoMes,
         custo_acumulado_brl: acumulado,
         energia_mes_kwh: Number(
-          (Number(linha?.energia_kwh ?? 0) * fatorProjecaoMes()).toFixed(2),
+          estimarMes(Number(linha?.energia_kwh ?? 0), Number(linha30d?.energia_kwh ?? 0)).toFixed(2),
         ),
         horas_ativas_mes: Number(linha?.horas_ativas ?? 0),
         media_categoria_brl: mediaDaCategoria(aparelho.categoria),

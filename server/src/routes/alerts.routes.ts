@@ -3,7 +3,7 @@ import { db } from '../lib/supabase.js'
 import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { dispositivoDoUsuario, estadoAparelhos } from '../services/dispositivo.js'
-import { fatorProjecaoMes, janelaMes, janelaMesAnterior } from '../services/periodos.js'
+import { estimarMes, janela30d, janelaMes, janelaMesAnterior } from '../services/periodos.js'
 import { mediaDaCategoria } from '../services/referencias.js'
 
 export const alertsRouter = Router()
@@ -41,8 +41,9 @@ alertsRouter.get(
     const usuario = req.usuario!
     const mes = janelaMes()
     const anterior = janelaMesAnterior()
+    const ultimos30d = janela30d()
 
-    const [atual, passado, estado, saude] = await Promise.all([
+    const [atual, passado, trinta, estado, saude] = await Promise.all([
       db.rpc('custo_por_aparelho', {
         p_usuario: usuario.id,
         p_inicio: mes.inicio.toISOString(),
@@ -52,6 +53,11 @@ alertsRouter.get(
         p_usuario: usuario.id,
         p_inicio: anterior.inicio.toISOString(),
         p_fim: anterior.fim.toISOString(),
+      }),
+      db.rpc('custo_por_aparelho', {
+        p_usuario: usuario.id,
+        p_inicio: ultimos30d.inicio.toISOString(),
+        p_fim: ultimos30d.fim.toISOString(),
       }),
       estadoAparelhos(usuario.id),
       db.rpc('saude_aparelhos', { p_usuario: usuario.id }),
@@ -73,12 +79,14 @@ alertsRouter.get(
       ((passado.data ?? []) as any[]).map((a) => [a.aparelho_id, Number(a.custo_brl)]),
     )
 
-    const fator = fatorProjecaoMes()
+    const custo30d = new Map(
+      ((trinta.data ?? []) as any[]).map((a) => [a.aparelho_id as string, Number(a.custo_brl)]),
+    )
     const alertas: Alerta[] = []
 
     for (const a of (atual.data ?? []) as any[]) {
       const custo = Number(a.custo_brl)
-      const custoProjetado = custo * fator
+      const custoProjetado = estimarMes(custo, custo30d.get(a.aparelho_id) ?? 0)
       const est = estado.get(a.aparelho_id)
       const media = mediaDaCategoria(a.categoria)
       const anteriorCusto = custoAnterior.get(a.aparelho_id) ?? 0

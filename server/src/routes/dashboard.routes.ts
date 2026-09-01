@@ -4,12 +4,12 @@ import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { dispositivoDoUsuario, estadoAparelhos, ultimaLeitura } from '../services/dispositivo.js'
 import {
-  fatorProjecaoMes,
+  estimarMes,
   janela24h,
+  janela30d,
   janelaHoje,
   janelaMes,
   janelaMesAnterior,
-  projetarMes,
 } from '../services/periodos.js'
 import { bandeiraApresentavel, tarifaVigente } from '../services/tarifa.js'
 
@@ -30,9 +30,20 @@ dashboardRouter.get(
     const mesAnterior = janelaMesAnterior(agora)
     const hoje = janelaHoje(agora)
     const ultimas24h = janela24h(agora)
+    const ultimos30d = janela30d(agora)
 
-    const [resMes, resMesAnterior, resHoje, serie, aparelhos, estado, tarifa, leitura] =
-      await Promise.all([
+    const [
+      resMes,
+      resMesAnterior,
+      resHoje,
+      serie,
+      aparelhos,
+      estado,
+      tarifa,
+      leitura,
+      res30d,
+      aparelhos30d,
+    ] = await Promise.all([
         db.rpc('resumo_periodo', {
           p_dispositivo: dispositivo.id,
           p_inicio: mes.inicio.toISOString(),
@@ -61,11 +72,22 @@ dashboardRouter.get(
         estadoAparelhos(usuario.id),
         tarifaVigente(),
         ultimaLeitura(dispositivo.id),
+        db.rpc('resumo_periodo', {
+          p_dispositivo: dispositivo.id,
+          p_inicio: ultimos30d.inicio.toISOString(),
+          p_fim: ultimos30d.fim.toISOString(),
+        }),
+        db.rpc('custo_por_aparelho', {
+          p_usuario: usuario.id,
+          p_inicio: ultimos30d.inicio.toISOString(),
+          p_fim: ultimos30d.fim.toISOString(),
+        }),
       ])
 
     const gastoMesAteAgora = Number(resMes.data?.[0]?.total_brl ?? 0)
     const gastoMesAnterior = Number(resMesAnterior.data?.[0]?.total_brl ?? 0)
-    const projecao = projetarMes(gastoMesAteAgora, agora)
+    const total30d = Number(res30d.data?.[0]?.total_brl ?? 0)
+    const projecao = estimarMes(gastoMesAteAgora, total30d, agora)
     const variacao =
       gastoMesAnterior > 0 ? ((projecao - gastoMesAnterior) / gastoMesAnterior) * 100 : 0
 
@@ -82,20 +104,36 @@ dashboardRouter.get(
       0,
     )
 
-    // O ranking e projetado na mesma base do total do mes: mostrar "gasto
-    // estimado R$187" ao lado de um acumulado parcial por aparelho faria os
-    // numeros da tela nao fecharem entre si.
-    const fator = fatorProjecaoMes(agora)
-    const top = ((aparelhos.data ?? []) as any[])
-      .filter((a) => Number(a.custo_brl) > 0)
+    // O ranking usa a MESMA estimativa do total do mes: mostrar "gasto estimado
+    // R$187" ao lado de um acumulado parcial por aparelho faria os numeros da
+    // tela nao fecharem entre si.
+    const custo30dPorAparelho = new Map(
+      ((aparelhos30d.data ?? []) as any[]).map((a) => [
+        a.aparelho_id as string,
+        Number(a.custo_brl),
+      ]),
+    )
+
+    const comEstimativa = ((aparelhos.data ?? []) as any[]).map((a) => ({
+      linha: a,
+      estimado: estimarMes(
+        Number(a.custo_brl),
+        custo30dPorAparelho.get(a.aparelho_id) ?? 0,
+        agora,
+      ),
+    }))
+
+    const top = comEstimativa
+      .filter((a) => a.estimado > 0)
+      .sort((x, y) => y.estimado - x.estimado)
       .slice(0, 3)
-      .map((a) => {
+      .map(({ linha: a, estimado }) => {
         const est = estado.get(a.aparelho_id)
         return {
           id: a.aparelho_id,
           nome: a.nome,
           categoria: a.categoria,
-          custo_brl: Number((Number(a.custo_brl) * fator).toFixed(2)),
+          custo_brl: Number(estimado.toFixed(2)),
           custo_acumulado_brl: Number(Number(a.custo_brl).toFixed(2)),
           potencia_atual_w: est?.potencia_w ?? 0,
           status: est?.status ?? 'no-signal',

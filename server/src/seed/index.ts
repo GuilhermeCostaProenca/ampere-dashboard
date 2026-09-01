@@ -12,7 +12,9 @@
 import { db } from '../lib/supabase.js'
 import { CATALOGO, DetectorDegraus } from '../nilm/index.js'
 import type { AmostraAgregada } from '../nilm/index.js'
+import { estimarMes, janela30d } from '../services/periodos.js'
 import {
+  CHAVE_BASE,
   MINUTOS_POR_FATIA,
   POTENCIAS,
   STANDBY_W,
@@ -214,33 +216,69 @@ const inicioDoMes = (d: Date) => new Date(Date.UTC(d.getUTCFullYear(), d.getUTCM
 const fimDoMes = (d: Date) => new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1, 3, 0, 0))
 
 /**
- * Ajusta a potência de cada carga para que a PROJEÇÃO do mês corrente caia
- * nos alvos validados. Como energia é linear na potência, um fator por carga basta.
+ * Ajusta a potência de cada carga para que a ESTIMATIVA DE FECHAMENTO do mês
+ * — exatamente a conta que o painel faz — caia nos alvos validados.
+ *
+ * Calibra sobre os EVENTOS já gerados, não sobre o perfil. Medir o perfil e
+ * gravar eventos são coisas sutilmente diferentes (o ciclo aberto é fechado na
+ * fronteira da janela, e o custo do aparelho sai do evento 'desligou'), e essa
+ * diferença deixava o chuveiro 4% fora do alvo. Como a energia é linear na
+ * potência, uma passada de correção é exata.
  */
-function calibrar(agora: Date, precoKwh: number): Record<string, number> {
-  const inicioMes = inicioDoMes(agora)
-  const fimMes = fimDoMes(agora)
+function calibrarPorEventos(
+  eventos: LinhaEvento[],
+  leituras: LinhaLeitura[],
+  porAparelho: Map<string, string>,
+  agora: Date,
+): Record<string, number> {
+  const inicioMes = inicioDoMes(agora).getTime()
+  const inicio30d = agora.getTime() - 30 * 86400_000
 
-  const kwh: Record<string, number> = {}
-  for (const chave of Object.keys(POTENCIAS)) kwh[chave] = 0
+  const chavePorId = new Map<string, string>()
+  for (const [chave, id] of porAparelho) chavePorId.set(id, chave)
 
-  for (let t = inicioMes.getTime(); t < agora.getTime(); t += MS_FATIA) {
-    const { cargas } = consumoNoInstante(new Date(t))
-    for (const c of cargas) {
-      kwh[c.chave] = (kwh[c.chave] ?? 0) + (c.potencia_w / 1000) * (MINUTOS_POR_FATIA / 60)
-    }
+  const noMes: Record<string, number> = {}
+  const em30d: Record<string, number> = {}
+  for (const chave of Object.keys(POTENCIAS)) {
+    noMes[chave] = 0
+    em30d[chave] = 0
   }
 
-  const fatorProjecao =
-    (fimMes.getTime() - inicioMes.getTime()) / Math.max(1, agora.getTime() - inicioMes.getTime())
+  for (const e of eventos) {
+    if (e.tipo_evento !== 'desligou') continue
+    const chave = chavePorId.get(e.aparelho_id)
+    if (!chave) continue
+    const t = Date.parse(e.registrado_em)
+    if (t >= inicioMes) noMes[chave] = (noMes[chave] ?? 0) + e.custo_brl
+    if (t >= inicio30d) em30d[chave] = (em30d[chave] ?? 0) + e.custo_brl
+  }
 
   const escalas: Record<string, number> = {}
+  let somaAparelhos = 0
   for (const chave of Object.keys(POTENCIAS)) {
-    const custoProjetado = kwh[chave]! * fatorProjecao * precoKwh
+    const estimado = estimarMes(noMes[chave]!, em30d[chave]!, agora)
+    somaAparelhos += estimado
     const alvo = ALVO_MENSAL_BRL[chave]!
-    const bruto = custoProjetado > 0 ? alvo / custoProjetado : 1
-    escalas[chave] = Number(Math.min(1.6, Math.max(0.5, bruto)).toFixed(4))
+    const bruto = estimado > 0 ? alvo / estimado : 1
+    escalas[chave] = Number(Math.min(2.5, Math.max(0.4, bruto)).toFixed(5))
   }
+
+  // O consumo de base é o resto: agregado menos a soma das cargas. Precisa ser
+  // calibrado também, senão o total do mês fica ~1% acima do alvo mesmo com
+  // todos os aparelhos cravados.
+  let agregadoMes = 0
+  let agregado30d = 0
+  for (const l of leituras) {
+    const t = Date.parse(l.registrado_em)
+    if (t >= inicioMes) agregadoMes += l.custo_estimado_brl
+    if (t >= inicio30d) agregado30d += l.custo_estimado_brl
+  }
+  const baseEstimada = estimarMes(agregadoMes, agregado30d, agora) - somaAparelhos
+  const alvoBase = ALVO_TOTAL_BRL - Object.values(ALVO_MENSAL_BRL).reduce((a, b) => a + b, 0)
+  escalas[CHAVE_BASE] = Number(
+    Math.min(2.5, Math.max(0.4, baseEstimada > 0 ? alvoBase / baseEstimada : 1)).toFixed(5),
+  )
+
   return escalas
 }
 
@@ -302,7 +340,10 @@ function gerar(
     const mult = multiplicadorMes(instante, fim)
 
     const escalasDoMes: Record<string, number> = {}
-    for (const [k, v] of Object.entries(escalas)) escalasDoMes[k] = v * mult
+    for (const [k, v] of Object.entries(escalas)) {
+      // O consumo de base é o mesmo todo mês; só as cargas variam.
+      escalasDoMes[k] = k === CHAVE_BASE ? v : v * mult
+    }
 
     const { agregado_w, cargas } = consumoNoInstante(instante, escalasDoMes)
     const energia = (agregado_w / 1000) * (MINUTOS_POR_FATIA / 60)
@@ -425,31 +466,56 @@ async function conferir(
 ) {
   const inicioMes = inicioDoMes(agora)
   const fimMes = fimDoMes(agora)
-  const fatorProjecao =
-    (fimMes.getTime() - inicioMes.getTime()) / Math.max(1, agora.getTime() - inicioMes.getTime())
+  const ultimos30d = janela30d(agora)
 
-  const { data: resumo } = await db.rpc('resumo_periodo', {
-    p_dispositivo: dispositivoId,
-    p_inicio: inicioMes.toISOString(),
-    p_fim: fimMes.toISOString(),
-  })
-  const { data: porAparelho } = await db.rpc('custo_por_aparelho', {
-    p_usuario: usuarioId,
-    p_inicio: inicioMes.toISOString(),
-    p_fim: fimMes.toISOString(),
-  })
+  // Confere pela MESMA conta que a API faz: acumulado do mês + média de 30 dias.
+  const [
+    { data: resumo },
+    { data: resumo30d },
+    { data: porAparelho },
+    { data: porAparelho30d },
+  ] = await Promise.all([
+    db.rpc('resumo_periodo', {
+      p_dispositivo: dispositivoId,
+      p_inicio: inicioMes.toISOString(),
+      p_fim: fimMes.toISOString(),
+    }),
+    db.rpc('resumo_periodo', {
+      p_dispositivo: dispositivoId,
+      p_inicio: ultimos30d.inicio.toISOString(),
+      p_fim: ultimos30d.fim.toISOString(),
+    }),
+    db.rpc('custo_por_aparelho', {
+      p_usuario: usuarioId,
+      p_inicio: inicioMes.toISOString(),
+      p_fim: fimMes.toISOString(),
+    }),
+    db.rpc('custo_por_aparelho', {
+      p_usuario: usuarioId,
+      p_inicio: ultimos30d.inicio.toISOString(),
+      p_fim: ultimos30d.fim.toISOString(),
+    }),
+  ])
+
+  const custo30d = new Map(
+    ((porAparelho30d ?? []) as any[]).map((a) => [a.aparelho_id as string, Number(a.custo_brl)]),
+  )
 
   const acumulado = Number((resumo as any[])?.[0]?.total_brl ?? 0)
-  const projecao = acumulado * fatorProjecao
+  const projecao = estimarMes(
+    acumulado,
+    Number((resumo30d as any[])?.[0]?.total_brl ?? 0),
+    agora,
+  )
   const somaEventos = ((porAparelho ?? []) as any[]).reduce((a, x) => a + Number(x.custo_brl), 0)
 
   log('')
   log('── conferência dos valores validados ───────────────────────────')
-  log(`gasto do mês (projeção) ... ${brl(projecao)}   [alvo ${brl(ALVO_TOTAL_BRL)}]`)
+  log(`gasto do mês (estimativa) . ${brl(projecao)}   [alvo ${brl(ALVO_TOTAL_BRL)}]`)
   for (const a of ((porAparelho ?? []) as any[]).slice(0, 6)) {
     const chave = CATALOGO.find((c) => c.nome === a.nome)?.chave
     const alvo = chave ? ALVO_MENSAL_BRL[chave] : undefined
-    const proj = Number(a.custo_brl) * fatorProjecao
+    const proj = estimarMes(Number(a.custo_brl), custo30d.get(a.aparelho_id) ?? 0, agora)
     log(
       `  ${String(a.nome).padEnd(20)} ${brl(proj).padStart(9)}` +
         (alvo !== undefined ? `   [alvo ${brl(alvo)}]` : ''),
@@ -499,7 +565,16 @@ async function main() {
   const aparelhos = await garantirAparelhosDoPerfil(usuarioId)
   await limparFatos(dispositivoId)
 
-  const escalas = calibrar(agora, precoKwh)
+  const tempoIds = await carregarDimTempo(inicio, agora)
+  log(`dim_tempo: ${tempoIds.size} horas disponíveis`)
+
+  const neutras = Object.fromEntries([...Object.keys(POTENCIAS), CHAVE_BASE].map((k) => [k, 1]))
+
+  // 1ª passada: gera sem calibrar, só para medir o que o perfil de fato produz.
+  const bruta = gerar(
+    inicio, agora, dispositivoId, tarifa.id, precoKwh, neutras, aparelhos, tempoIds,
+  )
+  const escalas = calibrarPorEventos(bruta.eventos, bruta.leituras, aparelhos, agora)
   log(
     'calibração: ' +
       Object.entries(escalas)
@@ -507,18 +582,9 @@ async function main() {
         .join(' · '),
   )
 
-  const tempoIds = await carregarDimTempo(inicio, agora)
-  log(`dim_tempo: ${tempoIds.size} horas disponíveis`)
-
+  // 2ª passada: com as escalas aplicadas, os alvos validados ficam cravados.
   const { leituras, eventos, serie } = gerar(
-    inicio,
-    agora,
-    dispositivoId,
-    tarifa.id,
-    precoKwh,
-    escalas,
-    aparelhos,
-    tempoIds,
+    inicio, agora, dispositivoId, tarifa.id, precoKwh, escalas, aparelhos, tempoIds,
   )
   log(`gerado: ${leituras.length} leituras · ${eventos.length} eventos`)
 

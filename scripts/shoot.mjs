@@ -97,6 +97,18 @@ for (const s of shots) {
 
   await page.goto(BASE + destino, { waitUntil: 'networkidle0' })
 
+  // Redimensiona o viewport para a altura da página ANTES de esperar o
+  // gráfico. Capturar com `fullPage` faria o Puppeteer redimensionar no
+  // momento da foto; o ResponsiveContainer re-mediria, o Recharts reiniciaria
+  // a animação de entrada, e a curva sairia invisível — eixos e grade
+  // desenhados, área ainda em transição.
+  const altura = await page.evaluate(() =>
+    Math.ceil(
+      Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, 900),
+    ),
+  )
+  await page.setViewport({ width: 1440, height: altura, deviceScaleFactor: 2 })
+
   // Espera o conteúdo real substituir o estado de carregamento HUD.
   await page
     .waitForFunction(() => !document.body.innerText.includes('AGUARDANDO SINAL'), {
@@ -124,6 +136,10 @@ for (const s of shots) {
   // congelava a pizza e as barras no estado inicial, invisíveis. Só as
   // animações decorativas (varredura, blink do cursor) são desligadas, e
   // depois de a entrada terminar.
+  // Tira o cursor de cima do gráfico: parado sobre a área, o Recharts desenha
+  // o tooltip e ele entra na captura.
+  await page.mouse.move(4, 4)
+
   await sleep(2500)
   await page.addStyleTag({ content: '*{animation:none !important;}' })
   await sleep(250)
@@ -134,7 +150,7 @@ for (const s of shots) {
     barras: document.querySelectorAll('.recharts-bar-rectangle').length,
   }))
 
-  await page.screenshot({ path: `${OUT}/${s.file}`, fullPage: true })
+  await page.screenshot({ path: `${OUT}/${s.file}` })
   console.log(
     'ok',
     s.file,

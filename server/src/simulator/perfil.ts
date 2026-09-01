@@ -22,6 +22,9 @@ export const MINUTOS_POR_FATIA = 15
 /** Consumo de base da casa (roteador, carregadores, relógios). Não é um aparelho. */
 export const STANDBY_W = 14
 
+/** Chave usada para calibrar o consumo de base junto com as cargas. */
+export const CHAVE_BASE = 'consumo-base'
+
 export interface CargaPerfil {
   chave: string
   potencia_w: number
@@ -136,7 +139,9 @@ export function consumoNoInstante(
   const plano = planoCacheado(dia, diaSemana)
 
   const cargas: CargaPerfil[] = []
-  let agregado = STANDBY_W
+  // O consumo de base entra no agregado mas não é uma carga identificável —
+  // é a diferença entre o que o sensor mede e a soma dos aparelhos.
+  let agregado = STANDBY_W * (escalas[CHAVE_BASE] ?? 1)
 
   for (const chave of Object.keys(POTENCIAS)) {
     if (!plano[chave]?.[fatia]) continue

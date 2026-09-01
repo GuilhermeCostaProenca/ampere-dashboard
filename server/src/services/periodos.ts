@@ -50,20 +50,39 @@ export function janela24h(agora = new Date()): Janela {
  * Projecao do gasto do mes: o consumido ate agora, extrapolado linearmente
  * para o mes inteiro. E o numero que o usuario ve como "gasto estimado do mes".
  */
-export function projetarMes(gastoAteAgora: number, agora = new Date()): number {
-  return gastoAteAgora * fatorProjecaoMes(agora)
+/** Janela dos ultimos 30 dias — base estavel para media diaria. */
+export function janela30d(agora = new Date()): Janela {
+  return { inicio: new Date(agora.getTime() - 30 * 86400_000), fim: agora }
 }
 
+const DIA_MS = 86400_000
+
 /**
- * Quanto falta do mes, em multiplicador. Usado para projetar o total e o custo
- * de cada aparelho na MESMA base -- senao o painel mostraria um total estimado
- * ao lado de custos acumulados, e os numeros nao fechariam entre si.
+ * Estimativa de fechamento do mes: o que ja foi gasto MAIS o que falta gastar,
+ * projetado pela media diaria dos ultimos 30 dias.
+ *
+ *   estimativa = acumulado_no_mes + media_diaria_30d x dias_restantes
+ *
+ * A versao anterior extrapolava linearmente so o mes corrente
+ * (acumulado x mes/decorrido). Isso quebra no comeco do mes: no dia 1o as 20h,
+ * o multiplicador passa de 36x, e uma unica noite quente decide a conta do mes
+ * inteiro. Pior ainda no seed, onde a calibracao dividia por uma energia de
+ * ar-condicionado que ainda era zero naquele dia.
+ *
+ * Com a media de 30 dias, o dia 1o ja mostra um numero estavel, e a estimativa
+ * converge para o valor real conforme o ciclo avanca.
  */
-export function fatorProjecaoMes(agora = new Date()): number {
+export function estimarMes(
+  acumuladoNoMes: number,
+  total30d: number,
+  agora = new Date(),
+): number {
   const { inicio, fim } = janelaMes(agora)
-  const decorrido = Math.max(1, agora.getTime() - inicio.getTime())
-  const total = fim.getTime() - inicio.getTime()
-  return total / decorrido
+  const diasNoMes = (fim.getTime() - inicio.getTime()) / DIA_MS
+  const decorridos = Math.min(diasNoMes, Math.max(0, (agora.getTime() - inicio.getTime()) / DIA_MS))
+  const restantes = Math.max(0, diasNoMes - decorridos)
+  const mediaDiaria = total30d / 30
+  return acumuladoNoMes + mediaDiaria * restantes
 }
 
 export const MESES_PT = [

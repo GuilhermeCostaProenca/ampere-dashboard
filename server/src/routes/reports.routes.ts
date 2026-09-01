@@ -3,7 +3,7 @@ import { db } from '../lib/supabase.js'
 import { async_ } from '../middleware/erro.js'
 import { exigirAutenticacao } from '../middleware/auth.js'
 import { dispositivoDoUsuario } from '../services/dispositivo.js'
-import { MESES_PT, janelaMes, projetarMes } from '../services/periodos.js'
+import { MESES_PT, estimarMes, janela30d, janelaMes } from '../services/periodos.js'
 import { bandeiraApresentavel, tarifaVigente } from '../services/tarifa.js'
 
 export const reportsRouter = Router()
@@ -18,12 +18,18 @@ reportsRouter.get(
     const usuario = req.usuario!
     const dispositivo = await dispositivoDoUsuario(usuario.id)
     const mes = janelaMes()
+    const ultimos30d = janela30d()
 
-    const [resumo, aparelhos, historico, tarifa] = await Promise.all([
+    const [resumo, resumo30d, aparelhos, historico, tarifa] = await Promise.all([
       db.rpc('resumo_periodo', {
         p_dispositivo: dispositivo.id,
         p_inicio: mes.inicio.toISOString(),
         p_fim: mes.fim.toISOString(),
+      }),
+      db.rpc('resumo_periodo', {
+        p_dispositivo: dispositivo.id,
+        p_inicio: ultimos30d.inicio.toISOString(),
+        p_fim: ultimos30d.fim.toISOString(),
       }),
       db.rpc('custo_por_aparelho', {
         p_usuario: usuario.id,
@@ -66,7 +72,7 @@ reportsRouter.get(
 
     // O ciclo corrente ainda esta aberto: comparar o acumulado parcial contra
     // meses fechados inflaria a economia. A comparacao usa a projecao do mes.
-    const projecao = projetarMes(totalBrl)
+    const projecao = estimarMes(totalBrl, Number(resumo30d.data?.[0]?.total_brl ?? 0))
     const economia = mediaAnterior > 0 ? mediaAnterior - projecao : 0
     const economiaPct = mediaAnterior > 0 ? (economia / mediaAnterior) * 100 : 0
 

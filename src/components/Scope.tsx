@@ -43,7 +43,7 @@ export function Scope({ data, height = 200, color = '#00ff66', fillId = 'scopeFi
         />
       </div>
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 8, right: 6, left: -22, bottom: 0 }}>
+        <AreaChart data={data} margin={{ top: 8, right: 6, left: -6, bottom: 0 }}>
           <defs>
             <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor={color} stopOpacity={0.35} />
@@ -69,7 +69,9 @@ export function Scope({ data, height = 200, color = '#00ff66', fillId = 'scopeFi
             tick={{ fill: '#5c7068', fontSize: 9, fontFamily: 'JetBrains Mono' }}
             axisLine={false}
             tickLine={false}
-            width={44}
+            // 4 dígitos (1600 W) não cabiam em 44px com a margem negativa:
+            // o eixo mostrava "600" e mentia sobre a escala do gráfico.
+            width={54}
           />
           <Tooltip content={<ScopeTooltip />} cursor={{ stroke: color, strokeWidth: 1, strokeDasharray: '3 3' }} />
           <Area
