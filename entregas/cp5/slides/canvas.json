@@ -1,0 +1,27 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",        "x": 0,    "y": 0,    "w": 1280, "h": 720, "title": "01 · Capa",          "print": "fixed" },
+    { "file": "Problema.dc.html",    "x": 1400, "y": 0,    "w": 1280, "h": 720, "title": "02 · O problema",    "print": "fixed" },
+    { "file": "Solucao.dc.html",     "x": 2800, "y": 0,    "w": 1280, "h": 720, "title": "03 · A solução",     "print": "fixed" },
+
+    { "file": "Arquitetura.dc.html", "x": 0,    "y": 880,  "w": 1280, "h": 720, "title": "04 · Arquitetura",   "print": "fixed" },
+    { "file": "Produto.dc.html",     "x": 1400, "y": 880,  "w": 1280, "h": 720, "title": "05 · O produto",     "print": "fixed" },
+    { "file": "Nilm.dc.html",        "x": 2800, "y": 880,  "w": 1280, "h": 720, "title": "06 · O NILM",        "print": "fixed" },
+
+    { "file": "Negocio.dc.html",     "x": 0,    "y": 1760, "w": 1280, "h": 720, "title": "07 · Modelo",        "print": "fixed" },
+    { "file": "Viabilidade.dc.html", "x": 1400, "y": 1760, "w": 1280, "h": 720, "title": "08 · Viabilidade",   "print": "fixed" },
+    { "file": "Status.dc.html",      "x": 2800, "y": 1760, "w": 1280, "h": 720, "title": "09 · Onde estamos",  "print": "fixed" },
+
+    { "file": "Fechamento.dc.html",  "x": 0,    "y": 2640, "w": 1280, "h": 720, "title": "10 · Fechamento",    "print": "fixed" }
+  ],
+  "annotations": [
+    {
+      "id": "pendencias",
+      "x": 1400,
+      "y": 2640,
+      "w": 420,
+      "text": "Antes de exportar:\n\nO slide 10 tem três campos entre colchetes esperando o link do YouTube e as URLs do deploy.\n\nO slide 08 já declara que custo do hardware, CAC, churn e curva de aquisição são premissas — mantenha essa linha."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+  <style>
+    body { margin: 0; }
+    a { color: #00ff66; text-decoration: none; }
+    a:hover { color: #7dffb0; }
+  </style>
+</helmet>
+
+<div style="position: relative; width: 1280px; height: 720px; box-sizing: border-box; background: #05080a; background-image: radial-gradient(ellipse at 82% 12%, rgba(0,255,102,0.10), transparent 52%); color: #d6e4dd; font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace; overflow: hidden; padding: 62px 84px;">
+
+  <span style="position: absolute; left: 28px; top: 28px; width: 22px; height: 22px; border-left: 3px solid rgba(0,255,102,0.5); border-top: 3px solid rgba(0,255,102,0.5);"></span>
+  <span style="position: absolute; right: 28px; bottom: 28px; width: 22px; height: 22px; border-right: 3px solid rgba(0,255,102,0.5); border-bottom: 3px solid rgba(0,255,102,0.5);"></span>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: 0.28em; color: #1a5c33; font-weight: 700;">
+    <span>A SOLUÇÃO</span><span>02</span>
+  </div>
+
+  <h1 style="margin: 54px 0 0; font-size: 50px; font-weight: 800; line-height: 1.24;">
+    <span style="color: #00ff66; text-shadow: 0 0 18px rgba(0,255,102,0.35);">Um sensor no quadro.</span><br>
+    Todos os aparelhos da casa.
+  </h1>
+
+  <p style="margin: 26px 0 0; font-size: 20px; line-height: 1.62; color: #9fb8ad; max-width: 940px;">
+    <strong style="color: #d6e4dd; font-weight: 700;">NILM</strong>
+    <span style="color: #5c7068;">(Non-Intrusive Load Monitoring)</span> — o sensor mede só o total
+    da casa. Quando uma carga liga, a potência dá um salto do tamanho dela; quando desliga,
+    cai o mesmo tanto. É esse degrau que identifica o aparelho.
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 52px;">
+    <div style="border: 1px solid #1c2a28; background: rgba(11,16,19,0.7); padding: 24px 24px 26px;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00ff66" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9h10"></path><path d="M7 13h6"></path>
+      </svg>
+      <div style="margin-top: 15px; font-size: 19px; font-weight: 700; color: #d6e4dd;">1 sensor, não 20 tomadas</div>
+      <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; color: #9fb8ad;">Instalação em minutos no quadro elétrico. Sem obra, sem trocar nada.</p>
+    </div>
+    <div style="border: 1px solid #1c2a28; background: rgba(11,16,19,0.7); padding: 24px 24px 26px;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffb000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v20"></path><path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+      </svg>
+      <div style="margin-top: 15px; font-size: 19px; font-weight: 700; color: #d6e4dd;">Em reais, não em kWh</div>
+      <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; color: #9fb8ad;">Tarifa e bandeira aplicadas. O usuário vê dinheiro, que é o que ele decide.</p>
+    </div>
+    <div style="border: 1px solid #1c2a28; background: rgba(11,16,19,0.7); padding: 24px 24px 26px;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#37e6ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9z"></path>
+      </svg>
+      <div style="margin-top: 15px; font-size: 19px; font-weight: 700; color: #d6e4dd;">Aponta a ação</div>
+      <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; color: #9fb8ad;">O ar-condicionado é 48% da conta — e o que fazer a respeito.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

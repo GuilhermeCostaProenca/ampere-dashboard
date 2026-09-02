@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "shots": "node scripts/shoot.mjs",
-    "doc": "node scripts/doc.mjs"
+    "doc": "node scripts/doc.mjs",
+    "slides": "node scripts/slides-pdf.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.18.0",

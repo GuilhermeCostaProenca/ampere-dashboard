@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+  <style>
+    body { margin: 0; }
+    a { color: #00ff66; text-decoration: none; }
+    a:hover { color: #7dffb0; }
+  </style>
+</helmet>
+
+<div style="position: relative; width: 1280px; height: 720px; box-sizing: border-box; background: #05080a; background-image: radial-gradient(ellipse at 88% 88%, rgba(0,255,102,0.08), transparent 50%); color: #d6e4dd; font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace; overflow: hidden; padding: 62px 84px;">
+
+  <span style="position: absolute; left: 28px; top: 28px; width: 22px; height: 22px; border-left: 3px solid rgba(0,255,102,0.5); border-top: 3px solid rgba(0,255,102,0.5);"></span>
+  <span style="position: absolute; right: 28px; bottom: 28px; width: 22px; height: 22px; border-right: 3px solid rgba(0,255,102,0.5); border-bottom: 3px solid rgba(0,255,102,0.5);"></span>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: 0.28em; color: #1a5c33; font-weight: 700;">
+    <span>O NILM FUNCIONA</span><span>05</span>
+  </div>
+
+  <div style="display: flex; gap: 56px; margin-top: 44px; align-items: flex-start;">
+
+    <div style="flex-shrink: 0; width: 396px;">
+      <div style="font-size: 13px; letter-spacing: 0.24em; color: #5c7068;">RECALL GERAL</div>
+      <div style="margin-top: 10px; font-size: 104px; font-weight: 800; line-height: 1; color: #00ff66; text-shadow: 0 0 28px rgba(0,255,102,0.35);">93,6%</div>
+      <div style="margin-top: 20px; display: flex; gap: 34px;">
+        <div>
+          <div style="font-size: 12px; letter-spacing: 0.2em; color: #5c7068;">PRECISÃO</div>
+          <div style="margin-top: 5px; font-size: 29px; font-weight: 700; color: #ffb000;">99,0%</div>
+        </div>
+        <div>
+          <div style="font-size: 12px; letter-spacing: 0.2em; color: #5c7068;">AMOSTRAS</div>
+          <div style="margin-top: 5px; font-size: 29px; font-weight: 700; color: #d6e4dd;">2.880</div>
+        </div>
+      </div>
+      <p style="margin: 26px 0 0; font-size: 15px; line-height: 1.6; color: #9fb8ad;">
+        Medido sobre 30 dias, evento a evento: aparelho, tipo de transição e instante.
+        Reproduzível por <span style="color: #00ff66;">npm run check:nilm</span>.
+      </p>
+    </div>
+
+    <div style="flex: 1;">
+      <div style="font-size: 12px; letter-spacing: 0.22em; color: #1a5c33; font-weight: 700; padding-bottom: 12px; border-bottom: 1px solid #1c2a28;">RECALL POR APARELHO</div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 18px;">
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>Ar-condicionado</span><span style="color: #00ff66; font-weight: 700;">100,0%</span></div>
+          <div style="margin-top: 6px; height: 7px; background: #101a17;"><div style="width: 100%; height: 100%; background: #00ff66;"></div></div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>Chuveiro</span><span style="color: #00ff66; font-weight: 700;">100,0%</span></div>
+          <div style="margin-top: 6px; height: 7px; background: #101a17;"><div style="width: 100%; height: 100%; background: #00ff66;"></div></div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>Máquina de lavar</span><span style="color: #00ff66; font-weight: 700;">100,0%</span></div>
+          <div style="margin-top: 6px; height: 7px; background: #101a17;"><div style="width: 100%; height: 100%; background: #00ff66;"></div></div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>Geladeira</span><span style="color: #00ff66; font-weight: 700;">93,7%</span></div>
+          <div style="margin-top: 6px; height: 7px; background: #101a17;"><div style="width: 93.7%; height: 100%; background: #00ff66;"></div></div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>TV + eletrônicos</span><span style="color: #ffb000; font-weight: 700;">80,0%</span></div>
+          <div style="margin-top: 6px; height: 7px; background: #101a17;"><div style="width: 80%; height: 100%; background: #ffb000;"></div></div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>Iluminação</span><span style="color: #ffb000; font-weight: 700;">80,0%</span></div>
+          <div style="margin-top: 6px; height: 7px; background: #101a17;"><div style="width: 80%; height: 100%; background: #ffb000;"></div></div>
+        </div>
+      </div>
+
+      <p style="margin: 22px 0 0; font-size: 14px; line-height: 1.55; color: #5c7068;">
+        Limite conhecido: três ou mais cargas chaveando no mesmo instante ainda não se separam.
+        Desagregação por modelo treinado é Fase 6 — a troca já está isolada atrás de uma interface.
+      </p>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

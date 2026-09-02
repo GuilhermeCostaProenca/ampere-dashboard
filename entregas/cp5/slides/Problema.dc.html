@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+  <style>
+    body { margin: 0; }
+    a { color: #00ff66; text-decoration: none; }
+    a:hover { color: #7dffb0; }
+  </style>
+</helmet>
+
+<div style="position: relative; width: 1280px; height: 720px; box-sizing: border-box; background: #05080a; background-image: radial-gradient(ellipse at 12% 4%, rgba(255,176,0,0.07), transparent 50%); color: #d6e4dd; font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace; overflow: hidden; padding: 62px 84px;">
+
+  <span style="position: absolute; left: 28px; top: 28px; width: 22px; height: 22px; border-left: 3px solid rgba(255,176,0,0.5); border-top: 3px solid rgba(255,176,0,0.5);"></span>
+  <span style="position: absolute; right: 28px; bottom: 28px; width: 22px; height: 22px; border-right: 3px solid rgba(255,176,0,0.5); border-bottom: 3px solid rgba(255,176,0,0.5);"></span>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: 0.28em; color: #1a5c33; font-weight: 700;">
+    <span>O PROBLEMA</span><span>01</span>
+  </div>
+
+  <div style="display: flex; gap: 66px; align-items: center; margin-top: 62px;">
+    <div style="flex-shrink: 0; text-align: center;">
+      <div style="font-size: 13px; letter-spacing: 0.26em; color: #5c7068;">CONTA MÉDIA DO SEGMENTO</div>
+      <div style="margin-top: 14px; font-size: 132px; font-weight: 800; line-height: 1; color: #ffb000; text-shadow: 0 0 30px rgba(255,176,0,0.35);">R$187</div>
+      <div style="margin-top: 12px; font-size: 15px; color: #5c7068;">por mês</div>
+    </div>
+
+    <div style="width: 1px; height: 210px; background: #1c2a28;"></div>
+
+    <div>
+      <h1 style="margin: 0; font-size: 42px; font-weight: 700; line-height: 1.32; color: #d6e4dd;">
+        A conta chega fechada,<br>uma vez por mês,<br>com <span style="color: #ffb000;">um número só.</span>
+      </h1>
+      <p style="margin: 26px 0 0; font-size: 20px; line-height: 1.6; color: #9fb8ad; max-width: 480px;">
+        Não dá para agir sobre um gasto que você só enxerga depois que ele já aconteceu.
+      </p>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 66px;">
+    <div style="border: 1px solid #1c2a28; border-top: 3px solid #ffb000; background: rgba(11,16,19,0.72); padding: 22px 24px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #1a5c33; font-weight: 700;">SEM DETALHE</div>
+      <p style="margin: 12px 0 0; font-size: 17px; line-height: 1.5; color: #9fb8ad;">Um total. Nenhuma pista de qual aparelho puxou.</p>
+    </div>
+    <div style="border: 1px solid #1c2a28; border-top: 3px solid #ffb000; background: rgba(11,16,19,0.72); padding: 22px 24px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #1a5c33; font-weight: 700;">TARDE DEMAIS</div>
+      <p style="margin: 12px 0 0; font-size: 17px; line-height: 1.5; color: #9fb8ad;">Chega 30 dias depois do consumo que ela cobra.</p>
+    </div>
+    <div style="border: 1px solid #1c2a28; border-top: 3px solid #ffb000; background: rgba(11,16,19,0.72); padding: 22px 24px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #1a5c33; font-weight: 700;">EM kWh</div>
+      <p style="margin: 12px 0 0; font-size: 17px; line-height: 1.5; color: #9fb8ad;">Ninguém decide nada olhando para 3,4&nbsp;kWh.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
