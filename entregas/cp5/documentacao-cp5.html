@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Amperê — Documentação CP5</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 16mm 16mm; }
+
+  :root {
+    --tinta: #14201c;
+    --suave: #55645e;
+    --verde: #0a8f43;
+    --verde-claro: #e8f6ee;
+    --ambar: #b06f00;
+    --ambar-claro: #fdf3e0;
+    --linha: #d8e0dc;
+    --fundo-bloco: #f6f9f7;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.55;
+    color: var(--tinta);
+  }
+
+  code, .mono { font-family: "JetBrains Mono", "Consolas", "Courier New", monospace; }
+
+  h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .4em; }
+  h1 { font-size: 21pt; letter-spacing: -.01em; }
+  h2 {
+    font-size: 15pt; margin-top: 1.6em; padding-bottom: .25em;
+    border-bottom: 2px solid var(--verde); color: var(--verde);
+  }
+  h3 { font-size: 12pt; margin-top: 1.4em; }
+  h4 { font-size: 10.5pt; margin-top: 1.1em; color: var(--suave); text-transform: uppercase; letter-spacing: .08em; }
+  p { margin: 0 0 .7em; }
+  ul, ol { margin: 0 0 .8em; padding-left: 1.3em; }
+  li { margin-bottom: .25em; }
+
+  .quebra { page-break-before: always; }
+  .junto  { page-break-inside: avoid; }
+
+  /* ── Capa ─────────────────────────────────────────────────────────── */
+  .capa { text-align: center; padding-top: 42mm; page-break-after: always; }
+  .capa .marca {
+    display: inline-grid; place-items: center;
+    width: 68px; height: 68px; border: 3px solid var(--verde);
+    font-size: 34pt; font-weight: 800; color: var(--verde); line-height: 1;
+  }
+  .capa h1 { font-size: 34pt; letter-spacing: .28em; margin: 18px 0 2px; }
+  .capa .sub { letter-spacing: .3em; font-size: 9pt; color: var(--suave); text-transform: uppercase; }
+  .capa .titulo { margin-top: 34mm; font-size: 15pt; font-weight: 600; }
+  .capa .curso { margin-top: 6px; color: var(--suave); }
+  .capa .rodape { margin-top: 34mm; font-size: 9.5pt; color: var(--suave); }
+
+  /* ── Tabelas ──────────────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; margin: .5em 0 1em; font-size: 9.2pt; }
+  th, td { padding: 5px 8px; border-bottom: 1px solid var(--linha); text-align: left; vertical-align: top; }
+  th { background: var(--fundo-bloco); font-weight: 600; font-size: 8.6pt; text-transform: uppercase; letter-spacing: .05em; color: var(--suave); }
+  td.num, th.num { text-align: right; font-family: "JetBrains Mono", Consolas, monospace; white-space: nowrap; }
+  tr.total td { border-top: 2px solid var(--tinta); border-bottom: none; font-weight: 700; }
+  tbody tr:nth-child(even) td { background: #fbfcfb; }
+
+  /* ── Blocos ───────────────────────────────────────────────────────── */
+  .aviso {
+    border-left: 4px solid var(--ambar); background: var(--ambar-claro);
+    padding: 10px 14px; margin: 1em 0; font-size: 9.4pt;
+  }
+  .aviso strong { color: var(--ambar); }
+  .nota {
+    border-left: 4px solid var(--verde); background: var(--verde-claro);
+    padding: 10px 14px; margin: 1em 0; font-size: 9.4pt;
+  }
+  pre {
+    background: var(--fundo-bloco); border: 1px solid var(--linha);
+    padding: 10px 12px; font-size: 8.4pt; line-height: 1.45; overflow: hidden;
+    white-space: pre-wrap; margin: .5em 0 1em;
+  }
+  .kpis { display: flex; gap: 10px; margin: 1em 0; flex-wrap: wrap; }
+  .kpi {
+    flex: 1 1 0; min-width: 105px; border: 1px solid var(--linha);
+    border-top: 3px solid var(--verde); padding: 9px 11px;
+  }
+  .kpi .rot { font-size: 7.6pt; text-transform: uppercase; letter-spacing: .09em; color: var(--suave); }
+  .kpi .val { font-size: 15pt; font-weight: 700; font-family: "JetBrains Mono", Consolas, monospace; }
+  .kpi.amb { border-top-color: var(--ambar); }
+
+  figure { margin: 1em 0 1.4em; page-break-inside: avoid; }
+  figure img { width: 100%; border: 1px solid var(--linha); display: block; }
+  figcaption { font-size: 8.6pt; color: var(--suave); margin-top: 5px; }
+
+  .sumario ol { list-style: none; padding-left: 0; }
+  .sumario > ol > li { margin-bottom: .55em; font-weight: 600; }
+  .sumario ol ol { padding-left: 1.1em; margin-top: .2em; font-weight: 400; font-size: 9.4pt; color: var(--suave); }
+</style>
+</head>
+<body>
+
+<section class="capa">
+  <div class="marca">A</div>
+  <h1>AMPERÊ</h1>
+  <div class="sub">NILM Control</div>
+
+  <div class="titulo">MVP Completo: Programando a Solução<br>e Produzindo um Produto</div>
+  <div class="curso">FIAP &middot; Startup One &middot; Fase 5 &middot; CP5</div>
+
+  <div class="rodape">
+    Guilherme Costa Proença<br>
+    Setembro de 2026
+  </div>
+</section>
+
+<section class="sumario">
+  <h2>Sumário</h2>
+  <ol>
+    <li>Parte 1 — Versão atual do projeto
+      <ol>
+        <li>1.1 De onde partimos</li>
+        <li>1.2 O que mudou nesta fase</li>
+        <li>1.3 Ajustes vindos do teste de usabilidade</li>
+        <li>1.4 Defeitos encontrados ao integrar</li>
+      </ol>
+    </li>
+    <li>Parte 2 — Estratégia de mercado e viabilidade financeira
+      <ol>
+        <li>2.1 Go to Market Canvas</li>
+        <li>2.2 Premissas do modelo</li>
+        <li>2.3 Estrutura de custos</li>
+        <li>2.4 Modelo de receita</li>
+        <li>2.5 Margem de contribuição</li>
+        <li>2.6 CAC, LTV e payback</li>
+        <li>2.7 Projeção de fluxo de caixa (6 meses)</li>
+        <li>2.8 Ponto de equilíbrio</li>
+        <li>2.9 Leitura do modelo e riscos</li>
+      </ol>
+    </li>
+    <li>Parte 3 — Protótipo funcional de alta fidelidade
+      <ol>
+        <li>3.1 Arquitetura da solução</li>
+        <li>3.2 Banco de dados em nuvem</li>
+        <li>3.3 API</li>
+        <li>3.4 O motor NILM</li>
+        <li>3.5 Simulador do dispositivo</li>
+        <li>3.6 As telas</li>
+        <li>3.7 Grau de conclusão</li>
+      </ol>
+    </li>
+    <li>Links da entrega</li>
+  </ol>
+</section>
+
+<!-- ══════════════════════════ PARTE 1 ══════════════════════════ -->
+<section class="quebra">
+<h1>Parte 1 — Versão atual do projeto</h1>
+
+<h2>1.1 De onde partimos</h2>
+
+<p>A entrega anterior (CP4, <em>"É Hora de Prototipar"</em>) foi um protótipo de alta
+fidelidade em código real: React + Vite + TypeScript + Tailwind, seis telas navegáveis
+com a estética HUD de cockpit. Toda a informação exibida vinha de um único arquivo,
+<code>src/data/mock.ts</code>, com 261 linhas de dados fixos.</p>
+
+<p>Aquilo provou a interface e a proposta de valor, mas não provava o produto: não havia
+back-end, banco, autenticação nem ingestão de dados. A tela mostrava R$&nbsp;187 porque
+alguém tinha digitado 187.</p>
+
+<h2>1.2 O que mudou nesta fase</h2>
+
+<p>Nesta fase o Amperê passou de protótipo para MVP funcional. O número que aparece na
+tela agora é <strong>calculado</strong>, a partir de leituras gravadas em um banco em
+nuvem, agregadas por consultas SQL e atribuídas a aparelhos por um algoritmo de
+desagregação.</p>
+
+<table>
+  <thead><tr><th>Camada</th><th>CP4</th><th>CP5</th></tr></thead>
+  <tbody>
+    <tr><td>Dados</td><td>Arquivo local <code>mock.ts</code></td><td>PostgreSQL em nuvem (Supabase), 8 migrations versionadas</td></tr>
+    <tr><td>Back-end</td><td>Inexistente</td><td>Node + Express + TypeScript, 11 rotas, validação com Zod</td></tr>
+    <tr><td>Autenticação</td><td>Inexistente</td><td>Cadastro e login reais (Supabase Auth), sessão persistida</td></tr>
+    <tr><td>Ingestão</td><td>Inexistente</td><td><code>POST /ingest/readings</code>, autenticado por chave de dispositivo</td></tr>
+    <tr><td>NILM</td><td>Curvas desenhadas à mão</td><td>Detector de degraus sobre a série agregada, 93,6% de recall</td></tr>
+    <tr><td>Dispositivo</td><td>Ilustração</td><td>Simulador publicando no mesmo endpoint previsto para o ESP32</td></tr>
+    <tr><td>Front-end</td><td>Consumia o mock</td><td>Consome a API; o mock virou modo offline opcional</td></tr>
+    <tr><td>Segurança</td><td>Não se aplicava</td><td>RLS por usuário em todas as tabelas</td></tr>
+  </tbody>
+</table>
+
+<h3>O que foi construído</h3>
+
+<p><strong>Banco de dados em nuvem.</strong> A modelagem dimensional definida no CP3 saiu
+do papel: seis tabelas de dimensão e duas de fato, em Star Schema, no PostgreSQL do
+Supabase. Índices em todas as chaves estrangeiras e nas colunas temporais.
+<em>Row Level Security</em> habilitada em todas as tabelas, com políticas que restringem
+cada usuário aos próprios dados. Tudo entregue como migration versionada, não como
+comando avulso no editor SQL.</p>
+
+<p><strong>Camada de back-end de verdade.</strong> O front não fala com o banco. Entre eles
+existe uma API em Node + Express que concentra a regra de negócio: o motor NILM, o cálculo
+de tarifa e bandeira, a estimativa de fechamento do mês e as regras de plano. Essa escolha
+foi deliberada — o Supabase expõe PostgREST e daria para o navegador consultar o banco
+direto, mas isso significaria mandar a lógica de precificação junto com o bundle e confiar
+no cliente para calcular quanto o usuário deve pagar.</p>
+
+<p><strong>Motor NILM.</strong> O sensor mede apenas o total da casa. Quando uma carga liga,
+a potência agregada dá um salto do tamanho dessa carga; quando desliga, cai o mesmo tanto.
+O detector casa o tamanho do degrau com a faixa de potência conhecida de cada aparelho e
+atribui o evento — sem precisar de um sensor por tomada. A implementação fica isolada atrás
+de uma interface (<code>DetectorNILM</code>), para que a troca por um modelo treinado na
+Fase 6 não toque em rota, serviço nem schema.</p>
+
+<p><strong>Simulador do dispositivo.</strong> O hardware físico ainda não foi montado. O
+simulador publica leituras no mesmo endpoint, no mesmo formato e com a mesma autenticação
+previstos para o firmware do ESP32 + SCT-013-030. Quando a placa existir, ela substitui o
+script sem alteração no back-end.</p>
+
+<p><strong>90 dias de histórico.</strong> O banco foi populado com granularidade de 15
+minutos — 8.640 leituras agregadas e cerca de 4.500 eventos de aparelho — reproduzindo os
+valores validados nas pesquisas de campo das fases anteriores.</p>
+
+<div class="nota">
+<strong>Conferência dos valores validados.</strong> O script <code>npm run check:perfil</code>
+reproduz a matemática do painel e compara com as âncoras levantadas em campo. Resultado da
+última execução: ar-condicionado R$&nbsp;89,00 · chuveiro R$&nbsp;42,00 ·
+geladeira R$&nbsp;22,97 · máquina de lavar R$&nbsp;10,00 · TV R$&nbsp;9,00 ·
+iluminação R$&nbsp;5,00 · <strong>total do mês R$&nbsp;187,04</strong> (alvo R$&nbsp;187) ·
+consumo típico no pico 1.289&nbsp;W (mediana) e 1.380&nbsp;W (p75), contra a âncora de
+1.340&nbsp;W.
+</div>
+
+<h2>1.3 Ajustes vindos do teste de usabilidade</h2>
+
+<p>O teste com três personas realizado no CP4 apontou três problemas que ficaram pendentes
+naquela entrega. Os três estão implementados:</p>
+
+<ol>
+<li><strong>Ranking promovido ao topo.</strong> O bloco "Top aparelhos" era o último do
+dashboard, e os participantes de perfil técnico rolavam direto para o inventário completo,
+ignorando o ranking. Ele agora abre a tela, e o aparelho de maior custo recebe destaque
+cromático em âmbar, com rótulo explícito de "maior gasto do ciclo".</li>
+
+<li><strong>Economia acumulada no relatório.</strong> O relatório mensal passou a mostrar,
+ao lado do gasto total, quanto o ciclo está economizando em reais frente à média dos ciclos
+anteriores. A comparação usa a <em>estimativa de fechamento</em> do mês — comparar um mês
+parcial contra meses inteiros infla artificialmente a economia.</li>
+
+<li><strong>Preço do Pro sempre visível.</strong> O cadeado dos recursos premium aparecia
+sem preço, e os participantes não sabiam quanto custava destravar. O selo com
+<strong>R$&nbsp;19,90/mês</strong> agora acompanha todo ponto de recurso bloqueado: cabeçalho
+do detalhe do aparelho, painel de ROI e lista de recursos em Configurações.</li>
+</ol>
+
+<h2>1.4 Defeitos encontrados ao integrar</h2>
+
+<p>Vale registrar que a maior parte dos defeitos desta fase só apareceu quando o sistema
+passou a rodar de verdade contra o banco em nuvem — nenhum deles era detectável em
+compilação ou em revisão de código.</p>
+
+<table>
+  <thead><tr><th>Defeito</th><th>Efeito visível</th></tr></thead>
+  <tbody>
+    <tr><td>Fuso horário nas agregações</td><td><code>dim_tempo</code> guarda a hora em UTC e o eixo do gráfico é rotulado em horário de Brasília: a curva de 24h saía deslocada em 3 horas, com o pico das 20h aparecendo às 23h.</td></tr>
+    <tr><td>Curva do aparelho sem sentido físico</td><td>A potência média por hora era calculada como <code>média × contagem de eventos ÷ 4</code>. Como os eventos são esparsos, um ar-condicionado de 1.052&nbsp;W aparecia no gráfico com 270&nbsp;W.</td></tr>
+    <tr><td>Bases misturadas no painel</td><td>O total do mês era estimado e o custo por aparelho vinha acumulado. Os números da tela não fechavam entre si.</td></tr>
+    <tr><td>Ingestão não idempotente</td><td>Reprocessar uma janela fazia o NILM redetectar os mesmos degraus. Rodar o modo batch duas vezes levou a máquina de lavar de R$&nbsp;9,58 para R$&nbsp;13,97.</td></tr>
+    <tr><td>Estimativa quebrava na virada do mês</td><td>A projeção extrapolava linearmente o mês corrente. No dia 1º às 20h o multiplicador passa de 36×, e uma única noite decidia a conta do mês inteiro.</td></tr>
+    <tr><td>Alerta de "sem leitura" com limiar fixo</td><td>Um silêncio de 15 horas é normal para o ar-condicionado e crítico para a geladeira. O limiar passou a ser relativo ao ritmo de cada aparelho.</td></tr>
+  </tbody>
+</table>
+
+</section>
+
+<!-- ══════════════════════════ PARTE 2 ══════════════════════════ -->
+<section class="quebra">
+<h1>Parte 2 — Estratégia de mercado e viabilidade financeira</h1>
+
+<h2>2.1 Go to Market Canvas</h2>
+
+<h3>Segmento de clientes</h3>
+<p><strong>Núcleo:</strong> famílias de classe média em apartamento ou casa nas capitais e
+regiões metropolitanas, com conta de luz entre R$&nbsp;150 e R$&nbsp;400 por mês, que já
+tentaram economizar energia mas não sabem <em>onde</em> está o gasto. A conta chega uma vez
+por mês, fechada, com um único número — não há como agir sobre ela.</p>
+
+<p><strong>Primeiros adotantes:</strong> o perfil técnico-curioso — quem já tem alguma
+automação em casa e gosta de ver dado. O teste de usabilidade do CP4 deu uma evidência
+concreta disso: os participantes de perfil técnico ignoravam o ranking resumido e iam direto
+para o inventário completo de cargas. É um público que quer profundidade, e que serve de
+porta de entrada por gerar conteúdo e indicação.</p>
+
+<p><strong>Fora do escopo inicial:</strong> comércio e indústria, que exigem medição
+trifásica e outra proposta comercial.</p>
+
+<h3>Proposta de valor</h3>
+<p class="nota" style="font-size:11pt"><strong>"Descubra quanto cada aparelho custa na sua
+conta de luz — com um sensor só, sem obra e sem trocar tomada."</strong></p>
+
+<p>Três decisões sustentam essa promessa:</p>
+<ul>
+<li><strong>Em reais, não em kWh.</strong> Ninguém decide nada com "3,4&nbsp;kWh". Todo
+número do produto é convertido para dinheiro, com a tarifa e a bandeira vigentes.</li>
+<li><strong>Um sensor, não um por tomada.</strong> É o que o NILM permite: instalação em
+minutos no quadro elétrico, contra dezenas de plugues inteligentes.</li>
+<li><strong>Aponta a ação, não só o número.</strong> O produto diz que o ar-condicionado
+responde por 48% da conta e o que fazer a respeito.</li>
+</ul>
+
+<h3>Canais de aquisição</h3>
+<table>
+  <thead><tr><th>Canal</th><th>Papel</th><th>Momento</th></tr></thead>
+  <tbody>
+    <tr><td>Instagram / Meta Ads</td><td>Aquisição paga, com criativo mostrando o painel identificando o chuveiro</td><td>Mês 1</td></tr>
+    <tr><td>Conteúdo (YouTube / TikTok)</td><td>Educação sobre onde o gasto se esconde; tráfego orgânico de custo decrescente</td><td>Mês 1</td></tr>
+    <tr><td>Marketplaces (Mercado Livre, Amazon)</td><td>Venda do Amperê Node onde já existe demanda por medidores</td><td>Mês 3</td></tr>
+    <tr><td>Eletricistas e lojas de material elétrico</td><td>Indicação no momento da instalação, comissionada</td><td>Mês 4</td></tr>
+    <tr><td>Indicação de clientes</td><td>Quem economiza mostra a conta; canal de menor custo</td><td>Mês 3</td></tr>
+  </tbody>
+</table>
+
+<h3>Estratégia de preço e promoção</h3>
+<p>Modelo <strong>híbrido</strong>: hardware com receita única e software por assinatura.</p>
+<table>
+  <thead><tr><th>Item</th><th class="num">Preço</th><th>Conteúdo</th></tr></thead>
+  <tbody>
+    <tr><td>Amperê Node (ESP32 + SCT-013-030)</td><td class="num">R$ 199,00</td><td>Receita única, na aquisição</td></tr>
+    <tr><td>Plano Free</td><td class="num">R$ 0,00</td><td>Identificação de aparelhos, custos em R$, dashboard, alertas e relatório mensal</td></tr>
+    <tr><td>Plano Pro</td><td class="num">R$ 19,90/mês</td><td>Recomendações de ROI por aparelho, detalhe individual, histórico estendido e exportação</td></tr>
+  </tbody>
+</table>
+
+<p>O Free não é isca vazia: entrega o diagnóstico completo, que é o que cria o hábito de
+abrir o app. O Pro cobra pela <em>prescrição</em> — quanto cada troca economiza e em quantos
+meses se paga. Promoção de lançamento: <strong>três meses de Pro incluídos na compra do
+Node</strong>, para o usuário conhecer o recurso antes de decidir.</p>
+
+<p>A âncora de preço é o próprio produto: se a conta média do segmento é R$&nbsp;187 e o
+Amperê aponta economia de 15% a 30% no maior ofensor, R$&nbsp;19,90 se paga com folga. Esse
+é o argumento comercial central.</p>
+
+<h3>Principais métricas</h3>
+<table>
+  <thead><tr><th>Métrica</th><th>O que responde</th><th class="num">Meta inicial</th></tr></thead>
+  <tbody>
+    <tr><td>Ativação em 48h</td><td>% dos compradores que instalam e veem o primeiro aparelho identificado</td><td class="num">&ge; 70%</td></tr>
+    <tr><td>Conversão Free &rarr; Pro</td><td>O diagnóstico convence a pagar pela prescrição?</td><td class="num">&ge; 12%</td></tr>
+    <tr><td>Churn mensal</td><td>O valor se sustenta depois da novidade?</td><td class="num">&le; 4%</td></tr>
+    <tr><td>CAC por canal</td><td>Qual canal escala sem encarecer</td><td class="num">&le; R$ 145</td></tr>
+    <tr><td>LTV / CAC</td><td>Saúde da unidade econômica</td><td class="num">&ge; 3,0&times;</td></tr>
+    <tr><td>Economia média gerada</td><td>Métrica de valor: R$/mês que o cliente de fato reduziu</td><td class="num">&ge; R$ 20</td></tr>
+    <tr><td>Recall do NILM</td><td>Confiabilidade técnica da identificação</td><td class="num">&ge; 90%</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section class="quebra">
+<h2>2.2 Premissas do modelo</h2>
+
+<div class="aviso">
+<strong>Leia antes das tabelas.</strong> Apenas dois números deste capítulo estão fixados
+pelo projeto: o preço do plano Pro (R$&nbsp;19,90/mês, definido no produto e validado no
+teste de usabilidade do CP4) e a conta média do segmento (R$&nbsp;187/mês, das pesquisas de
+campo das fases anteriores). <strong>Todo o restante é premissa de trabalho</strong> —
+estimativa adotada para tornar o modelo calculável, ainda não validada com fornecedor,
+campanha real ou base de clientes. Estão listadas aqui separadamente, e não diluídas no
+texto, justamente para poderem ser contestadas e substituídas uma a uma.
+</div>
+
+<table>
+  <thead><tr><th>Premissa</th><th class="num">Valor</th><th>Base / como validar</th></tr></thead>
+  <tbody>
+    <tr><td>Preço do Amperê Node</td><td class="num">R$ 199,00</td><td>Comparáveis de medidores residenciais no varejo brasileiro. Validar com teste de preço.</td></tr>
+    <tr><td>Custo do Node (BOM, montagem, embalagem, frete)</td><td class="num">R$ 118,00</td><td>Estimativa de componentes. Validar com cotação e lote mínimo.</td></tr>
+    <tr><td>Taxa do meio de pagamento</td><td class="num">3,99% + R$ 0,39</td><td>Faixa praticada por gateways no Brasil para recorrência.</td></tr>
+    <tr><td>Infraestrutura por assinante</td><td class="num">R$ 0,40/mês</td><td>2.880 leituras/mês por usuário; extrapolação do consumo medido no MVP.</td></tr>
+    <tr><td>Suporte por assinante</td><td class="num">R$ 0,80/mês</td><td>Estimativa de tempo de atendimento. Validar após os primeiros 100 clientes.</td></tr>
+    <tr><td>Churn mensal</td><td class="num">4%</td><td>Referência de assinatura de consumo. Sem base própria ainda.</td></tr>
+    <tr><td>CAC em mídia paga</td><td class="num">R$ 145,00</td><td>Estimativa. Só campanha real mede isso.</td></tr>
+    <tr><td>Fração adquirida por mídia paga</td><td class="num">70%</td><td>Restante por orgânico e indicação, sem custo direto.</td></tr>
+    <tr><td>Curva de novos clientes (6 meses)</td><td class="num">15 · 25 · 40 · 60 · 85 · 120</td><td>Cenário de trabalho. É a premissa mais frágil do modelo.</td></tr>
+  </tbody>
+</table>
+
+<h2>2.3 Estrutura de custos</h2>
+
+<h3>Custos fixos mensais</h3>
+<table>
+  <thead><tr><th>Item</th><th class="num">Meses 1–3</th><th class="num">Meses 4–6</th></tr></thead>
+  <tbody>
+    <tr><td>Infraestrutura em nuvem (banco, API, hospedagem)</td><td class="num">R$ 150</td><td class="num">R$ 450</td></tr>
+    <tr><td>Domínio, e-mail e ferramentas</td><td class="num">R$ 115</td><td class="num">R$ 200</td></tr>
+    <tr><td>Contabilidade e obrigações da pessoa jurídica</td><td class="num">R$ 200</td><td class="num">R$ 200</td></tr>
+    <tr><td>Suporte e operação (PJ, meio período)</td><td class="num">—</td><td class="num">R$ 1.000</td></tr>
+    <tr class="total"><td>Total fixo</td><td class="num">R$ 465</td><td class="num">R$ 1.850</td></tr>
+  </tbody>
+</table>
+<p style="font-size:9pt;color:#55645e"><strong>Omissão consciente:</strong> não há pró-labore
+no período — a equipe fundadora não retira. Esse custo precisa entrar no modelo antes de
+qualquer conversa com investidor, e a ausência dele melhora artificialmente o resultado
+apresentado adiante.</p>
+
+<h3>Custos variáveis</h3>
+<table>
+  <thead><tr><th>Por assinante Pro, por mês</th><th class="num">Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Taxa do meio de pagamento (3,99% de R$ 19,90 + R$ 0,39)</td><td class="num">R$ 1,18</td></tr>
+    <tr><td>Infraestrutura incremental</td><td class="num">R$ 0,40</td></tr>
+    <tr><td>Suporte</td><td class="num">R$ 0,80</td></tr>
+    <tr class="total"><td>Total por assinante</td><td class="num">R$ 2,38</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th>Por unidade de hardware</th><th class="num">Valor</th></tr></thead>
+  <tbody>
+    <tr class="total"><td>Custo do Amperê Node</td><td class="num">R$ 118,00</td></tr>
+  </tbody>
+</table>
+
+<h2>2.4 Modelo de receita</h2>
+<ul>
+<li><strong>Receita única — hardware.</strong> R$&nbsp;199 por Amperê Node. Financia a
+aquisição do cliente e reduz o payback do CAC, mas não escala sozinha.</li>
+<li><strong>Receita recorrente — assinatura Pro.</strong> R$&nbsp;19,90/mês. É onde está o
+valor de longo prazo do negócio.</li>
+</ul>
+<p>O hardware não é o produto: é o custo de entrada que viabiliza a recorrência. Por isso é
+precificado com margem modesta, e não como centro de lucro.</p>
+
+<h2>2.5 Margem de contribuição</h2>
+<div class="kpis">
+  <div class="kpi"><div class="rot">MC assinatura</div><div class="val">R$ 17,52</div><div class="rot">88,0% da receita</div></div>
+  <div class="kpi amb"><div class="rot">MC hardware</div><div class="val">R$ 81,00</div><div class="rot">40,7% da receita</div></div>
+</div>
+<p>A margem da assinatura é típica de software: servir um assinante a mais custa quase só a
+taxa de pagamento. A margem do hardware é de produto físico, e é ela que limita quanto se
+pode gastar para adquirir cliente — mas, como entra inteira no primeiro mês, paga mais da
+metade do CAC já na aquisição.</p>
+
+<h2>2.6 CAC, LTV e payback</h2>
+<div class="kpis">
+  <div class="kpi"><div class="rot">CAC</div><div class="val">R$ 145</div><div class="rot">mídia paga</div></div>
+  <div class="kpi"><div class="rot">Vida média</div><div class="val">25 m</div><div class="rot">churn 4%/mês</div></div>
+  <div class="kpi"><div class="rot">LTV</div><div class="val">R$ 519</div><div class="rot">hardware + assinatura</div></div>
+  <div class="kpi amb"><div class="rot">LTV / CAC</div><div class="val">3,6&times;</div><div class="rot">referência &ge; 3&times;</div></div>
+  <div class="kpi amb"><div class="rot">Payback</div><div class="val">3,7 m</div><div class="rot">do CAC</div></div>
+</div>
+<pre>vida média = 1 / churn = 1 / 0,04                              = 25 meses
+LTV        = MC hardware + MC assinatura × vida média
+           = 81,00 + 17,52 × 25                                = R$ 518,90
+LTV / CAC  = 518,90 / 145,00                                   = 3,6×
+payback    = (CAC − MC hardware) / MC assinatura
+           = (145,00 − 81,00) / 17,52                          = 3,7 meses</pre>
+<p>A relação LTV/CAC de 3,6× fica acima da referência de mercado (3×), e o payback abaixo de
+quatro meses significa que o capital investido em aquisição volta rápido — condição para
+crescer sem depender de aporte grande.</p>
+</section>
+
+<section class="quebra">
+<h2>2.7 Projeção de fluxo de caixa (6 meses)</h2>
+
+<p>Base de assinantes com churn de 4% ao mês. A receita de assinatura usa a base média do
+mês (início + fim ÷ 2), e não a base final, para não superestimar o que foi de fato faturado
+no período.</p>
+
+<table style="font-size:8.6pt">
+  <thead>
+    <tr>
+      <th>Linha (R$)</th>
+      <th class="num">Mês 1</th><th class="num">Mês 2</th><th class="num">Mês 3</th>
+      <th class="num">Mês 4</th><th class="num">Mês 5</th><th class="num">Mês 6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Novos clientes</td><td class="num">15</td><td class="num">25</td><td class="num">40</td><td class="num">60</td><td class="num">85</td><td class="num">120</td></tr>
+    <tr><td>Base de assinantes (fim)</td><td class="num">15</td><td class="num">39</td><td class="num">77</td><td class="num">134</td><td class="num">214</td><td class="num">325</td></tr>
+    <tr><td>Receita — assinatura</td><td class="num">149</td><td class="num">537</td><td class="num">1.154</td><td class="num">2.099</td><td class="num">3.463</td><td class="num">5.363</td></tr>
+    <tr><td>Receita — hardware</td><td class="num">2.985</td><td class="num">4.975</td><td class="num">7.960</td><td class="num">11.940</td><td class="num">16.915</td><td class="num">23.880</td></tr>
+    <tr style="font-weight:600"><td>Receita total</td><td class="num">3.134</td><td class="num">5.512</td><td class="num">9.114</td><td class="num">14.039</td><td class="num">20.378</td><td class="num">29.243</td></tr>
+    <tr><td>(−) Custos variáveis</td><td class="num">1.788</td><td class="num">3.014</td><td class="num">4.858</td><td class="num">7.332</td><td class="num">10.445</td><td class="num">14.802</td></tr>
+    <tr><td>(−) Marketing / aquisição</td><td class="num">1.523</td><td class="num">2.538</td><td class="num">4.060</td><td class="num">6.090</td><td class="num">8.628</td><td class="num">12.180</td></tr>
+    <tr><td>(−) Custos fixos</td><td class="num">465</td><td class="num">465</td><td class="num">465</td><td class="num">1.850</td><td class="num">1.850</td><td class="num">1.850</td></tr>
+    <tr class="total"><td>Resultado do mês</td><td class="num">−641</td><td class="num">−505</td><td class="num">−269</td><td class="num">−1.232</td><td class="num">−545</td><td class="num" style="color:#0a8f43">+411</td></tr>
+    <tr style="font-weight:700"><td>Caixa acumulado</td><td class="num">−641</td><td class="num">−1.146</td><td class="num">−1.415</td><td class="num">−2.647</td><td class="num">−3.192</td><td class="num">−2.781</td></tr>
+  </tbody>
+</table>
+<p style="font-size:9pt;color:#55645e">Valores em reais. "Marketing" é o CAC aplicado sobre
+os 70% de clientes adquiridos por mídia paga.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="rot">Caixa positivo a partir de</div><div class="val">Mês 6</div></div>
+  <div class="kpi amb"><div class="rot">Necessidade de capital de giro</div><div class="val">R$ 3.192</div><div class="rot">pior ponto — mês 5</div></div>
+  <div class="kpi"><div class="rot">Base ao fim do mês 6</div><div class="val">325</div><div class="rot">assinantes</div></div>
+  <div class="kpi"><div class="rot">Receita no mês 6</div><div class="val">R$ 29,2 mil</div></div>
+</div>
+
+<h2>2.8 Ponto de equilíbrio</h2>
+
+<p>O breakeven tem duas leituras, e confundi-las é um erro comum:</p>
+
+<h4>Equilíbrio de contribuição</h4>
+<p>Quantos assinantes cobrem os custos fixos, <em>sem considerar aquisição de novos
+clientes</em> — ou seja, o tamanho de base que sustenta a operação parada:</p>
+<pre>assinantes = custos fixos ÷ margem de contribuição unitária
+
+meses 1–3:   465 ÷ 17,52  =  27 assinantes
+meses 4–6: 1.850 ÷ 17,52  = 106 assinantes</pre>
+<p>Esse ponto é alcançado já no <strong>mês 3</strong> (77 assinantes cobrem os R$&nbsp;465
+de fixos com folga) e mantido depois da entrada do custo de operação.</p>
+
+<h4>Equilíbrio de caixa</h4>
+<p>Quando a operação <em>crescendo</em> deixa de consumir caixa — incluindo o investimento em
+aquisição. Ocorre no <strong>mês 6</strong>, com 325 assinantes e resultado de
+R$&nbsp;+411.</p>
+
+<p>A diferença entre os dois pontos é o custo do crescimento: enquanto a empresa investe
+R$&nbsp;145 para trazer cada cliente novo, ela é lucrativa por unidade e negativa no
+agregado. É por isso que o modelo exige capital de giro de cerca de
+<strong>R$&nbsp;3.200</strong> mesmo com unidade econômica saudável.</p>
+
+<h2>2.9 Leitura do modelo e riscos</h2>
+
+<p><strong>O que o modelo diz.</strong> A unidade econômica fecha: LTV/CAC de 3,6× e payback
+de 3,7 meses. O negócio é lucrativo por cliente desde a aquisição, porque o hardware paga
+mais da metade do CAC no ato. O que consome caixa é a velocidade de crescimento, não o
+produto.</p>
+
+<p><strong>Onde ele é frágil.</strong> Em ordem de impacto:</p>
+<ol>
+<li><strong>A curva de aquisição.</strong> É a premissa mais frágil e a que mais move o
+resultado. Não há campanha rodada, então 15 clientes no primeiro mês é aposta, não previsão.</li>
+<li><strong>O CAC.</strong> Se dobrar para R$&nbsp;290, o LTV/CAC cai para 1,8× e o modelo
+deixa de se sustentar em mídia paga — o negócio passaria a depender de canal orgânico e
+indicação.</li>
+<li><strong>O custo do hardware.</strong> R$&nbsp;118 é estimativa sem cotação. Em lote
+pequeno, componente importado e câmbio desfavorável, esse número sobe rápido e come a
+margem que financia a aquisição.</li>
+<li><strong>O churn.</strong> A 4% ao mês a vida média é de 25 meses. A 8%, cai para 12,5
+meses e o LTV vai a R$&nbsp;300 — LTV/CAC de 2,1×.</li>
+<li><strong>O pró-labore ausente.</strong> Uma retirada de R$&nbsp;3.000/mês empurraria o
+equilíbrio de caixa bem além do sexto mês.</li>
+</ol>
+
+<p><strong>O que valida ou derruba o modelo.</strong> Três medições, em ordem: cotação real
+do Node com fornecedor (resolve o item 3), uma campanha de R$&nbsp;2.000 em mídia paga
+(resolve os itens 1 e 2) e três meses de base ativa (resolve o item 4). Nenhuma delas exige
+o produto pronto além do que já está construído.</p>
+</section>
+
+<!-- ══════════════════════════ PARTE 3 ══════════════════════════ -->
+<section class="quebra">
+<h1>Parte 3 — Protótipo funcional de alta fidelidade</h1>
+
+<h2>3.1 Arquitetura da solução</h2>
+
+<pre>┌─────────────────────┐
+│  Amperê Node        │  ESP32 + SCT-013-030 no quadro elétrico.
+│  (hardware — F6)    │  Hoje substituído pelo simulador, que publica
+│                     │  no MESMO endpoint, formato e autenticação.
+└──────────┬──────────┘
+           │  POST /ingest/readings        auth: X-Device-Key
+           │  { leituras: [{ registrado_em, potencia_w }] }
+           ▼
+┌──────────────────────────────────────────────────────────┐
+│  API  ·  Node + Express + TypeScript                     │
+│    middleware   Bearer token (Supabase Auth) · Zod · CORS│
+│    nilm/        detector de degraus — fronteira trocável │
+│    services/    tarifa · tempo · ROI · agregações        │
+│    routes/      auth · ingest · dashboard · devices ·    │
+│                 alerts · reports · settings              │
+└──────────┬───────────────────────────────────────────────┘
+           │  supabase-js (service role)
+           ▼
+┌──────────────────────────────────────────────────────────┐
+│  PostgreSQL  ·  Supabase                     (nuvem)     │
+│    Star Schema: 6 dimensões + 2 fatos                    │
+│    RLS por usuário · funções de agregação em SQL         │
+└──────────▲───────────────────────────────────────────────┘
+           │  REST/JSON · Bearer token
+┌──────────┴───────────────────────────────────────────────┐
+│  Web  ·  React + Vite + TypeScript                       │
+│    src/api/   cliente tipado — única fonte de dados      │
+│    src/auth/  sessão persistida e revalidada             │
+│    src/pages/ 6 telas, atualização periódica             │
+└──────────────────────────────────────────────────────────┘</pre>
+
+<h3>Stack por camada</h3>
+<table>
+  <thead><tr><th>Camada</th><th>Escolha</th><th>Justificativa</th></tr></thead>
+  <tbody>
+    <tr><td>Banco</td><td>PostgreSQL (Supabase)</td><td>O Star Schema do CP3 é relacional. O projeto usa <code>percentile_cont</code>, window functions e RLS — recursos que um NoSQL não entrega de graça.</td></tr>
+    <tr><td>Nuvem</td><td>Supabase</td><td>Postgres gerenciado, Auth e RLS na mesma camada, com plano gratuito compatível com o escopo. Sem servidor de autenticação próprio para manter.</td></tr>
+    <tr><td>Autenticação</td><td>Supabase Auth (JWT)</td><td>Evita reimplementar hash de senha, refresh e expiração. O <code>id</code> de <code>auth.users</code> É a chave primária de <code>dim_usuario</code>, então o RLS resolve com <code>auth.uid()</code>.</td></tr>
+    <tr><td>Back-end</td><td>Node + Express + TypeScript</td><td>Mesma linguagem e mesmos tipos do front. Express porque 11 rotas não justificam framework maior.</td></tr>
+    <tr><td>Validação</td><td>Zod</td><td>Schema de entrada e tipo TypeScript no mesmo lugar: payload inválido morre na borda, não no meio de uma query.</td></tr>
+    <tr><td>Front-end</td><td>React + Vite + TypeScript</td><td>Continuidade com o CP4. Vite pelo build rápido e pelo <code>import.meta.env</code>, usado no modo offline.</td></tr>
+    <tr><td>Estilo</td><td>Tailwind (tema HUD)</td><td>Identidade visual do CP4 preservada integralmente.</td></tr>
+    <tr><td>Gráficos</td><td>Recharts</td><td>Componível o bastante para os gráficos "osciloscópio" com filtro de glow em SVG.</td></tr>
+  </tbody>
+</table>
+
+<h2>3.2 Banco de dados em nuvem</h2>
+
+<p><strong>Provedor:</strong> Supabase (PostgreSQL gerenciado) &middot;
+<strong>projeto:</strong> <code>ampere</code> &middot; <strong>região:</strong>
+<code>us-west-2</code>. Oito migrations versionadas em <code>supabase/migrations/</code>.</p>
+
+<h3>Dimensões</h3>
+<table>
+  <thead><tr><th>Tabela</th><th>Conteúdo</th></tr></thead>
+  <tbody>
+    <tr><td><code>dim_usuario</code></td><td>id (= <code>auth.users.id</code>), nome, email, tipo_imovel, plano, criado_em</td></tr>
+    <tr><td><code>dim_dispositivo</code></td><td>usuario_id, apelido, status_conexao, versao_firmware, sinal_wifi, ultimo_contato, chave_ingestao</td></tr>
+    <tr><td><code>dim_aparelho</code></td><td>usuario_id, nome, categoria, potencia_nominal_w, identificado_em</td></tr>
+    <tr><td><code>dim_tempo</code></td><td>data, ano, mes, dia, hora, dia_semana, eh_fim_de_semana</td></tr>
+    <tr><td><code>dim_tarifa</code></td><td>concessionaria, uf, tarifa_kwh, bandeira, adicional_bandeira, vigência</td></tr>
+    <tr><td><code>dim_plano</code></td><td>nome, preco_mensal, recursos (jsonb)</td></tr>
+  </tbody>
+</table>
+
+<h3>Fatos</h3>
+<table>
+  <thead><tr><th>Tabela</th><th>Grão</th><th>Conteúdo</th></tr></thead>
+  <tbody>
+    <tr><td><code>fato_leitura_agregada</code></td><td>15 minutos</td><td>potência instantânea, energia, custo estimado — o que o sensor mede</td></tr>
+    <tr><td><code>fato_evento_aparelho</code></td><td>evento</td><td>liga/desliga por aparelho, duração, energia, custo e confiança da detecção</td></tr>
+  </tbody>
+</table>
+
+<div class="nota">
+<strong>Coluna acrescida à modelagem do CP3.</strong> <code>dim_dispositivo.chave_ingestao</code>
+não constava na modelagem original. Ela é necessária porque o ESP32 não faz login: envia a
+chave gravada no firmware no header <code>X-Device-Key</code> para se identificar na
+ingestão.
+</div>
+
+<h3>Segurança e desempenho</h3>
+<ul>
+<li><strong>Índices</strong> em todas as chaves estrangeiras e nas colunas
+<code>registrado_em</code>.</li>
+<li><strong>RLS habilitada nas oito tabelas.</strong> Cada usuário alcança apenas as próprias
+linhas via <code>auth.uid()</code>; <code>dim_tempo</code>, <code>dim_tarifa</code> e
+<code>dim_plano</code> são referência de leitura. O back-end usa a <em>service role</em>, que
+por definição contorna RLS — o escopo por usuário é aplicado na query, e as políticas
+protegem o acesso direto ao PostgREST com a chave anônima.</li>
+<li><strong>Agregação no banco.</strong> Trinta dias de leituras são 2.880 linhas; noventa
+dias, 8.640. Trazer isso para o Node a cada requisição não escala, então a agregação roda em
+SQL: <code>resumo_periodo</code>, <code>serie_por_hora</code>,
+<code>serie_aparelho_por_hora</code>, <code>custo_por_aparelho</code>,
+<code>custo_mensal</code>, <code>estado_aparelhos</code> e <code>saude_aparelhos</code>.</li>
+<li><strong>Ingestão idempotente.</strong> <code>fato_leitura_agregada</code> tem chave única
+(dispositivo, instante) e <code>fato_evento_aparelho</code> tem chave natural (aparelho,
+instante, tipo). Reenviar um buffer após queda de rede não duplica linha nem infla custo.</li>
+</ul>
+
+<div class="kpis">
+  <div class="kpi"><div class="rot">Leituras carregadas</div><div class="val">8.640</div><div class="rot">90 dias · 15 min</div></div>
+  <div class="kpi"><div class="rot">Eventos de aparelho</div><div class="val">4.512</div></div>
+  <div class="kpi"><div class="rot">Horas em dim_tempo</div><div class="val">2.162</div></div>
+  <div class="kpi amb"><div class="rot">Migrations</div><div class="val">8</div><div class="rot">versionadas</div></div>
+</div>
+</section>
+
+<section class="quebra">
+<h2>3.3 API</h2>
+
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Auth</th><th>Função</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">POST</td><td class="mono">/auth/signup</td><td>—</td><td>Cadastro (nome, e-mail, senha, tipo de imóvel). Cria usuário, perfil e sensor.</td></tr>
+    <tr><td class="mono">POST</td><td class="mono">/auth/login</td><td>—</td><td>Login; devolve o token de sessão</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/auth/me</td><td>Bearer</td><td>Usuário autenticado</td></tr>
+    <tr><td class="mono">POST</td><td class="mono">/ingest/readings</td><td>X-Device-Key</td><td>Ingestão de leituras do dispositivo</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/dashboard/summary</td><td>Bearer</td><td>Gasto do mês e variação %, consumo instantâneo, gasto e horas do dia, top aparelhos, bandeira, série de 24h</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/devices</td><td>Bearer</td><td>Inventário de cargas identificadas</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/devices/:id</td><td>Bearer</td><td>Status, potência, curva de 24h e recomendação de ROI</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/alerts</td><td>Bearer</td><td>Alertas do usuário</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/reports/monthly</td><td>Bearer</td><td>Total em R$ e kWh, distribuição por aparelho, economia acumulada, dica</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/settings</td><td>Bearer</td><td>Usuário, plano ativo e status técnico do sensor</td></tr>
+    <tr><td class="mono">PUT</td><td class="mono">/settings</td><td>Bearer</td><td>Atualiza perfil, plano e apelido do sensor</td></tr>
+    <tr><td class="mono">GET</td><td class="mono">/health</td><td>—</td><td>Liveness e versão do detector NILM</td></tr>
+  </tbody>
+</table>
+
+<p>Erro sempre no mesmo formato, com detalhe por campo quando a validação falha:</p>
+<pre>{ "erro": { "codigo": "requisicao_invalida",
+            "mensagem": "Payload inválido",
+            "detalhes": [ { "campo": "leituras.0.potencia_w",
+                            "problema": "Number must be greater than or equal to 0" } ] } }</pre>
+<p>CORS liberado apenas para a origem configurada. Middleware de autenticação em todas as
+rotas exceto <code>signup</code>, <code>login</code> e <code>ingest</code> — esta última usa
+chave de dispositivo, porque o ESP32 não tem sessão.</p>
+
+<h2>3.4 O motor NILM</h2>
+
+<p>O sensor mede apenas o total da casa. Quando uma carga liga, a potência dá um salto do
+tamanho dessa carga; quando desliga, cai o mesmo tanto. Casando o tamanho do degrau com a
+faixa de potência conhecida de cada aparelho, dá para atribuir o evento sem colocar um sensor
+por tomada.</p>
+
+<p>Cargas que chaveiam na mesma janela de 15 minutos — o ar-condicionado e a TV quando alguém
+chega em casa — produzem <strong>um</strong> degrau com a soma das duas. Por isso o casamento
+testa também pares de assinaturas, e emite os dois eventos quando o par explica o degrau
+nitidamente melhor que uma carga isolada.</p>
+
+<h3>Desempenho medido</h3>
+<p>O script <code>npm run check:nilm</code> gera 30 dias de série agregada, guarda os eventos
+verdadeiros que o perfil produziu e roda o detector sobre a mesma série, comparando evento a
+evento (aparelho + tipo + instante):</p>
+
+<table>
+  <thead><tr><th>Aparelho</th><th class="num">Recall</th></tr></thead>
+  <tbody>
+    <tr><td>Ar-condicionado</td><td class="num">100,0%</td></tr>
+    <tr><td>Chuveiro</td><td class="num">100,0%</td></tr>
+    <tr><td>Máquina de lavar</td><td class="num">100,0%</td></tr>
+    <tr><td>Geladeira</td><td class="num">93,7%</td></tr>
+    <tr><td>TV + eletrônicos</td><td class="num">80,0%</td></tr>
+    <tr><td>Iluminação</td><td class="num">80,0%</td></tr>
+    <tr class="total"><td>Geral (2.880 amostras)</td><td class="num">93,6% &middot; precisão 99,0%</td></tr>
+  </tbody>
+</table>
+
+<p>O tratamento de degraus compostos elevou o recall de 84,8% para 93,6%. Antes dele, a TV e
+a iluminação praticamente sumiam do inventário sempre que ligavam junto com o
+ar-condicionado.</p>
+
+<div class="aviso">
+<strong>Limite conhecido.</strong> Três ou mais cargas simultâneas, e o caso em que uma liga
+no exato instante em que outra desliga (degrau de sinais trocados), continuam sem separação.
+Resolver isso é desagregação de verdade, com modelo treinado — <strong>Fase 6</strong>. A
+troca está isolada atrás da interface <code>DetectorNILM</code>: substituir a heurística por
+um modelo não toca em rota, serviço nem schema.
+</div>
+
+<h2>3.5 Simulador do dispositivo</h2>
+
+<p>O hardware físico ainda não foi montado. O simulador publica em
+<code>/ingest/readings</code> no mesmo formato e com a mesma autenticação previstos para o
+firmware, então a substituição futura não exige mudança no back-end. Tem modo contínuo, para
+demonstração ao vivo, e modo batch, para reconstruir uma janela.</p>
+
+<pre>npm run simulate                             # contínuo — telemetria ao vivo
+npm run simulate -- --intervalo=10           # tick a cada 10 s
+npm run simulate -- --modo=batch --horas=24  # backfill de 24 h</pre>
+
+<p>Reprocessar a mesma janela duas vezes é seguro: na segunda passada o servidor responde
+<span class="mono">0 leituras novas · 97 já existiam · 0 eventos gravados</span>.</p>
+</section>
+
+<section class="quebra">
+<h2>3.6 As telas</h2>
+<p>Todas as capturas abaixo são do sistema rodando contra o banco em nuvem, geradas
+automaticamente por <code>npm run shots</code>.</p>
+
+<figure>
+  <img src="_img/01-dashboard.jpg" alt="Dashboard">
+  <figcaption><strong>Dashboard.</strong> O ranking de aparelhos abre a tela, com o maior
+  gasto destacado em âmbar — ajuste 1 do teste de usabilidade. À direita, gasto estimado do
+  mês, consumo instantâneo e gasto do dia. Abaixo, a curva agregada de 24 h com o pico do
+  chuveiro pela manhã e o platô de ar-condicionado e TV à noite.</figcaption>
+</figure>
+
+<figure>
+  <img src="_img/02-aparelhos.jpg" alt="Aparelhos">
+  <figcaption><strong>Aparelhos.</strong> Inventário das cargas identificadas pelo NILM a
+  partir de um único sensor, com estado atual, potência instantânea e custo estimado do ciclo.
+  À direita, a telemetria agregada em tempo real.</figcaption>
+</figure>
+
+<figure>
+  <img src="_img/03-alertas.jpg" alt="Alertas">
+  <figcaption><strong>Alertas.</strong> Eventos derivados dos dados: consumo acima da média
+  da categoria, perda de assinatura e reduções conquistadas. O limiar de "sem leitura" é
+  relativo ao ritmo de cada aparelho, não fixo.</figcaption>
+</figure>
+
+<figure>
+  <img src="_img/04-relatorio.jpg" alt="Relatório mensal">
+  <figcaption><strong>Relatório mensal.</strong> O indicador de economia acumulada aparece ao
+  lado do gasto total — ajuste 2 do teste de usabilidade —, comparando a estimativa do ciclo
+  com a média dos ciclos anteriores. Distribuição de custo por aparelho, ranking, histórico e
+  dica personalizada.</figcaption>
+</figure>
+
+<figure>
+  <img src="_img/06-detalhe-aparelho.jpg" alt="Detalhe do aparelho">
+  <figcaption><strong>Detalhe do aparelho.</strong> Curva de consumo de 24 h, comparação com
+  a média da categoria e recomendação de ROI. O selo com o preço do Pro
+  (R$&nbsp;19,90/mês) acompanha o recurso bloqueado no cabeçalho e no painel de ROI — ajuste
+  3 do teste de usabilidade.</figcaption>
+</figure>
+
+<figure>
+  <img src="_img/05-config.jpg" alt="Configurações">
+  <figcaption><strong>Configurações.</strong> Dados do usuário, plano ativo com o preço do
+  Pro visível em cada recurso bloqueado, e diagnóstico técnico do sensor: firmware, sinal
+  Wi-Fi e última sincronização.</figcaption>
+</figure>
+
+<h2>3.7 Grau de conclusão</h2>
+
+<p>A atividade pede pelo menos 80% de conclusão. O quadro abaixo separa o que está pronto e
+verificado do que ficou para a Fase 6.</p>
+
+<table>
+  <thead><tr><th>Item</th><th>Estado</th></tr></thead>
+  <tbody>
+    <tr><td>Banco de dados implementado em nuvem</td><td>Concluído — Supabase, 8 migrations, RLS, dados carregados</td></tr>
+    <tr><td>Programação real de back-end</td><td>Concluído — 11 rotas + health, todas verificadas ponta a ponta</td></tr>
+    <tr><td>Programação real de front-end</td><td>Concluído — 6 telas consumindo a API</td></tr>
+    <tr><td>Autenticação e sessão</td><td>Concluído — cadastro, login e sessão persistida</td></tr>
+    <tr><td>Ingestão de telemetria</td><td>Concluído — endpoint idempotente, autenticado por chave de dispositivo</td></tr>
+    <tr><td>Identificação de aparelhos (NILM)</td><td>Concluído na versão heurística — 93,6% de recall</td></tr>
+    <tr><td>Ajustes do teste de usabilidade</td><td>Concluído — os três implementados</td></tr>
+    <tr><td>Hardware físico (ESP32 + SCT-013)</td><td>Fase 6 — substituído por simulador com interface idêntica</td></tr>
+    <tr><td>Modelo de ML para desagregação</td><td>Fase 6 — fronteira já isolada para a troca</td></tr>
+    <tr><td>Cobrança real do plano Pro</td><td>Fase 6 — a troca de plano persiste no banco, sem gateway</td></tr>
+  </tbody>
+</table>
+
+<h3>Verificação executada</h3>
+<pre>MÉTODO   ROTA                     STATUS
+POST     /auth/login              200
+GET      /auth/me                 200
+POST     /ingest/readings         202
+GET      /dashboard/summary       200
+GET      /devices                 200
+GET      /devices/:id             200
+GET      /alerts                  200
+GET      /reports/monthly         200
+GET      /settings                200
+PUT      /settings                200
+GET      /health                  200
+
+-- segurança --
+GET /devices sem token            401
+POST /ingest sem chave            401
+GET /rota-inexistente             404
+PUT /settings payload vazio       400  (com detalhe por campo)</pre>
+
+<h2>4. Links da entrega</h2>
+<table>
+  <thead><tr><th>Item</th><th>Endereço</th></tr></thead>
+  <tbody>
+    <tr><td>Repositório</td><td class="mono">github.com/GuilhermeCostaProenca/ampere-dashboard</td></tr>
+    <tr><td>Vídeo (YouTube, não listado)</td><td class="mono">[PREENCHER]</td></tr>
+    <tr><td>Front-end publicado</td><td class="mono">[PREENCHER]</td></tr>
+    <tr><td>Back-end publicado</td><td class="mono">[PREENCHER]</td></tr>
+    <tr><td>Conta de demonstração</td><td class="mono">demo@ampere.app / ampere2026</td></tr>
+  </tbody>
+</table>
+
+</section>
+</body>
+</html>
