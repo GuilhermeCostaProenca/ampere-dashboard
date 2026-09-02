@@ -1,18 +1,95 @@
 {
   "artboards": [
-    { "file": "Main.dc.html",        "x": 0,    "y": 0,    "w": 1280, "h": 720, "title": "01 · Capa",          "print": "fixed" },
-    { "file": "Problema.dc.html",    "x": 1400, "y": 0,    "w": 1280, "h": 720, "title": "02 · O problema",    "print": "fixed" },
-    { "file": "Solucao.dc.html",     "x": 2800, "y": 0,    "w": 1280, "h": 720, "title": "03 · A solução",     "print": "fixed" },
-
-    { "file": "Arquitetura.dc.html", "x": 0,    "y": 880,  "w": 1280, "h": 720, "title": "04 · Arquitetura",   "print": "fixed" },
-    { "file": "Produto.dc.html",     "x": 1400, "y": 880,  "w": 1280, "h": 720, "title": "05 · O produto",     "print": "fixed" },
-    { "file": "Nilm.dc.html",        "x": 2800, "y": 880,  "w": 1280, "h": 720, "title": "06 · O NILM",        "print": "fixed" },
-
-    { "file": "Negocio.dc.html",     "x": 0,    "y": 1760, "w": 1280, "h": 720, "title": "07 · Modelo",        "print": "fixed" },
-    { "file": "Viabilidade.dc.html", "x": 1400, "y": 1760, "w": 1280, "h": 720, "title": "08 · Viabilidade",   "print": "fixed" },
-    { "file": "Status.dc.html",      "x": 2800, "y": 1760, "w": 1280, "h": 720, "title": "09 · Onde estamos",  "print": "fixed" },
-
-    { "file": "Fechamento.dc.html",  "x": 0,    "y": 2640, "w": 1280, "h": 720, "title": "10 · Fechamento",    "print": "fixed" }
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720,
+      "title": "Capa",
+      "print": "fixed"
+    },
+    {
+      "file": "Problema.dc.html",
+      "x": 1400,
+      "y": 0,
+      "w": 1280,
+      "h": 720,
+      "title": "01 · O problema",
+      "print": "fixed"
+    },
+    {
+      "file": "Solucao.dc.html",
+      "x": 2800,
+      "y": 0,
+      "w": 1280,
+      "h": 720,
+      "title": "02 · A solução",
+      "print": "fixed"
+    },
+    {
+      "file": "Arquitetura.dc.html",
+      "x": 0,
+      "y": 880,
+      "w": 1280,
+      "h": 720,
+      "title": "03 · Arquitetura",
+      "print": "fixed"
+    },
+    {
+      "file": "Produto.dc.html",
+      "x": 1400,
+      "y": 880,
+      "w": 1280,
+      "h": 720,
+      "title": "04 · O produto",
+      "print": "fixed"
+    },
+    {
+      "file": "Nilm.dc.html",
+      "x": 2800,
+      "y": 880,
+      "w": 1280,
+      "h": 720,
+      "title": "05 · O NILM",
+      "print": "fixed"
+    },
+    {
+      "file": "Negocio.dc.html",
+      "x": 0,
+      "y": 1760,
+      "w": 1280,
+      "h": 720,
+      "title": "06 · Modelo",
+      "print": "fixed"
+    },
+    {
+      "file": "Viabilidade.dc.html",
+      "x": 1400,
+      "y": 1760,
+      "w": 1280,
+      "h": 720,
+      "title": "07 · Viabilidade",
+      "print": "fixed"
+    },
+    {
+      "file": "Status.dc.html",
+      "x": 2800,
+      "y": 1760,
+      "w": 1280,
+      "h": 720,
+      "title": "08 · Onde estamos",
+      "print": "fixed"
+    },
+    {
+      "file": "Fechamento.dc.html",
+      "x": 0,
+      "y": 2640,
+      "w": 1280,
+      "h": 720,
+      "title": "09 · Fechamento",
+      "print": "fixed"
+    }
   ],
   "annotations": [
     {
@@ -20,8 +97,10 @@
       "x": 1400,
       "y": 2640,
       "w": 420,
-      "text": "Antes de exportar:\n\nO slide 10 tem três campos entre colchetes esperando o link do YouTube e as URLs do deploy.\n\nO slide 08 já declara que custo do hardware, CAC, churn e curva de aquisição são premissas — mantenha essa linha."
+      "text": "Antes de exportar:\n\nO slide 09 (Fechamento) tem dois campos entre colchetes esperando o link do YouTube e a URL do front-end publicado.\n\nO slide 07 (Viabilidade) declara em rodapé que custo de hardware, CAC, churn e curva de aquisição são premissas não validadas — mantenha essa linha."
     }
   ],
-  "launch": { "view": "canvas" }
+  "launch": {
+    "view": "canvas"
+  }
 }
