@@ -6,11 +6,7 @@ Repositório GitHub:
   Conta: GuilhermeCostaProenca · Visibilidade: público
 
 Vídeo (YouTube, não listado):
-  [PREENCHER ANTES DA ENTREGA]
-
-Aplicação publicada:
-  Front-end: [PREENCHER — Vercel]
-  Back-end:  [PREENCHER — Render]
+  https://youtu.be/dRTiZjqD52M
 
 Banco de dados em nuvem:
   Supabase (PostgreSQL) — projeto "ampere", região us-west-2
