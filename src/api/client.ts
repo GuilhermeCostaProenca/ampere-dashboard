@@ -21,7 +21,13 @@ import { limparSessao, tokenAtual } from './session'
 import * as mock from './mockAdapter'
 
 export const USANDO_MOCK = import.meta.env.VITE_USE_MOCK === 'true'
-export const API_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:3333').replace(/\/$/, '')
+
+// Em desenvolvimento a API roda num processo separado; publicada, ela sai na
+// MESMA origem do front, sob /api (função serverless). Ter o padrão certo dos
+// dois lados evita que o deploy dependa de acertar uma variável de ambiente —
+// e, saindo na mesma origem, não há requisição cross-origin nenhuma.
+const API_PADRAO = import.meta.env.DEV ? 'http://localhost:3333' : '/api'
+export const API_URL = (import.meta.env.VITE_API_URL || API_PADRAO).replace(/\/$/, '')
 
 async function requisitar<T>(caminho: string, init: RequestInit = {}): Promise<T> {
   const token = tokenAtual()

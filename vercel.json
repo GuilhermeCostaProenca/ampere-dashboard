@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    {
+      "comment": "SPA: rotas do React Router caem no index.html. A Vercel só aplica rewrite quando nenhum arquivo estático nem função casou, então /assets/* e /api/* passam antes.",
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
