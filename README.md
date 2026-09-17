@@ -385,15 +385,21 @@ O teste com 3 personas apontou três problemas. Os três estão implementados:
 
 ## 🚀 Publicar
 
-**Estado atual: não publicado.** Não existe URL no ar — o sistema roda
-localmente, como descrito acima.
+**No ar:** <https://ampere-dashboard-six.vercel.app>
+Front e API na mesma origem, um projeto só na Vercel.
 
-O repositório já traz tudo o que o deploy precisa:
+Conta de demonstração: `demo@ampere.app` / `ampere2026`
+
+> O banco fica em plano gratuito e **pausa sozinho após ~7 dias sem uso**. Se a
+> tela de acesso responder "Erro interno", é isso: reative o projeto no painel
+> do Supabase e rode `npm run seed` para reposicionar a janela de 90 dias.
+
+O que faz o deploy funcionar:
 
 | Arquivo | Papel |
 | --- | --- |
-| `vercel.json` | build, diretório de saída e o rewrite que faz o React Router funcionar |
-| `api/[...path].ts` | catch-all da Vercel; reexporta a mesma aplicação Express de `server/src/app.ts` |
+| `vercel.json` | build e diretório de saída, mais o rewrite `/((?!api/).*)` → `/index.html`, que faz as rotas do React Router resolverem. A Vercel só aplica rewrite quando nenhum arquivo estático nem função casou, então `/assets/*` e `/api/*` passam antes. Nada de comentários no arquivo: o schema da Vercel recusa chaves que não conhece. |
+| `api/index.ts` | a função; reexporta a mesma aplicação Express de `server/src/app.ts`. O roteamento vem do rewrite acima, e não do catch-all `[...path]`: aquela convenção é de framework e, num projeto sem framework, casava só um segmento — `/api/health` chegava e `/api/auth/login` dava 404. |
 
 A aplicação é montada em `server/src/app.ts` sem escutar porta, e as rotas são
 registradas em dois prefixos — na raiz (servidor local) e sob `/api` (função

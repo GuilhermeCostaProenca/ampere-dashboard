@@ -25,17 +25,31 @@ export function criarApp() {
 
   app.use(express.json({ limit: '1mb' }))
 
-  // CORS restrito à origem do front. Quando front e API saem na mesma origem
-  // (o deploy da Vercel), nenhuma requisição é cross-origin e isto não atua.
+  // CORS restrito à origem do front.
+  //
+  // A checagem precisa enxergar a requisição inteira, não só o Origin: quando
+  // front e API são publicados juntos, o navegador MANDA Origin mesmo sendo a
+  // mesma origem. Comparando só contra uma lista fixa, a API recusava o próprio
+  // front — e como a recusa era um throw, virava 500 em vez de um bloqueio de
+  // CORS. Origem não autorizada agora apenas não recebe o cabeçalho.
   app.use(
-    cors({
-      origin(origin, callback) {
-        // Sem Origin (curl, ESP32, health check) passa.
-        if (!origin) return callback(null, true)
-        if (corsOrigins.includes(origin)) return callback(null, true)
-        return callback(new Error(`Origem nao autorizada pelo CORS: ${origin}`))
-      },
-      credentials: true,
+    cors((req, callback) => {
+      const origin = req.headers.origin
+
+      // Sem Origin (curl, ESP32, health check) passa.
+      if (!origin) return callback(null, { origin: true, credentials: true })
+
+      let mesmaOrigem = false
+      try {
+        mesmaOrigem = new URL(origin).host === req.headers.host
+      } catch {
+        mesmaOrigem = false // Origin malformado
+      }
+
+      if (mesmaOrigem || corsOrigins.includes(origin)) {
+        return callback(null, { origin: true, credentials: true })
+      }
+      callback(null, { origin: false })
     }),
   )
 

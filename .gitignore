@@ -21,3 +21,5 @@ server/dist
 
 # ZIP de entrega (gerado, nao versionado)
 *.zip
+
+.vercel
