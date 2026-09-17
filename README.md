@@ -63,7 +63,7 @@ consumo de cada aparelho — mostrando tudo em **R$**, não em kWh.
            │  { leituras: [{ registrado_em, potencia_w }] }
            ▼
 ┌─────────────────────────────────────────────────────────┐
-│  API  ·  Node + Express + TypeScript      (Render)      │
+│  API  ·  Node + Express + TypeScript                     │
 │                                                          │
 │   middleware   Bearer token (Supabase Auth) · Zod · CORS │
 │   nilm/        detector de degraus — troca sem tocar     │
@@ -84,7 +84,7 @@ consumo de cada aparelho — mostrando tudo em **R$**, não em kWh.
            │  REST/JSON  ·  Bearer token
            │
 ┌──────────┴──────────────────────────────────────────────┐
-│  Web  ·  React + Vite + TypeScript          (Vercel)     │
+│  Web  ·  React + Vite + TypeScript                       │
 │                                                          │
 │   src/api/       cliente tipado — única fonte de dados   │
 │   src/auth/      sessão persistida e revalidada          │
@@ -112,7 +112,7 @@ calcular preço. A API existe para que a regra fique de um lado só.
 | **Front** | React + Vite + TypeScript | Já era a stack do CP4. Vite pelo build rápido e pelo `import.meta.env`, usado no fallback offline. |
 | **Estilo** | Tailwind (tema HUD) | Identidade visual do CP4 preservada integralmente: grafite, verde-terminal `#00FF66`, âmbar nos alertas, JetBrains Mono, gráficos com glow. |
 | **Gráficos** | Recharts | Composable o bastante para os gráficos "osciloscópio" com filtro de glow em SVG. |
-| **Deploy** | Vercel (front) + Render (API) | Deploy por push, HTTPS automático, plano gratuito. |
+| **Deploy** | Vercel — front estático e API como função serverless, na mesma origem | Uma origem só elimina o CORS como ponto de falha e dispensa configurar a URL da API no front. **Ainda não publicado** — ver "Publicar" abaixo. |
 
 ---
 
@@ -380,6 +380,52 @@ O teste com 3 personas apontou três problemas. Os três estão implementados:
 3. **Preço do Pro sempre visível.** O cadeado aparecia sem preço. Agora o badge
    com **R$ 19,90/mês** acompanha todo recurso bloqueado: cabeçalho do detalhe
    do aparelho, painel de ROI e lista de recursos em Configurações.
+
+---
+
+## 🚀 Publicar
+
+**Estado atual: não publicado.** Não existe URL no ar — o sistema roda
+localmente, como descrito acima.
+
+O repositório já traz tudo o que o deploy precisa:
+
+| Arquivo | Papel |
+| --- | --- |
+| `vercel.json` | build, diretório de saída e o rewrite que faz o React Router funcionar |
+| `api/[...path].ts` | catch-all da Vercel; reexporta a mesma aplicação Express de `server/src/app.ts` |
+
+A aplicação é montada em `server/src/app.ts` sem escutar porta, e as rotas são
+registradas em dois prefixos — na raiz (servidor local) e sob `/api` (função
+serverless). Por isso o mesmo código serve os dois modos, e o cliente resolve a
+origem sozinho: `http://localhost:3333` em desenvolvimento, `/api` publicado.
+
+### Passos
+
+1. Importar o repositório em <https://vercel.com/new>.
+   Não altere Framework, Build Command nem Output Directory — o `vercel.json`
+   já define os três.
+2. Em *Environment Variables*, adicionar **três** (as demais têm padrão):
+
+   ```
+   SUPABASE_URL
+   SUPABASE_ANON_KEY
+   SUPABASE_SERVICE_ROLE_KEY
+   ```
+
+3. Deploy.
+
+### Conferir
+
+Abra `https://SUA-URL/api/health`:
+
+```json
+{ "status": "ok", "servico": "ampere-api", "nilm": { ... } }
+```
+
+Se faltar variável de ambiente, a API **não** derruba a função: responde `503`
+nomeando o que falta. Isso é deliberado — num ambiente serverless, sair do
+processo vira um `500` opaco, e quem publicou não descobre a causa.
 
 ---
 
