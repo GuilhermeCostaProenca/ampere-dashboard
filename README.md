@@ -12,7 +12,25 @@ consumo de cada aparelho — mostrando tudo em **R$**, não em kWh.
 
 ---
 
+## 🗺️ Rotas do front
+
+| Rota | Acesso | O que é |
+|---|---|---|
+| `/` | pública | Landing: o problema, como o NILM funciona, o aparelho, os planos |
+| `/entrar` | pública | Login e cadastro reais (Supabase Auth) |
+| `/painel` | exige sessão | Dashboard |
+| `/painel/aparelhos`, `/painel/aparelhos/:id` | exige sessão | Inventário NILM e detalhe |
+| `/painel/alertas`, `/painel/relatorio`, `/painel/config` | exige sessão | Demais telas |
+
+Rota protegida sem sessão redireciona para `/entrar`; com sessão ativa,
+`/entrar` redireciona para `/painel`.
+
+---
+
 ## 🖥️ Telas
+
+### Landing
+![Landing](docs/00-landing.png)
 
 ### Dashboard
 ![Dashboard](docs/01-dashboard.png)
@@ -450,8 +468,9 @@ src/
 ├─ api/                  cliente tipado, tipos do schema, adaptador de mock
 ├─ auth/                 contexto de sessão
 ├─ components/           Hud · HudState · Scope · BadgePro · Layout · TariffFlag
-├─ pages/                Acesso · Dashboard · Devices · DeviceDetail · Alerts · Report · Settings
+├─ pages/                Landing · Acesso · Dashboard · Devices · DeviceDetail · Alerts · Report · Settings
 └─ data/mock.ts          fallback offline (VITE_USE_MOCK)
+public/midia/            fotos e vídeos do produto usados na landing
 ```
 
 ---

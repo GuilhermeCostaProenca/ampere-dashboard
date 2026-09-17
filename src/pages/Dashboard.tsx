@@ -74,7 +74,7 @@ function TopAparelhos({ itens }: { itens: TopAparelho[] }) {
                 : 'px-3 py-2.5'
             }
           >
-            <Link to={`/aparelhos/${d.id}`} className="group block">
+            <Link to={`/painel/aparelhos/${d.id}`} className="group block">
               <div className="flex items-center justify-between text-sm">
                 <span
                   className={`flex items-center gap-2 ${
@@ -171,7 +171,7 @@ export function Dashboard() {
         title="Top aparelhos / gasto"
         accent="amber"
         badge={
-          <Link to="/aparelhos" className="t-sub uppercase tracking-widest hover:text-term">
+          <Link to="/painel/aparelhos" className="t-sub uppercase tracking-widest hover:text-term">
             ver todos ▸
           </Link>
         }

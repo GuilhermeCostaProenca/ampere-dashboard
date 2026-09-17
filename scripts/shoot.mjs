@@ -10,17 +10,17 @@ import puppeteer from 'puppeteer-core'
 const CHROME =
   process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 const BASE = process.env.AMPERE_WEB_URL ?? 'http://localhost:5180'
-const OUT = 'docs'
+const OUT = process.env.AMPERE_SHOTS_DIR ?? 'docs'
 
 const EMAIL = process.env.AMPERE_EMAIL ?? 'demo@ampere.app'
 const SENHA = process.env.AMPERE_SENHA ?? 'ampere2026'
 
 const shots = [
-  { path: '/', file: '01-dashboard.png' },
-  { path: '/aparelhos', file: '02-aparelhos.png' },
-  { path: '/alertas', file: '03-alertas.png' },
-  { path: '/relatorio', file: '04-relatorio.png' },
-  { path: '/config', file: '05-config.png' },
+  { path: '/painel', file: '01-dashboard.png' },
+  { path: '/painel/aparelhos', file: '02-aparelhos.png' },
+  { path: '/painel/alertas', file: '03-alertas.png' },
+  { path: '/painel/relatorio', file: '04-relatorio.png' },
+  { path: '/painel/config', file: '05-config.png' },
   // Detalhe do aparelho: resolvido em runtime, é o 1º do inventário.
   { path: null, file: '06-detalhe-aparelho.png' },
 ]
@@ -36,8 +36,8 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage()
 await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 })
 
-// ── Sessão real: o app agora exige login ─────────────────────────────────────
-await page.goto(BASE, { waitUntil: 'networkidle0' })
+// ── Sessão real: o painel exige login, e o login mora em /entrar ────────────
+await page.goto(`${BASE}/entrar`, { waitUntil: 'networkidle0' })
 
 const temLogin = await page.$('input[type="password"]')
 if (temLogin) {
@@ -82,9 +82,9 @@ ${texto.slice(0, 400)}`)
 }
 
 // Descobre o id do primeiro aparelho para a tela de detalhe.
-await page.goto(`${BASE}/aparelhos`, { waitUntil: 'networkidle0' })
-await page.waitForSelector('a[href^="/aparelhos/"]', { timeout: 15000 }).catch(() => {})
-const primeiroAparelho = await page.$eval('a[href^="/aparelhos/"]', (a) =>
+await page.goto(`${BASE}/painel/aparelhos`, { waitUntil: 'networkidle0' })
+await page.waitForSelector('a[href^="/painel/aparelhos/"]', { timeout: 15000 }).catch(() => {})
+const primeiroAparelho = await page.$eval('a[href^="/painel/aparelhos/"]', (a) =>
   a.getAttribute('href'),
 ).catch(() => null)
 

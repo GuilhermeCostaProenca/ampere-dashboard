@@ -28,7 +28,7 @@ export function DeviceDetail() {
     return (
       <div className="space-y-4">
         <HudErro erro={erro} aoTentarNovamente={recarregar} />
-        <Link to="/aparelhos" className="inline-block text-xs text-term hover:text-glow">
+        <Link to="/painel/aparelhos" className="inline-block text-xs text-term hover:text-glow">
           ◂ Voltar para aparelhos
         </Link>
       </div>
@@ -45,7 +45,7 @@ export function DeviceDetail() {
   return (
     <div className="space-y-4">
       <Link
-        to="/aparelhos"
+        to="/painel/aparelhos"
         className="inline-flex items-center gap-1 text-[11px] uppercase tracking-widest text-muted hover:text-term"
       >
         ◂ Aparelhos

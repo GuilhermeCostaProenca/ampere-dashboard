@@ -64,7 +64,7 @@ export function Devices() {
               {aparelhos.map((d) => (
                 <li key={d.id}>
                   <Link
-                    to={`/aparelhos/${d.id}`}
+                    to={`/painel/aparelhos/${d.id}`}
                     className="group grid grid-cols-2 items-center gap-2 py-3 md:grid-cols-12"
                   >
                     <div className="col-span-1 flex items-center gap-3 md:col-span-5">

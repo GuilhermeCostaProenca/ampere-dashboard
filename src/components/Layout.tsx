@@ -6,11 +6,11 @@ import { useRecurso } from '../hooks/useRecurso'
 import { useAuth } from '../auth/AuthContext'
 
 const NAV = [
-  { to: '/', label: 'Início', icon: '◰', end: true },
-  { to: '/aparelhos', label: 'Aparelhos', icon: '⏚', end: false },
-  { to: '/alertas', label: 'Alertas', icon: '⚠', end: false },
-  { to: '/relatorio', label: 'Relatório', icon: '▤', end: false },
-  { to: '/config', label: 'Config', icon: '⚙', end: false },
+  { to: '/painel', label: 'Início', icon: '◰', end: true },
+  { to: '/painel/aparelhos', label: 'Aparelhos', icon: '⏚', end: false },
+  { to: '/painel/alertas', label: 'Alertas', icon: '⚠', end: false },
+  { to: '/painel/relatorio', label: 'Relatório', icon: '▤', end: false },
+  { to: '/painel/config', label: 'Config', icon: '⚙', end: false },
 ]
 
 function Clock() {

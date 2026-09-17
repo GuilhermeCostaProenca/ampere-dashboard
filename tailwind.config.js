@@ -20,6 +20,9 @@ export default {
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', '"IBM Plex Mono"', '"Space Mono"', 'ui-monospace', 'monospace'],
+        // Usada só na landing: parágrafo longo em monoespaçada cansa. A mono
+        // continua carregando rótulos, dados e toda a interface do painel.
+        sans: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         glow: '0 0 8px rgba(0,255,102,0.45), 0 0 2px rgba(0,255,102,0.7)',

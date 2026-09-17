@@ -58,7 +58,7 @@ export function RecursoBloqueado({
         <div className="flex flex-shrink-0 items-center gap-3">
           <BadgePro plano={p} />
           <Link
-            to="/config"
+            to="/painel/config"
             className="clip-hud-sm border border-amber/60 bg-amber/10 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-amber transition-colors hover:bg-amber/20"
           >
             Destravar ▸
