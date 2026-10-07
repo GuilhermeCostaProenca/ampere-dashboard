@@ -1,0 +1,55 @@
+ENTREGA FASE 6 — "Startup Cybersecurity Governance"
+FIAP • Startup One • Fase 6
+Grupo SenseForge • Turma 4SIOA
+
+Guilherme Costa Proença  RM 98937
+Eduarda Quagliareli Shiratsu  RM 551188
+Hugo Antônio de Oliveira  RM 550153
+
+CONTEÚDO DESTE .ZIP
+
+  documentacao-fase6.pdf    Partes 1 a 5 do documento (13 páginas)
+  slides-fase6.pdf          Apresentação do pitch (8 slides, com o link do vídeo)
+  link-do-video.txt         YouTube, não listado, até 5 min
+  roteiro-video.md          Roteiro usado na gravação
+
+CÓDIGO DO PROJETO
+
+  https://github.com/GuilhermeCostaProenca/ampere-dashboard
+
+  O repositório é público e contém o código do front-end, do back-end e as
+  migrations do banco em nuvem. A documentação desta fase está versionada em
+  entregas/fase6/.
+
+APLICAÇÃO PUBLICADA
+
+  https://ampere-dashboard-six.vercel.app
+  Conta de demonstração indicada no README do repositório.
+
+VÍDEO-PITCH
+
+  https://youtu.be/L-FT-pk3LX8
+
+PARTES DO DOCUMENTO
+
+  Parte 1 — Revisão do MVP
+            Estado atual, melhorias feitas desde a fase anterior e melhorias
+            pretendidas, com prioridade.
+
+  Parte 2 — Planejamento de adequação à LGPD
+            Dados coletados e justificativa, bases legais, encarregado (DPO),
+            controles técnicos e organizacionais, operadores e transferência
+            internacional, comunicação com titulares e incidentes.
+
+  Parte 3 — Governança de TI (ISO/IEC 38500)
+            Os seis princípios aplicados à startup, boas práticas e o ciclo
+            Avaliar–Dirigir–Monitorar.
+
+  Parte 4 — Segurança e auditoria da solução
+            Dez riscos levantados por leitura do próprio código, relacionados ao
+            OWASP Top 10, com controles propostos, plano de auditoria e relação
+            com a família ISO 27000.
+
+  Parte 5 — Divulgação e aquisição de usuários
+            Palavras-chave, ações de SEO, canais, Inbound Marketing e indicadores
+            de acompanhamento.

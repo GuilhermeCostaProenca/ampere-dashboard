@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Amperê — Documentação Fase 6</title>
+<style>
+  :root {
+    --tinta: #14201c; --suave: #55645e; --verde: #0a8f43; --verde-claro: #e8f6ee;
+    --ambar: #b06f00; --ambar-claro: #fdf3e0; --vermelho: #a3261f; --vermelho-claro: #fbeceb;
+    --linha: #d8e0dc; --fundo-bloco: #f6f9f7;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+         font-size: 10.2pt; line-height: 1.55; color: var(--tinta); }
+  code, .mono { font-family: "Consolas", "Courier New", monospace; font-size: 9pt; }
+  h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .4em; }
+  h1 { font-size: 21pt; letter-spacing: -.01em; }
+  h2 { font-size: 15pt; margin-top: 1.6em; padding-bottom: .25em;
+       border-bottom: 2px solid var(--verde); color: var(--verde); }
+  h3 { font-size: 12pt; margin-top: 1.4em; }
+  h4 { font-size: 10.5pt; margin-top: 1.1em; color: var(--suave);
+       text-transform: uppercase; letter-spacing: .08em; }
+  p { margin: 0 0 .7em; }
+  ul, ol { margin: 0 0 .8em; padding-left: 1.3em; }
+  li { margin-bottom: .25em; }
+  .quebra { page-break-before: always; }
+  .junto { page-break-inside: avoid; }
+
+  .capa { text-align: center; padding-top: 42mm; page-break-after: always; }
+  .capa .marca { display: inline-block; width: 68px; height: 68px; border: 3px solid var(--verde);
+                 font-size: 34pt; font-weight: 800; color: var(--verde); line-height: 62px; }
+  .capa h1 { font-size: 34pt; letter-spacing: .28em; margin: 18px 0 2px; }
+  .capa .sub { letter-spacing: .3em; font-size: 9pt; color: var(--suave); text-transform: uppercase; }
+  .capa .titulo { margin-top: 34mm; font-size: 15pt; font-weight: 600; }
+  .capa .curso { margin-top: 6px; color: var(--suave); }
+  .capa .rodape { margin-top: 30mm; font-size: 9.5pt; color: var(--suave); }
+
+  table { width: 100%; border-collapse: collapse; margin: .5em 0 1em; font-size: 9pt; }
+  th, td { padding: 5px 8px; border-bottom: 1px solid var(--linha); text-align: left; vertical-align: top; }
+  th { background: var(--fundo-bloco); font-weight: 600; font-size: 8.4pt;
+       text-transform: uppercase; letter-spacing: .05em; color: var(--suave); }
+  .aviso { border-left: 4px solid var(--ambar); background: var(--ambar-claro);
+           padding: 10px 14px; margin: 1em 0; font-size: 9.4pt; }
+  .aviso strong { color: var(--ambar); }
+  .nota { border-left: 4px solid var(--verde); background: var(--verde-claro);
+          padding: 10px 14px; margin: 1em 0; font-size: 9.4pt; }
+  pre { background: var(--fundo-bloco); border: 1px solid var(--linha); padding: 10px 12px;
+        font-size: 8.2pt; line-height: 1.45; white-space: pre-wrap; margin: .5em 0 1em; }
+  .sev { font-weight: 700; font-size: 8.4pt; text-transform: uppercase; letter-spacing: .04em; }
+  .alta { color: var(--vermelho); } .media { color: var(--ambar); } .baixa { color: var(--verde); }
+  .sumario ol { list-style: none; padding-left: 0; }
+  .sumario > ol > li { margin-bottom: .55em; font-weight: 600; }
+  .sumario ol ol { padding-left: 1.1em; margin-top: .2em; font-weight: 400;
+                   font-size: 9.4pt; color: var(--suave); }
+  .meta td { border: none; padding: 2px 8px 2px 0; font-size: 9.4pt; }
+  .meta td.rot { color: var(--suave); width: 34%; }
+</style>
+</head>
+<body>
+
+<section class="capa">
+  <div class="marca">A</div>
+  <h1>AMPERÊ</h1>
+  <div class="sub">NILM Control</div>
+  <div class="titulo">Governança, Segurança da Informação<br>e Aquisição de Usuários</div>
+  <div class="curso">FIAP &middot; Startup One &middot; Fase 6 &middot; Startup Cybersecurity Governance</div>
+  <div class="rodape">
+    Grupo SenseForge &middot; 4SIOA<br>
+    Guilherme Costa Proença (RM 98937) &middot; Eduarda Quagliareli Shiratsu (RM 551188) &middot; Hugo Antônio de Oliveira (RM 550153)<br>
+    Outubro de 2026
+  </div>
+</section>
+
+<section>
+<h2>Identificação da entrega</h2>
+<table class="meta">
+  <tr><td class="rot">Startup</td><td>Amperê — monitoramento de energia residencial por aparelho (NILM)</td></tr>
+  <tr><td class="rot">Aplicação publicada</td><td>https://ampere-dashboard-six.vercel.app</td></tr>
+  <tr><td class="rot">Repositório</td><td>https://github.com/GuilhermeCostaProenca/ampere-dashboard</td></tr>
+  <tr><td class="rot">Vídeo-pitch (não listado)</td><td>https://youtu.be/L-FT-pk3LX8</td></tr>
+  <tr><td class="rot">Banco de dados</td><td>PostgreSQL gerenciado — Supabase, região us-west-2</td></tr>
+</table>
+
+<h2>Sumário</h2>
+<div class="sumario">
+<ol>
+  <li>Parte 1 — Revisão do MVP
+    <ol><li>1.1 Estado atual</li><li>1.2 O que foi melhorado desde a fase anterior</li><li>1.3 Melhorias pretendidas</li></ol>
+  </li>
+  <li>Parte 2 — Planejamento de adequação à LGPD
+    <ol><li>2.1 Dados coletados e justificativa</li><li>2.2 Bases legais</li><li>2.3 Encarregado (DPO)</li><li>2.4 Controles técnicos</li><li>2.5 Controles organizacionais</li><li>2.6 Operadores e transferência internacional</li><li>2.7 Comunicação com titulares e incidentes</li></ol>
+  </li>
+  <li>Parte 3 — Governança de TI (ISO/IEC 38500)
+    <ol><li>3.1 Os seis princípios aplicados à startup</li><li>3.2 Boas práticas de governança</li><li>3.3 Ciclo Avaliar–Dirigir–Monitorar</li></ol>
+  </li>
+  <li>Parte 4 — Segurança e auditoria da solução
+    <ol><li>4.1 Superfície de ataque</li><li>4.2 Riscos identificados e OWASP Top 10</li><li>4.3 Controles propostos</li><li>4.4 Como a solução pode ser auditada</li><li>4.5 Relação com a família ISO 27000</li></ol>
+  </li>
+  <li>Parte 5 — Divulgação e aquisição de usuários
+    <ol><li>5.1 Palavras-chave</li><li>5.2 Ações de SEO</li><li>5.3 Canais de divulgação</li><li>5.4 Estratégia de Inbound Marketing</li><li>5.5 Acompanhamento de resultados</li></ol>
+  </li>
+</ol>
+</div>
+</section>
+
+<section class="quebra">
+<h2>Parte 1 — Revisão do MVP</h2>
+
+<h3>1.1 Estado atual</h3>
+<p>O Amperê é um sistema de monitoramento energético residencial baseado em NILM
+(<em>Non-Intrusive Load Monitoring</em>): um único sensor de corrente instalado no quadro
+elétrico mede o consumo total da casa, e o software separa desse sinal o consumo de cada
+aparelho, apresentando o resultado em reais.</p>
+
+<p>O MVP está publicado e funcional, com as seguintes camadas:</p>
+<table>
+  <tr><th>Camada</th><th>Tecnologia</th><th>Situação</th></tr>
+  <tr><td>Dispositivo</td><td>ESP32 + sensor SCT-013-030</td><td>Em montagem; substituído hoje por um simulador que publica no mesmo endpoint, formato e autenticação previstos para o firmware</td></tr>
+  <tr><td>API</td><td>Node.js, Express e TypeScript</td><td>Publicada como função serverless na Vercel</td></tr>
+  <tr><td>Desagregação</td><td>Detector NILM por degraus de potência, isolado atrás de uma interface</td><td>Recall de 93,6% e precisão de 99,0% em janela de 30 dias de dados</td></tr>
+  <tr><td>Banco</td><td>PostgreSQL gerenciado no Supabase, Star Schema com 6 dimensões e 2 fatos</td><td>8 migrations aplicadas, RLS habilitado em todas as tabelas</td></tr>
+  <tr><td>Front-end</td><td>React, Vite e TypeScript</td><td>Publicado na Vercel, consumindo a API na mesma origem</td></tr>
+</table>
+
+<h3>1.2 O que foi melhorado desde a fase anterior</h3>
+<p>Na entrega anterior o sistema rodava apenas em ambiente local. Nesta fase o projeto
+foi efetivamente publicado e corrigido:</p>
+<ul>
+  <li><strong>Publicação em nuvem.</strong> Front-end e API passaram a ser servidos na mesma
+      origem pela Vercel, com a aplicação Express exportada como função serverless
+      (<code>api/index.ts</code>). Isso eliminou a necessidade de um segundo provedor e
+      removeu a configuração de CORS entre domínios diferentes.</li>
+  <li><strong>Correção do roteamento de produção.</strong> O <code>vercel.json</code> passou a
+      reescrever <code>/api/(.*)</code> para a função única, em vez de depender da convenção
+      de <em>catch-all</em> de framework, que casava apenas um segmento de caminho e
+      derrubava rotas como <code>/api/auth/login</code>.</li>
+  <li><strong>Correção do CORS para mesma origem.</strong> A checagem passou a comparar o
+      <em>host</em> do cabeçalho <code>Origin</code> com o <em>host</em> da requisição. Antes, a
+      API recusava o próprio front e a recusa virava erro 500 em vez de bloqueio de CORS.</li>
+  <li><strong>Diagnóstico de configuração.</strong> Variáveis de ambiente ausentes passaram a
+      produzir resposta 503 legível, nomeando o que falta, em vez de erro 500 opaco.</li>
+  <li><strong>Landing page pública.</strong> Foi criada uma página de entrada antes do painel,
+      com o problema, o funcionamento do NILM, o produto e os planos — base para a
+      estratégia de aquisição descrita na Parte 5.</li>
+  <li><strong>Correção da documentação.</strong> O README descrevia uma arquitetura com API em
+      outro provedor, que nunca chegou a existir. Foi corrigido para refletir a
+      arquitetura real.</li>
+</ul>
+
+<div class="nota">
+<strong>Princípio adotado.</strong> O simulador publica no mesmo endpoint, com o mesmo formato e a
+mesma autenticação previstos para o firmware. Quando o hardware físico entrar, nada muda do
+backend para a frente: o contrato de dados é idêntico.
+</div>
+
+<h3>1.3 Melhorias pretendidas</h3>
+<table>
+  <tr><th>Melhoria</th><th>Motivação</th><th>Horizonte</th></tr>
+  <tr><td>Montagem do hardware físico (ESP32 + SCT-013)</td><td>Substituir o simulador por leitura real de corrente</td><td>Curto</td></tr>
+  <tr><td>Limitação de taxa nas rotas de autenticação e ingestão</td><td>Risco R2 da Parte 4 — hoje não há proteção contra força bruta ou abuso</td><td>Curto</td></tr>
+  <tr><td>Registro de auditoria de acessos e operações sensíveis</td><td>Risco R6 da Parte 4 e exigência de rastreabilidade da LGPD</td><td>Curto</td></tr>
+  <tr><td>Hash da chave de ingestão e rotação de chaves por dispositivo</td><td>Risco R3 da Parte 4</td><td>Médio</td></tr>
+  <tr><td>Substituição do detector heurístico por modelo treinado de NILM</td><td>Ganho de acurácia em cargas simultâneas e de baixa potência</td><td>Médio</td></tr>
+  <tr><td>Piloto em condomínio</td><td>Validação do canal B2B e medição da economia real gerada</td><td>Médio</td></tr>
+</table>
+</section>
+
+<section class="quebra">
+<h2>Parte 2 — Planejamento de adequação à LGPD</h2>
+
+<h3>2.1 Dados coletados e justificativa</h3>
+<p>O levantamento abaixo foi feito a partir do schema efetivamente aplicado no banco
+(<code>supabase/migrations/</code>), e não de uma previsão.</p>
+<table>
+  <tr><th>Dado</th><th>Onde</th><th>Justificativa da coleta</th></tr>
+  <tr><td>Nome</td><td><code>dim_usuario.nome</code></td><td>Identificação do titular na interface e na comunicação</td></tr>
+  <tr><td>E-mail</td><td><code>dim_usuario.email</code></td><td>Credencial de acesso, recuperação de conta e envio de alertas de consumo</td></tr>
+  <tr><td>Tipo de imóvel (apartamento ou casa)</td><td><code>dim_usuario.tipo_imovel</code></td><td>Calibra o perfil de carga esperado e melhora a desagregação NILM</td></tr>
+  <tr><td>Plano contratado</td><td><code>dim_usuario.plano</code></td><td>Controle de acesso às funcionalidades do plano Pro</td></tr>
+  <tr><td>Senha</td><td>Supabase Auth (fora das tabelas da aplicação)</td><td>Autenticação; armazenada com hash pelo provedor de identidade</td></tr>
+  <tr><td>Identificador, apelido, versão de firmware, intensidade de sinal e chave de ingestão do dispositivo</td><td><code>dim_dispositivo</code></td><td>Vínculo do equipamento ao titular, suporte técnico e autenticação da telemetria</td></tr>
+  <tr><td>Leituras de potência agregadas a cada 15 minutos</td><td><code>fato_leitura_agregada</code></td><td>Matéria-prima do serviço: sem a série temporal não há desagregação nem custo por aparelho</td></tr>
+  <tr><td>Eventos de aparelho identificados pelo NILM (aparelho, instante, duração, confiança)</td><td><code>fato_evento_aparelho</code></td><td>Entrega central do produto: o custo em reais por aparelho</td></tr>
+</table>
+
+<div class="aviso">
+<strong>Ponto crítico de privacidade.</strong> A curva de consumo elétrico de uma residência não é um
+dado sensível na definição do art. 5º, II da LGPD, mas tem potencial inferencial alto: revela
+rotina de sono, horários de banho, presença ou ausência de pessoas em casa e número aproximado
+de moradores. O Amperê trata esses dados <strong>como se fossem sensíveis</strong>: minimização de
+granularidade (agregação em janelas de 15 minutos, nunca amostra instantânea bruta), proibição
+de compartilhamento com terceiros e vedação expressa de venda de dados de consumo, que fica
+registrada na política de privacidade.
+</div>
+
+<h3>2.2 Bases legais</h3>
+<table>
+  <tr><th>Tratamento</th><th>Base legal (art. 7º da LGPD)</th><th>Observação</th></tr>
+  <tr><td>Cadastro, autenticação e manutenção da conta</td><td>Inciso V — execução de contrato</td><td>Sem esses dados não há como prestar o serviço contratado</td></tr>
+  <tr><td>Coleta e processamento da telemetria de consumo</td><td>Inciso V — execução de contrato</td><td>É a função essencial do produto, descrita no momento da contratação</td></tr>
+  <tr><td>Alertas de consumo e comunicações operacionais</td><td>Inciso V — execução de contrato</td><td>Parte da entrega; distinto de marketing</td></tr>
+  <tr><td>Registros de acesso e medidas antifraude</td><td>Inciso IX — legítimo interesse, e art. 15 da Lei 12.965/2014 (Marco Civil) para registros de aplicação</td><td>Exige teste de balanceamento documentado e minimização dos registros</td></tr>
+  <tr><td>Comunicação de marketing e newsletter</td><td>Inciso I — consentimento</td><td>Consentimento separado, específico e revogável a qualquer momento</td></tr>
+  <tr><td>Uso de dados agregados e anonimizados para melhoria do modelo NILM</td><td>Art. 12 — dado anonimizado fora do escopo da lei; na dúvida, inciso I</td><td>A anonimização precisa ser irreversível por meios razoáveis; curva de consumo é reidentificável, então o padrão adotado é pedir consentimento</td></tr>
+</table>
+
+<h3>2.3 Encarregado (DPO)</h3>
+<p>Sim, haverá nomeação. Em uma startup de três pessoas não se justifica um encarregado
+dedicado, e a LGPD não exige que seja pessoa externa ou em tempo integral.</p>
+<ul>
+  <li><strong>Encarregado designado:</strong> Guilherme Costa Proença, responsável técnico pela
+      arquitetura e pelo banco de dados, com acesso para executar requisições de titulares
+      (acesso, correção, portabilidade e eliminação).</li>
+  <li><strong>Canal público:</strong> endereço <code>privacidade@ampere.app</code>, divulgado na
+      política de privacidade e no rodapé da landing page, conforme art. 41, §1º.</li>
+  <li><strong>Atribuições:</strong> receber comunicações de titulares e da ANPD, orientar a equipe
+      sobre práticas de proteção de dados e manter o registro das operações de tratamento.</li>
+  <li><strong>Conflito de interesse:</strong> por acumular a função técnica, o encarregado não
+      decide sozinho sobre incidentes — a comunicação de incidente exige aprovação dos três
+      sócios, o que fica registrado na política interna.</li>
+</ul>
+
+<h3>2.4 Controles técnicos</h3>
+<table>
+  <tr><th>Controle</th><th>Situação</th></tr>
+  <tr><td>Autenticação por token do provedor de identidade (Supabase Auth), validado a cada requisição</td><td>Implementado</td></tr>
+  <tr><td><em>Row Level Security</em> habilitado em todas as 8 tabelas, com política por <code>auth.uid()</code></td><td>Implementado</td></tr>
+  <tr><td>Autenticação própria do dispositivo por chave dedicada, separada da sessão do usuário</td><td>Implementado</td></tr>
+  <tr><td>Validação de esquema em toda entrada da API (Zod), com limite de 500 leituras por lote e teto de potência</td><td>Implementado</td></tr>
+  <tr><td>CORS restrito às origens autorizadas</td><td>Implementado</td></tr>
+  <tr><td>Segredos fora do repositório, em variáveis de ambiente do provedor; <code>.gitignore</code> cobrindo <code>.env</code></td><td>Implementado</td></tr>
+  <tr><td>Tráfego cifrado em trânsito (TLS) e em repouso pelo provedor gerenciado</td><td>Implementado</td></tr>
+  <tr><td>Minimização: telemetria agregada em 15 minutos; nenhum dado de localização, documento ou pagamento é coletado</td><td>Implementado</td></tr>
+  <tr><td>Limitação de taxa nas rotas de autenticação e ingestão</td><td>Pendente — ver R2</td></tr>
+  <tr><td>Hash da chave de ingestão e política de rotação</td><td>Pendente — ver R3</td></tr>
+  <tr><td>Trilha de auditoria de acessos e exclusões</td><td>Pendente — ver R6</td></tr>
+  <tr><td>Política de retenção: telemetria detalhada por 24 meses, depois agregação mensal; exclusão total em até 30 dias após pedido do titular</td><td>Definida, implementação pendente</td></tr>
+</table>
+
+<h3>2.5 Controles organizacionais</h3>
+<ul>
+  <li>Política de privacidade e termos de uso publicados antes da abertura do cadastro ao público.</li>
+  <li>Registro das operações de tratamento (art. 37), mantido como documento versionado no repositório.</li>
+  <li>Relatório de impacto à proteção de dados pessoais (RIPD) para a telemetria, dado o potencial inferencial descrito em 2.1.</li>
+  <li>Acesso ao banco de produção restrito ao encarregado; os demais integrantes trabalham com ambiente de desenvolvimento e dados sintéticos.</li>
+  <li>Revisão de código obrigatória para alterações que toquem autenticação, RLS ou rotas de dados pessoais.</li>
+  <li>Procedimento escrito de resposta a incidentes, com papéis definidos e prazos da seção 2.7.</li>
+</ul>
+
+<h3>2.6 Operadores e transferência internacional</h3>
+<p>O Amperê é controlador. Dois operadores participam do tratamento, ambos com
+infraestrutura fora do Brasil, o que caracteriza transferência internacional (art. 33):</p>
+<table>
+  <tr><th>Operador</th><th>Papel</th><th>Local</th><th>Instrumento</th></tr>
+  <tr><td>Supabase</td><td>Banco de dados e identidade</td><td>Estados Unidos (us-west-2)</td><td>Cláusulas contratuais do fornecedor e adendo de proteção de dados</td></tr>
+  <tr><td>Vercel</td><td>Hospedagem do front e da API</td><td>Estados Unidos</td><td>Cláusulas contratuais do fornecedor e adendo de proteção de dados</td></tr>
+</table>
+<p>Como os Estados Unidos não constam da lista de países com grau de proteção adequado
+reconhecido pela ANPD, a base da transferência são as cláusulas-padrão contratuais, e o
+fato precisa estar declarado na política de privacidade. Avaliação prevista: migrar a
+região do banco para São Paulo, o que elimina a transferência e reduz latência.</p>
+
+<h3>2.7 Comunicação com titulares e incidentes</h3>
+<h4>Exercício de direitos</h4>
+<ul>
+  <li>Canal único em <code>privacidade@ampere.app</code>, além de exclusão de conta pela própria tela de configurações.</li>
+  <li>Confirmação de recebimento imediata e resposta conclusiva em até 15 dias (art. 19, II).</li>
+  <li>Portabilidade atendida por exportação da telemetria e dos eventos em CSV e JSON.</li>
+  <li>A exclusão apaga o usuário na identidade e, por cascata de chave estrangeira, dispositivos, aparelhos e fatos vinculados.</li>
+</ul>
+<h4>Incidentes de segurança</h4>
+<p>O procedimento segue a Resolução CD/ANPD nº 15/2024: comunicação à ANPD e aos titulares
+afetados em até <strong>três dias úteis</strong> contados do conhecimento do incidente, quando
+houver risco ou dano relevante aos titulares.</p>
+<ol class="junto">
+  <li><strong>Detecção e contenção</strong> — revogação de chaves e sessões, bloqueio do vetor.</li>
+  <li><strong>Avaliação de risco relevante</strong> — categorias e volume de dados atingidos, número de titulares, se os dados estavam cifrados e medidas já aplicadas.</li>
+  <li><strong>Comunicação</strong> — formulário da ANPD e aviso direto por e-mail aos titulares, em linguagem simples, descrevendo o que ocorreu, quais dados foram atingidos, os riscos e as medidas tomadas.</li>
+  <li><strong>Registro e correção</strong> — todo incidente é registrado, inclusive os que não exigem comunicação, com a correção que o originou.</li>
+</ol>
+</section>
+
+<section class="quebra">
+<h2>Parte 3 — Governança de TI (ISO/IEC 38500)</h2>
+
+<h3>3.1 Os seis princípios aplicados à startup</h3>
+<table>
+  <tr><th>Princípio</th><th>Realidade da startup</th><th>Encaminhamento</th></tr>
+  <tr><td><strong>Responsabilidade</strong></td><td>Três sócios acumulam papéis: não há separação formal entre quem decide, quem constrói e quem opera</td><td>Matriz de responsabilidade escrita: arquitetura e banco com Guilherme; produto e negócio com Eduarda; comunicação e conteúdo com Hugo. Decisões de risco são colegiadas</td></tr>
+  <tr><td><strong>Estratégia</strong></td><td>As escolhas técnicas já seguem a estratégia: NILM isolado atrás de interface porque o roadmap prevê trocar a heurística por modelo treinado</td><td>Revisão trimestral do roadmap técnico contra o roadmap de negócio, com decisões registradas</td></tr>
+  <tr><td><strong>Aquisição</strong></td><td>Toda a infraestrutura usa camada gratuita de provedores gerenciados, escolha feita por custo e velocidade, sem análise formal</td><td>Critério escrito de escolha de fornecedor: custo, portabilidade dos dados, conformidade com a LGPD e risco de dependência. O fato de o banco ter sido pausado automaticamente por inatividade mostra o risco concreto do plano gratuito em produção</td></tr>
+  <tr><td><strong>Desempenho</strong></td><td>Há medição da qualidade do NILM (recall e precisão), mas não há monitoramento de disponibilidade nem de latência</td><td>Definir indicadores mínimos: disponibilidade da API, latência da ingestão, taxa de erro e atraso de telemetria por dispositivo</td></tr>
+  <tr><td><strong>Conformidade</strong></td><td>LGPD é a exigência imediata; o produto também toca normas de instalação elétrica no hardware</td><td>Plano da Parte 2 como base, mais verificação de conformidade elétrica antes da venda do kit</td></tr>
+  <tr><td><strong>Comportamento humano</strong></td><td>O produto observa rotina doméstica; o teste de usabilidade mostrou que o usuário procura primeiro o maior gasto</td><td>Decisões de produto passam por duas perguntas: o usuário entende o que está sendo coletado, e a informação leva a uma ação útil em vez de culpa</td></tr>
+</table>
+
+<h3>3.2 Boas práticas de governança</h3>
+<ul>
+  <li><strong>Infraestrutura como código versionado.</strong> O schema do banco já vive em migrations no repositório; nenhuma alteração é feita direto no painel do provedor.</li>
+  <li><strong>Separação de ambientes.</strong> Desenvolvimento com dados sintéticos e produção com dados reais, com credenciais distintas.</li>
+  <li><strong>Revisão por pares</strong> obrigatória em alterações de autenticação, RLS e rotas de dados pessoais.</li>
+  <li><strong>Registro de decisões de arquitetura</strong> em documento curto por decisão, com alternativa descartada e motivo.</li>
+  <li><strong>Gestão de acessos</strong> com princípio do menor privilégio e revisão semestral de quem tem acesso a quê.</li>
+  <li><strong>Plano de continuidade</strong>: backup verificado do banco e procedimento testado de restauração.</li>
+</ul>
+
+<h3>3.3 Ciclo Avaliar–Dirigir–Monitorar</h3>
+<table>
+  <tr><th>Etapa</th><th>Aplicação concreta no Amperê</th><th>Cadência</th></tr>
+  <tr><td><strong>Avaliar</strong></td><td>Analisar o uso atual e previsto de TI: custo da infraestrutura por usuário ativo, riscos da Parte 4, acurácia do NILM e dependência de fornecedores</td><td>Mensal</td></tr>
+  <tr><td><strong>Dirigir</strong></td><td>Decidir e comunicar: priorizar na sprint os controles pendentes (limitação de taxa, trilha de auditoria, hash da chave de ingestão), definir política de retenção e aprovar a migração de região do banco</td><td>A cada sprint</td></tr>
+  <tr><td><strong>Monitorar</strong></td><td>Acompanhar o cumprimento: painel de indicadores de disponibilidade e latência, relatório de advisors de segurança do provedor, resultado de <code>npm audit</code> e registro de pedidos de titulares atendidos no prazo</td><td>Contínuo, com revisão mensal</td></tr>
+</table>
+<div class="nota">
+O ciclo não é um anexo burocrático: o incidente de o banco ter sido pausado por inatividade
+seria detectado na etapa de monitoramento, por verificação automática do endpoint de saúde, e
+tratado na etapa de direção com a decisão sobre plano pago ou verificação periódica.
+</div>
+</section>
+
+<section class="quebra">
+<h2>Parte 4 — Segurança e auditoria da solução</h2>
+
+<h3>4.1 Superfície de ataque</h3>
+<pre>Internet
+  |
+  +-- Front React (Vercel)              estático, sem segredo embarcado
+  |
+  +-- API Express (função serverless)   /auth  /ingest  /dashboard  /devices
+  |      |                              /alerts  /reports  /settings  /health
+  |      +-- autenticação de usuário    Bearer token (Supabase Auth)
+  |      +-- autenticação de aparelho   header X-Device-Key
+  |      +-- validação de entrada       Zod em todas as rotas
+  |
+  +-- PostgreSQL (Supabase)             RLS habilitado; backend acessa com
+                                        service_role, que contorna RLS</pre>
+<p>A análise abaixo foi feita por leitura do código publicado no repositório, e não por
+suposição: cada risco aponta o arquivo onde a condição existe.</p>
+
+<h3>4.2 Riscos identificados e relação com o OWASP Top 10</h3>
+<table>
+  <tr><th>#</th><th>Risco</th><th>Evidência</th><th>OWASP</th><th>Sev.</th></tr>
+  <tr>
+    <td>R1</td>
+    <td>O backend acessa o banco com a chave <code>service_role</code>, que contorna o RLS por definição. O escopo por usuário depende de cada query lembrar de filtrar por <code>usuario_id</code>. Um filtro esquecido expõe dados de todos os usuários, e o RLS não serve de rede de proteção</td>
+    <td><code>server/src/lib/supabase.ts</code></td>
+    <td>A01 — Quebra de controle de acesso</td>
+    <td class="sev alta">Alta</td>
+  </tr>
+  <tr>
+    <td>R2</td>
+    <td>Nenhuma limitação de taxa em <code>/auth/login</code>, <code>/auth/signup</code> ou <code>/ingest/readings</code>. Permite força bruta de senha, enumeração de contas e inundação da ingestão, que também gera custo no provedor</td>
+    <td><code>server/src/app.ts</code> — sem middleware de <em>rate limit</em></td>
+    <td>A07 — Falhas de identificação e autenticação; A04 — Design inseguro</td>
+    <td class="sev alta">Alta</td>
+  </tr>
+  <tr>
+    <td>R3</td>
+    <td>Chave de ingestão armazenada em texto puro na coluna <code>chave_ingestao</code>, sem rotação, sem expiração e sem revogação. Quem obtiver leitura dessa tabela ou acesso ao firmware injeta telemetria falsa indefinidamente</td>
+    <td><code>migrations/20260828120000</code>, <code>middleware/auth.ts</code></td>
+    <td>A02 — Falhas criptográficas</td>
+    <td class="sev alta">Alta</td>
+  </tr>
+  <tr>
+    <td>R4</td>
+    <td>Cadastro cria a conta com <code>email_confirm: true</code>, sem verificação do endereço. Permite criar conta com e-mail de terceiro e recebe alertas de consumo de outra pessoa</td>
+    <td><code>server/src/routes/auth.routes.ts</code></td>
+    <td>A07 — Falhas de identificação e autenticação</td>
+    <td class="sev media">Média</td>
+  </tr>
+  <tr>
+    <td>R5</td>
+    <td>Senha mínima de 6 caracteres, sem verificação contra listas de senhas vazadas e sem segundo fator</td>
+    <td><code>cadastroSchema</code> em <code>auth.routes.ts</code></td>
+    <td>A07 — Falhas de identificação e autenticação</td>
+    <td class="sev media">Média</td>
+  </tr>
+  <tr>
+    <td>R6</td>
+    <td>Não há trilha de auditoria. O registro existente é apenas <code>console.log</code> de inicialização e de seed, sem retenção. Um acesso indevido não deixa rastro e um incidente não pode ser reconstruído — o que também inviabiliza a avaliação exigida pela LGPD</td>
+    <td><code>server/src/</code> — ausência de camada de log estruturado</td>
+    <td>A09 — Falhas de registro e monitoramento</td>
+    <td class="sev alta">Alta</td>
+  </tr>
+  <tr>
+    <td>R7</td>
+    <td>Requisição sem cabeçalho <code>Origin</code> é liberada por decisão de projeto, para atender curl, ESP32 e verificação de saúde. É correto para a ingestão, mas combinado com a ausência de limitação de taxa amplia a superfície de abuso</td>
+    <td><code>server/src/app.ts</code></td>
+    <td>A05 — Configuração incorreta de segurança</td>
+    <td class="sev media">Média</td>
+  </tr>
+  <tr>
+    <td>R8</td>
+    <td>Não há varredura automatizada de dependências nem processo definido de atualização; nenhuma verificação roda antes da publicação</td>
+    <td>Ausência de integração contínua no repositório</td>
+    <td>A06 — Componentes vulneráveis e desatualizados</td>
+    <td class="sev media">Média</td>
+  </tr>
+  <tr>
+    <td>R9</td>
+    <td>A publicação ocorre automaticamente a partir do ramo principal, sem proteção de ramo, sem revisão obrigatória e sem verificação de integridade. Um commit indevido vai a produção sem barreira</td>
+    <td>Configuração do projeto na Vercel</td>
+    <td>A08 — Falhas de integridade de software e dados</td>
+    <td class="sev media">Média</td>
+  </tr>
+  <tr>
+    <td>R10</td>
+    <td>Disponibilidade: o projeto do banco está em plano gratuito e é pausado automaticamente após período de inatividade, derrubando a aplicação inteira sem aviso</td>
+    <td>Status do projeto no provedor</td>
+    <td>A04 — Design inseguro (resiliência)</td>
+    <td class="sev alta">Alta</td>
+  </tr>
+</table>
+
+<h4>Riscos avaliados e considerados baixos</h4>
+<ul>
+  <li><strong>A03 — Injeção:</strong> todo acesso ao banco passa pelo cliente oficial, que parametriza as consultas, e toda entrada é validada por esquema antes de chegar à camada de dados. Não há concatenação de SQL com dado do usuário.</li>
+  <li><strong>A10 — Falsificação de requisição no servidor (SSRF):</strong> a API não busca URLs fornecidas pelo usuário; não há vetor.</li>
+</ul>
+<div class="nota">
+<strong>Verificação independente.</strong> A análise de segurança automatizada do provedor de banco
+de dados (<em>security advisors</em> do Supabase) foi executada sobre o projeto em produção e não
+retornou nenhum apontamento. Isso confirma que o <em>Row Level Security</em> está habilitado com
+política em todas as tabelas — e delimita com precisão o risco R1: o problema não é a configuração
+do banco, que está correta, mas o fato de o backend acessá-lo com uma chave que, por definição,
+passa por cima dela.
+</div>
+
+<h3>4.3 Controles propostos</h3>
+<table>
+  <tr><th>Risco</th><th>Controle</th><th>Prioridade</th></tr>
+  <tr><td>R1</td><td>Centralizar o acesso ao banco em funções que exigem o identificador do usuário como parâmetro obrigatório, tornando impossível montar a consulta sem o filtro; adicionar teste automatizado que tenta ler dado de outro usuário e deve falhar; avaliar migração para cliente autenticado com o token do próprio usuário, deixando o RLS como barreira efetiva</td><td>Imediata</td></tr>
+  <tr><td>R2</td><td>Limitação de taxa por IP nas rotas de autenticação (por exemplo, 5 tentativas por minuto, com atraso progressivo) e por chave de dispositivo na ingestão; bloqueio temporário após repetição</td><td>Imediata</td></tr>
+  <tr><td>R3</td><td>Armazenar apenas o hash da chave de ingestão; emitir a chave uma única vez no provisionamento; permitir revogação e rotação por dispositivo na tela de configurações</td><td>Alta</td></tr>
+  <tr><td>R4</td><td>Ativar confirmação de e-mail antes de liberar o painel</td><td>Alta</td></tr>
+  <tr><td>R5</td><td>Elevar o mínimo para 10 caracteres, verificar contra lista de senhas vazadas e oferecer segundo fator</td><td>Média</td></tr>
+  <tr><td>R6</td><td>Registro estruturado de autenticação, ingestão, alteração de plano e exclusão de conta, com identificador do usuário, data e origem, retido por 6 meses e protegido contra alteração</td><td>Imediata</td></tr>
+  <tr><td>R7</td><td>Manter a liberação apenas para a rota de ingestão, exigindo a chave de dispositivo, e recusar requisição sem origem nas demais rotas</td><td>Média</td></tr>
+  <tr><td>R8</td><td>Verificação automática de dependências a cada alteração e atualização mensal programada</td><td>Média</td></tr>
+  <tr><td>R9</td><td>Proteção do ramo principal, revisão obrigatória por outro integrante e publicação a partir de versão marcada (<em>tag</em>)</td><td>Média</td></tr>
+  <tr><td>R10</td><td>Verificação automática do endpoint de saúde com alerta, e migração para plano pago antes do piloto em condomínio</td><td>Imediata</td></tr>
+</table>
+
+<h3>4.4 Como a solução pode ser auditada</h3>
+<h4>Objeto da auditoria</h4>
+<table>
+  <tr><th>Dimensão</th><th>O que se verifica</th><th>Fonte de evidência</th></tr>
+  <tr><td>Acessos de usuário</td><td>Quem entrou, quando, de onde, e se houve tentativa falha repetida</td><td>Registros do provedor de identidade e trilha de auditoria da aplicação (controle R6)</td></tr>
+  <tr><td>Acessos privilegiados</td><td>Quem tem acesso ao banco de produção e às variáveis de ambiente, e se a lista corresponde à matriz de responsabilidade</td><td>Painel dos provedores, revisado semestralmente</td></tr>
+  <tr><td>Controle de acesso a dados</td><td>Se o RLS está habilitado e com política em todas as tabelas, e se nenhuma consulta do backend omite o filtro por usuário</td><td>Migrations versionadas, relatório de advisors do provedor e teste automatizado de isolamento</td></tr>
+  <tr><td>Integridade da telemetria</td><td>Se toda leitura gravada veio de uma chave de dispositivo válida e vinculada a um usuário</td><td>Encadeamento entre <code>fato_leitura_agregada</code>, <code>dim_dispositivo</code> e <code>dim_usuario</code></td></tr>
+  <tr><td>Alterações de esquema</td><td>Se toda mudança no banco tem migration correspondente, revisada e datada</td><td>Histórico do repositório; alteração manual no painel é desvio e precisa ser justificada</td></tr>
+  <tr><td>Conformidade com a LGPD</td><td>Se pedidos de titulares foram atendidos em 15 dias e se a retenção está sendo aplicada</td><td>Registro de pedidos mantido pelo encarregado</td></tr>
+  <tr><td>Dependências e publicação</td><td>Se há vulnerabilidade conhecida em biblioteca e se o que está publicado corresponde a uma versão marcada</td><td>Relatório da verificação de dependências e histórico de publicações</td></tr>
+</table>
+<h4>Rotina</h4>
+<ul>
+  <li><strong>Contínua e automática:</strong> verificação de dependências e do endpoint de saúde a cada alteração.</li>
+  <li><strong>Mensal:</strong> leitura dos advisors de segurança do provedor e revisão da trilha de auditoria em busca de padrão anômalo.</li>
+  <li><strong>Semestral:</strong> revisão de acessos privilegiados e teste de restauração de backup.</li>
+  <li><strong>Sob demanda:</strong> auditoria completa após qualquer incidente, com relatório registrado.</li>
+</ul>
+
+<h3>4.5 Relação com a família ISO 27000</h3>
+<table>
+  <tr><th>Medida proposta</th><th>Referência</th></tr>
+  <tr><td>Política de segurança da informação e definição de papéis</td><td>ISO/IEC 27001, cláusula 5; ISO/IEC 27002 — políticas e responsabilidades</td></tr>
+  <tr><td>Processo de identificação, análise e tratamento dos riscos R1 a R10, com registro de riscos aceitos</td><td>ISO/IEC 27001, cláusula 6; ISO/IEC 27005 — gestão de riscos</td></tr>
+  <tr><td>Controle de acesso, menor privilégio e revisão periódica de acessos privilegiados</td><td>ISO/IEC 27002 — controle de acesso e gestão de acessos privilegiados</td></tr>
+  <tr><td>Autenticação segura: senha forte, confirmação de e-mail, segundo fator e rotação de chave de dispositivo</td><td>ISO/IEC 27002 — autenticação segura e gestão de informações de autenticação</td></tr>
+  <tr><td>Registro de eventos, proteção dos registros e monitoramento</td><td>ISO/IEC 27002 — registro de eventos e atividades de monitoramento</td></tr>
+  <tr><td>Verificação de dependências e correção de vulnerabilidades conhecidas</td><td>ISO/IEC 27002 — gestão de vulnerabilidades técnicas</td></tr>
+  <tr><td>Revisão de código, proteção de ramo e separação de ambientes</td><td>ISO/IEC 27002 — desenvolvimento seguro e separação de ambientes</td></tr>
+  <tr><td>Gestão de incidentes, com avaliação, comunicação e aprendizado</td><td>ISO/IEC 27002 — gestão de incidentes de segurança da informação</td></tr>
+  <tr><td>Avaliação de segurança no uso de serviços em nuvem e cláusulas com os operadores</td><td>ISO/IEC 27002 — segurança no uso de serviços em nuvem; ISO/IEC 27017</td></tr>
+  <tr><td>Proteção de dados pessoais tratados em nuvem e gestão de privacidade</td><td>ISO/IEC 27018; ISO/IEC 27701</td></tr>
+  <tr><td>Cópias de segurança e teste de restauração</td><td>ISO/IEC 27002 — cópias de segurança</td></tr>
+</table>
+</section>
+
+<section class="quebra">
+<h2>Parte 5 — Divulgação e aquisição de usuários</h2>
+
+<h3>5.1 Palavras-chave</h3>
+<p>A seleção parte da linguagem do próprio público: na pesquisa de campo do grupo, com 18
+respondentes, 78% não sabem quais aparelhos mais consomem, 89% não conseguem quantificar
+esse consumo e 83% já se surpreenderam com a conta. Quem tem esse problema não busca por
+"NILM" — busca pela dor.</p>
+<table>
+  <tr><th>Grupo</th><th>Termos</th><th>Intenção</th></tr>
+  <tr><td>Dor imediata</td><td>conta de luz alta; por que minha conta de luz aumentou; como economizar energia em casa</td><td>Informação — topo de funil, alto volume</td></tr>
+  <tr><td>Consumo por aparelho</td><td>quanto gasta um chuveiro elétrico; quanto consome ar-condicionado por hora; qual aparelho gasta mais energia</td><td>Informação com intenção específica — é exatamente o que o produto responde</td></tr>
+  <tr><td>Solução</td><td>medidor de consumo de energia residencial; monitor de energia wi-fi; como saber o gasto de cada aparelho</td><td>Comparação — meio de funil</td></tr>
+  <tr><td>Produto</td><td>Amperê monitor de energia; sensor de energia para quadro elétrico; preço monitor de consumo</td><td>Transação — fundo de funil</td></tr>
+  <tr><td>Técnico e B2B</td><td>NILM monitoramento não intrusivo de carga; gestão de energia em condomínio; medição individualizada condomínio</td><td>Nicho de baixo volume e alta qualificação</td></tr>
+</table>
+
+<h3>5.2 Ações de SEO</h3>
+<h4>Dentro da página</h4>
+<ul>
+  <li>Título e descrição da landing escritos para a dor, não para a tecnologia: "Descubra quanto cada aparelho pesa na sua conta de luz".</li>
+  <li>Um H1 único por página e uma hierarquia de títulos que espelhe as perguntas do usuário.</li>
+  <li>Página dedicada por aparelho de alto consumo (chuveiro, ar-condicionado, geladeira), cada uma respondendo à pergunta de busca com cálculo real e tarifa vigente.</li>
+  <li>Dados estruturados <code>schema.org</code>: <em>Product</em> para o kit, <em>FAQPage</em> para as dúvidas e <em>Organization</em> para a marca.</li>
+  <li>Texto alternativo descritivo nas imagens do produto e do quadro elétrico.</li>
+</ul>
+<h4>Técnico</h4>
+<ul>
+  <li><code>sitemap.xml</code> e <code>robots.txt</code>, hoje inexistentes no projeto.</li>
+  <li>Desempenho: o front já é estático e servido por CDN; manter o maior elemento visível carregando rápido, servindo as imagens do produto em formato moderno e em tamanhos adequados, como já é feito com as mídias em <code>public/midia/</code>.</li>
+  <li>URLs legíveis e estáveis, idioma declarado e página de erro útil.</li>
+  <li>HTTPS e domínio próprio: trocar o endereço provisório do provedor por um domínio da marca antes de investir em conteúdo.</li>
+</ul>
+<h4>Fora da página</h4>
+<ul>
+  <li>Conteúdo técnico sobre NILM publicado em comunidades de desenvolvimento, com link para a landing.</li>
+  <li>Parcerias com portais de eficiência energética e de administração de condomínios.</li>
+  <li>Perfil da empresa no Google, relevante para a busca local quando houver instalação assistida.</li>
+</ul>
+
+<h3>5.3 Canais de divulgação</h3>
+<table>
+  <tr><th>Canal</th><th>Papel</th><th>Formato</th></tr>
+  <tr><td>Instagram e TikTok</td><td>Alcance e descoberta</td><td>Vídeo curto do tipo "quanto custa seu banho": medição real de um chuveiro, com o valor em reais na tela</td></tr>
+  <tr><td>YouTube</td><td>Consideração</td><td>Instalação do sensor em dois minutos, e explicação do NILM em linguagem simples</td></tr>
+  <tr><td>Busca orgânica</td><td>Aquisição contínua</td><td>Páginas por aparelho e calculadoras, conforme 5.2</td></tr>
+  <tr><td>Síndicos e administradoras</td><td>Canal B2B, o de maior valor por contato</td><td>Apresentação em assembleia, piloto em um condomínio e indicação a partir dele</td></tr>
+  <tr><td>Grupos de moradores em aplicativos de mensagem</td><td>Indicação entre vizinhos</td><td>Programa de indicação com desconto para quem indica e para quem é indicado</td></tr>
+  <tr><td>Comunidades de automação residencial</td><td>Primeiros usuários técnicos, que geram prova e correção de defeitos</td><td>Participação honesta, sem anúncio disfarçado</td></tr>
+  <tr><td>Mídia paga</td><td>Validação de mensagem, com orçamento pequeno</td><td>Campanha de busca sobre os termos de fundo de funil</td></tr>
+</table>
+
+<h3>5.4 Estratégia de Inbound Marketing</h3>
+<p>A isca precisa entregar, de graça, uma versão pequena do que o produto entrega: a resposta
+para "quanto isso me custa".</p>
+<ol>
+  <li><strong>Atrair.</strong> Calculadora gratuita na landing: o visitante escolhe o aparelho,
+      informa o tempo de uso e a tarifa, e recebe o custo mensal. Responde à busca e demonstra
+      a proposta de valor sem exigir cadastro.</li>
+  <li><strong>Converter.</strong> Para receber o resultado detalhado por e-mail, o visitante deixa
+      o endereço, com consentimento específico para comunicação de marketing, conforme a Parte 2.</li>
+  <li><strong>Relacionar.</strong> Sequência de quatro e-mails: os cinco aparelhos que mais pesam
+      na conta; como a bandeira tarifária muda o valor; o que é NILM em linguagem simples; e o
+      convite para o plano gratuito.</li>
+  <li><strong>Encantar.</strong> Relatório mensal do próprio consumo, que é o produto, mais um
+      programa de indicação. O usuário satisfeito é o canal mais barato em um produto que
+      depende de confiança para entrar na casa de alguém.</li>
+</ol>
+<div class="aviso">
+<strong>Coerência com a Parte 2.</strong> Nenhuma ação de marketing usa dado de consumo de usuário
+real. A calculadora trata dados informados avulsos, e o disparo de e-mails depende de
+consentimento específico e revogável, separado do aceite dos termos de uso.
+</div>
+
+<h3>5.5 Acompanhamento de resultados</h3>
+<table>
+  <tr><th>Etapa</th><th>Indicador</th><th>Ferramenta</th><th>Meta inicial</th></tr>
+  <tr><td>Atração</td><td>Sessões orgânicas e posição média nos termos-alvo</td><td>Google Search Console e analítica da web</td><td>Primeira página em três termos de cauda longa em 90 dias</td></tr>
+  <tr><td>Engajamento</td><td>Uso da calculadora por sessão</td><td>Evento próprio na analítica</td><td>25% dos visitantes da landing</td></tr>
+  <tr><td>Conversão</td><td>Visitante que vira cadastro</td><td>Analítica e banco da aplicação</td><td>3% a 5%</td></tr>
+  <tr><td>Ativação</td><td>Cadastro que conecta um dispositivo e recebe telemetria</td><td><code>dim_dispositivo.ultimo_contato</code></td><td>60% dos cadastros</td></tr>
+  <tr><td>Retenção</td><td>Usuário ativo no sétimo e no trigésimo dia</td><td>Banco da aplicação</td><td>40% no trigésimo dia</td></tr>
+  <tr><td>Receita</td><td>Conversão do plano gratuito para o Pro, e custo de aquisição por canal</td><td>Banco e planilha de campanha</td><td>Custo de aquisição abaixo da margem de contribuição projetada no CP5</td></tr>
+  <tr><td>Reputação</td><td>Menções e avaliações</td><td>Alertas de busca e redes</td><td>Acompanhamento qualitativo semanal</td></tr>
+</table>
+<p>A medição usa os próprios dados da aplicação sempre que possível, o que evita ferramenta
+adicional tratando dado pessoal — decisão alinhada ao princípio de minimização da Parte 2.</p>
+</section>
+
+<section class="quebra">
+<h2>Encerramento</h2>
+<p>Esta fase deslocou o projeto de "o sistema funciona" para "o sistema é confiável e pode ser
+auditado". O levantamento da Parte 4 foi feito sobre o código publicado, e por isso apontou
+riscos reais e ainda abertos, e não uma lista genérica: a chave de serviço que contorna o
+controle de acesso por linha, a ausência de limitação de taxa, a chave de dispositivo em texto
+puro e a falta de trilha de auditoria. Todos estão priorizados no roadmap da seção 1.3.</p>
+<p>A escolha de registrar o que ainda não está pronto é deliberada. Um plano de segurança que
+só descreve o que já funciona não serve para nada — nem para investidor, nem para o usuário
+que vai deixar um sensor lendo a rotina da própria casa.</p>
+<table class="meta">
+  <tr><td class="rot">Repositório</td><td>https://github.com/GuilhermeCostaProenca/ampere-dashboard</td></tr>
+  <tr><td class="rot">Aplicação</td><td>https://ampere-dashboard-six.vercel.app</td></tr>
+  <tr><td class="rot">Vídeo-pitch (não listado)</td><td>https://youtu.be/L-FT-pk3LX8</td></tr>
+</table>
+</section>
+
+</body>
+</html>

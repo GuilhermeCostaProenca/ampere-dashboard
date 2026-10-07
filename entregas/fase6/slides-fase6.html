@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Amperê — Fase 6</title>
+<style>
+  :root { --fundo:#0c1210; --cartao:#131c19; --linha:#24322d; --tinta:#eef3f0;
+          --suave:#9fb0a8; --verde:#2fd27a; --ambar:#f2a83b; --vermelho:#ff6b5e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--fundo); color:var(--tinta);
+         font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .slide { width:100%; height:790px; padding:70px 72px; position:relative;
+           page-break-after:always; overflow:hidden; background:var(--fundo); }
+  .slide:last-child { page-break-after:auto; }
+  .faixa { position:absolute; left:0; top:0; width:12px; height:790px; background:var(--ambar); }
+  .kicker { color:var(--ambar); font-size:14px; letter-spacing:4px; text-transform:uppercase; margin:0 0 14px; }
+  h1 { font-size:76px; margin:0 0 10px; letter-spacing:-1px; }
+  h2 { font-size:40px; margin:0 0 22px; letter-spacing:-.5px; }
+  h3 { font-size:21px; margin:0 0 6px; }
+  p, li { font-size:18px; line-height:1.5; color:var(--tinta); }
+  .suave { color:var(--suave); }
+  ul { margin:0 0 10px; padding-left:20px; }
+  li { margin-bottom:7px; }
+  table { width:100%; border-collapse:collapse; font-size:16px; }
+  th { text-align:left; font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+       color:var(--suave); font-weight:600; padding:0 10px 8px 0; border-bottom:1px solid var(--linha); }
+  td { padding:9px 10px 9px 0; border-bottom:1px solid var(--linha); vertical-align:top; color:var(--tinta); }
+  .cols { width:100%; }
+  .cols td { border:none; padding:0 14px 0 0; vertical-align:top; width:33%; }
+  .cartao { background:var(--cartao); border:1px solid var(--linha); border-radius:14px; padding:22px; }
+  .cartao .rot { color:var(--ambar); font-size:13px; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+  .rodape { position:absolute; left:64px; bottom:26px; font-size:13px; color:var(--suave); }
+  .alta { color:var(--vermelho); font-weight:700; }
+  .media { color:var(--ambar); font-weight:700; }
+  .ok { color:var(--verde); font-weight:700; }
+  .destaque { color:var(--ambar); font-size:24px; font-weight:700; }
+  code { font-family:Consolas,"Courier New",monospace; font-size:15px; color:var(--verde); }
+</style>
+</head>
+<body>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">FIAP · Startup One · Fase 6</p>
+  <h1>Amperê</h1>
+  <p style="font-size:26px; max-width:760px">Governança, segurança da informação e aquisição de usuários sobre um MVP que já está no ar.</p>
+  <table class="cols" style="margin-top:38px">
+    <tr>
+      <td><div class="cartao"><div class="rot">Equipe</div>
+        <p style="margin:0">Guilherme Costa Proença · RM 98937<br>Eduarda Q. Shiratsu · RM 551188<br>Hugo Antônio de Oliveira · RM 550153</p></div></td>
+      <td><div class="cartao"><div class="rot">Aplicação</div>
+        <p style="margin:0">ampere-dashboard-six.vercel.app<br><span class="suave">github.com/GuilhermeCostaProenca/<br>ampere-dashboard</span></p></div></td>
+      <td><div class="cartao"><div class="rot">Vídeo-pitch</div>
+        <p style="margin:0">https://youtu.be/L-FT-pk3LX8</p></div></td>
+    </tr>
+  </table>
+  <div class="rodape">Grupo SenseForge · 4SIOA · outubro de 2026</div>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 1 · Revisão do MVP</p>
+  <h2>O que mudou desde a fase anterior</h2>
+  <table class="cols">
+    <tr>
+      <td><div class="cartao" style="height:330px">
+        <div class="rot">Publicado</div>
+        <h3>Saiu do localhost</h3>
+        <p class="suave" style="font-size:17px">Front e API na mesma origem, como função serverless. Banco PostgreSQL gerenciado, com 8 migrations aplicadas.</p></div></td>
+      <td><div class="cartao" style="height:330px">
+        <div class="rot">Corrigido</div>
+        <h3>Três defeitos reais</h3>
+        <p class="suave" style="font-size:17px">Roteamento de produção que matava rotas aninhadas; CORS que recusava o próprio front; e um README descrevendo arquitetura que nunca existiu.</p></div></td>
+      <td><div class="cartao" style="height:330px">
+        <div class="rot">Novo</div>
+        <h3>Landing pública</h3>
+        <p class="suave" style="font-size:17px">Página de entrada com o problema, o NILM, o produto e os planos — base da estratégia de aquisição da Parte 5.</p></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:26px" class="destaque">O simulador publica no mesmo endpoint do firmware: quando o hardware entrar, nada muda do backend para frente.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 2 · LGPD</p>
+  <h2>Plano de adequação</h2>
+  <table>
+    <tr><th>Pergunta</th><th>Resposta</th></tr>
+    <tr><td>Que dados?</td><td>Nome, e-mail, tipo de imóvel, plano · dados do dispositivo · <strong>curva de consumo a cada 15 min</strong></td></tr>
+    <tr><td>Base legal</td><td>Execução de contrato (conta e telemetria) · Legítimo interesse (segurança) · Consentimento (marketing)</td></tr>
+    <tr><td>Encarregado</td><td>Guilherme Costa Proença · canal <code>privacidade@ampere.app</code> · decisão de incidente é colegiada</td></tr>
+    <tr><td>Controles</td><td>RLS em 8 tabelas · token por requisição · chave própria do dispositivo · validação de esquema · minimização</td></tr>
+    <tr><td>Incidente</td><td>ANPD e titulares em <strong>3 dias úteis</strong> (Resolução CD/ANPD nº 15/2024) · direitos do titular em 15 dias</td></tr>
+  </table>
+  <p style="margin-top:22px" class="destaque">Consumo elétrico não é dado sensível na lei — mas revela rotina de sono, banho e presença em casa. Tratamos como se fosse.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 3 · Governança de TI</p>
+  <h2>ISO/IEC 38500 em uma startup de três pessoas</h2>
+  <table>
+    <tr><th>Princípio</th><th>Encaminhamento</th></tr>
+    <tr><td>Responsabilidade</td><td>Matriz escrita de quem decide o quê; risco é decisão colegiada</td></tr>
+    <tr><td>Estratégia</td><td>NILM isolado atrás de interface porque o roadmap prevê trocar a heurística por modelo treinado</td></tr>
+    <tr><td>Aquisição</td><td>Critério escrito de fornecedor: custo, portabilidade, LGPD e dependência</td></tr>
+    <tr><td>Desempenho</td><td>Medimos a qualidade do NILM; falta medir disponibilidade e latência</td></tr>
+    <tr><td>Conformidade</td><td>LGPD agora; norma elétrica antes de vender o kit</td></tr>
+    <tr><td>Comportamento humano</td><td>A informação precisa levar a uma ação útil, não a culpa</td></tr>
+  </table>
+  <p style="margin-top:20px"><span class="destaque">Avaliar</span> <span class="suave">custo, risco e acurácia, mensal</span> &nbsp;·&nbsp;
+     <span class="destaque">Dirigir</span> <span class="suave">controles priorizados na sprint</span> &nbsp;·&nbsp;
+     <span class="destaque">Monitorar</span> <span class="suave">saúde, advisors e prazos de titular</span></p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 4 · Segurança</p>
+  <h2>Riscos reais, lidos no nosso próprio código</h2>
+  <table>
+    <tr><th>#</th><th>Risco</th><th>OWASP</th><th>Sev.</th></tr>
+    <tr><td>R1</td><td>Backend usa chave de serviço que contorna o RLS — o escopo depende de cada query lembrar do filtro</td><td>A01</td><td class="alta">Alta</td></tr>
+    <tr><td>R2</td><td>Sem limitação de taxa em login, cadastro e ingestão</td><td>A07 · A04</td><td class="alta">Alta</td></tr>
+    <tr><td>R3</td><td>Chave do dispositivo em texto puro, sem rotação nem revogação</td><td>A02</td><td class="alta">Alta</td></tr>
+    <tr><td>R6</td><td>Sem trilha de auditoria: incidente não pode ser reconstruído</td><td>A09</td><td class="alta">Alta</td></tr>
+    <tr><td>R10</td><td>Banco em plano gratuito é pausado por inatividade e derruba tudo</td><td>A04</td><td class="alta">Alta</td></tr>
+    <tr><td>—</td><td>Injeção e SSRF avaliados: consulta parametrizada e validação de esquema, sem vetor</td><td>A03 · A10</td><td class="ok">Baixa</td></tr>
+  </table>
+  <p style="margin-top:20px" class="destaque">Dez riscos mapeados, cada um apontando o arquivo onde a condição existe.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 4 · Controles e auditoria</p>
+  <h2>O que fazer e como conferir depois</h2>
+  <table class="cols">
+    <tr>
+      <td><div class="cartao" style="height:300px">
+        <div class="rot">Controles imediatos</div>
+        <ul style="font-size:16px; padding-left:18px">
+          <li>Acesso ao banco só por função que exige o id do usuário</li>
+          <li>Teste automatizado que tenta ler dado alheio e deve falhar</li>
+          <li>Limitação de taxa por IP e por chave</li>
+          <li>Registro estruturado de autenticação, ingestão e exclusão</li>
+        </ul></div></td>
+      <td><div class="cartao" style="height:300px">
+        <div class="rot">Auditoria</div>
+        <ul style="font-size:16px; padding-left:18px">
+          <li>Acessos de usuário e privilegiados</li>
+          <li>RLS e consultas sem filtro</li>
+          <li>Toda mudança de schema com migration versionada</li>
+          <li>Pedidos de titular atendidos no prazo</li>
+        </ul></div></td>
+      <td><div class="cartao" style="height:300px">
+        <div class="rot">ISO 27000</div>
+        <ul style="font-size:16px; padding-left:18px">
+          <li>27001 e 27002 — política, acesso, log, vulnerabilidade</li>
+          <li>27005 — gestão de risco</li>
+          <li>27017 e 27018 — nuvem e dados pessoais em nuvem</li>
+          <li>27701 — privacidade</li>
+        </ul></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:24px" class="destaque">Contínuo: dependências e saúde · Mensal: advisors e trilha · Semestral: acessos e restauração de backup</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 5 · Divulgação</p>
+  <h2>Quem tem o problema não busca por “NILM”</h2>
+  <table>
+    <tr><th>Etapa</th><th>Ação</th><th>Indicador</th></tr>
+    <tr><td>Atrair</td><td>Páginas por aparelho: “quanto gasta um chuveiro elétrico”, “quanto consome ar-condicionado por hora”</td><td>Sessões orgânicas e posição média</td></tr>
+    <tr><td>Converter</td><td>Calculadora gratuita de custo por aparelho; e-mail só com consentimento específico</td><td>3% a 5% de visitante para cadastro</td></tr>
+    <tr><td>Relacionar</td><td>Sequência de 4 e-mails, do maior vilão da conta ao convite para o plano gratuito</td><td>Abertura e clique</td></tr>
+    <tr><td>Ativar</td><td>Dispositivo conectado e telemetria chegando</td><td>60% dos cadastros</td></tr>
+    <tr><td>Crescer</td><td>Síndicos e administradoras: o canal B2B, de maior valor por contato</td><td>Custo de aquisição abaixo da margem</td></tr>
+  </table>
+  <p style="margin-top:22px" class="destaque">A isca entrega de graça uma versão pequena do produto: a resposta para “quanto isso me custa”.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Fechamento</p>
+  <h2>De “o sistema funciona” para “o sistema é confiável”</h2>
+  <table class="cols">
+    <tr>
+      <td><div class="cartao" style="height:250px"><div class="rot">Entregue</div>
+        <p style="font-size:17px">MVP publicado, plano de LGPD, governança pela ISO/IEC 38500 e dez riscos mapeados no próprio código.</p></div></td>
+      <td><div class="cartao" style="height:250px"><div class="rot">Próximo</div>
+        <p style="font-size:17px">Limitação de taxa, trilha de auditoria e hash da chave de ingestão — já priorizados na sprint.</p></div></td>
+      <td><div class="cartao" style="height:250px"><div class="rot">Depois</div>
+        <p style="font-size:17px">Hardware físico, modelo treinado de NILM e piloto em condomínio.</p></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:30px; font-size:20px">ampere-dashboard-six.vercel.app &nbsp;·&nbsp; github.com/GuilhermeCostaProenca/ampere-dashboard &nbsp;·&nbsp; vídeo: https://youtu.be/L-FT-pk3LX8</p>
+  <div class="rodape">Amperê · Grupo SenseForge · obrigado!</div>
+</section>
+
+</body>
+</html>
