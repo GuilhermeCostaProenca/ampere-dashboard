@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Amperê — Fase 7</title>
+<style>
+  :root { --fundo:#0c1210; --cartao:#131c19; --linha:#24322d; --tinta:#eef3f0;
+          --suave:#9fb0a8; --verde:#2fd27a; --ambar:#f2a83b; --vermelho:#ff6b5e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--fundo); color:var(--tinta);
+         font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .slide { width:100%; height:790px; padding:70px 72px; position:relative;
+           page-break-after:always; overflow:hidden; background:var(--fundo); }
+  .slide:last-child { page-break-after:auto; }
+  .faixa { position:absolute; left:0; top:0; width:12px; height:790px; background:var(--verde); }
+  .kicker { color:var(--verde); font-size:14px; letter-spacing:4px; text-transform:uppercase; margin:0 0 14px; }
+  h1 { font-size:76px; margin:0 0 10px; letter-spacing:-1px; }
+  h2 { font-size:40px; margin:0 0 22px; letter-spacing:-.5px; }
+  h3 { font-size:21px; margin:0 0 6px; }
+  p, li { font-size:18px; line-height:1.5; color:var(--tinta); }
+  .suave { color:var(--suave); }
+  ul { margin:0 0 10px; padding-left:20px; }
+  li { margin-bottom:7px; }
+  table { width:100%; border-collapse:collapse; font-size:16px; }
+  th { text-align:left; font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+       color:var(--suave); font-weight:600; padding:0 10px 8px 0; border-bottom:1px solid var(--linha); }
+  td { padding:9px 10px 9px 0; border-bottom:1px solid var(--linha); vertical-align:top; color:var(--tinta); }
+  th.num, td.num { text-align:right; white-space:nowrap; }
+  .cols { width:100%; }
+  .cols td { border:none; padding:0 14px 0 0; vertical-align:top; width:33%; }
+  .cartao { background:var(--cartao); border:1px solid var(--linha); border-radius:14px; padding:22px; }
+  .cartao .rot { color:var(--verde); font-size:13px; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+  .rodape { position:absolute; left:64px; bottom:26px; font-size:13px; color:var(--suave); }
+  .alta { color:var(--vermelho); font-weight:700; }
+  .media { color:var(--ambar); font-weight:700; }
+  .ok { color:var(--verde); font-weight:700; }
+  .destaque { color:var(--verde); font-size:24px; font-weight:700; }
+  .numerao { font-size:44px; font-weight:800; letter-spacing:-1px; line-height:1.1; }
+  code { font-family:Consolas,"Courier New",monospace; font-size:15px; color:var(--verde); }
+</style>
+</head>
+<body>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">FIAP · Startup One · Fase 7</p>
+  <h1>Amperê</h1>
+  <p style="font-size:26px; max-width:800px">Plano de lançamento: posicionamento, narrativa transmídia e mídia digital de um MVP que já está no ar.</p>
+  <table class="cols" style="margin-top:38px">
+    <tr>
+      <td><div class="cartao"><div class="rot">Equipe</div>
+        <p style="margin:0">Guilherme Costa Proença · RM 98937<br>Eduarda Q. Shiratsu · RM 551188<br>Hugo Antônio de Oliveira · RM 550153</p></div></td>
+      <td><div class="cartao"><div class="rot">Aplicação</div>
+        <p style="margin:0">ampere-dashboard-six.vercel.app<br><span class="suave">github.com/GuilhermeCostaProenca/<br>ampere-dashboard</span></p></div></td>
+      <td><div class="cartao"><div class="rot">Vídeo-pitch</div>
+        <p style="margin:0">[INSERIR LINK DO VÍDEO]</p></div></td>
+    </tr>
+  </table>
+  <div class="rodape">Grupo SenseForge · 4SIOA · novembro de 2026</div>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 1 · O produto no lançamento</p>
+  <h2>Lançamos com o sistema no ar — e com o que falta escrito</h2>
+  <table class="cols">
+    <tr>
+      <td><div class="cartao" style="height:320px">
+        <div class="rot">Pronto</div>
+        <h3>O ciclo completo</h3>
+        <p class="suave" style="font-size:17px">Front e API publicados na mesma origem, banco gerenciado com RLS em 8 tabelas e NILM com <strong>93,6% de recall</strong>. O perfil do painel bate com a âncora de campo: R$&nbsp;187,04.</p></div></td>
+      <td><div class="cartao" style="height:320px">
+        <div class="rot">Pendente</div>
+        <h3>O que limita a promessa</h3>
+        <p class="suave" style="font-size:17px">Hardware em montagem, limitação de taxa e trilha de auditoria. Por isso o Node abre em <strong>pré-venda</strong>, e a campanha paga só escala depois dos controles.</p></div></td>
+      <td><div class="cartao" style="height:320px">
+        <div class="rot">Regra</div>
+        <h3>Honestidade da campanha</h3>
+        <p class="suave" style="font-size:17px">Nenhuma peça diz que o hardware está em produção, que o NILM é machine learning ou que a economia é garantida. Vale até no briefing de influenciador.</p></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:26px" class="destaque">Toda peça criativa usa número medido pelo próprio sistema. Nenhum valor ilustrativo.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 2 · Posicionamento</p>
+  <h2>A narrativa central</h2>
+  <p style="font-size:34px; font-weight:700; line-height:1.3; margin:10px 0 28px; max-width:900px">
+    A sua conta de luz é um número sem nomes.<br><span class="destaque" style="font-size:34px">O Amperê devolve os nomes.</span></p>
+  <table>
+    <tr><th>Elemento</th><th>No Amperê</th></tr>
+    <tr><td>Herói</td><td>O morador — não o produto, não a tecnologia</td></tr>
+    <tr><td>Vilão</td><td>Não é a energia nem a distribuidora: é a <strong>opacidade</strong>. O número chega fechado, uma vez por mês</td></tr>
+    <tr><td>Virada</td><td>O número vira lista: ar-condicionado R$&nbsp;89 · chuveiro R$&nbsp;42 · geladeira R$&nbsp;23</td></tr>
+    <tr><td>Transformação</td><td>De “levei um susto com a conta” para “eu já sabia que ia dar isso”</td></tr>
+  </table>
+  <p style="margin-top:20px; font-size:17px" class="suave">Base: pesquisa de campo com 18 respondentes — 78% não sabem quais aparelhos mais consomem, 89% não conseguem quantificar, 83% já se surpreenderam com a conta.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 3 · Transmídia</p>
+  <h2>Cada meio conta um capítulo diferente</h2>
+  <table>
+    <tr><th>Capítulo</th><th>Meio</th><th>Peça</th></tr>
+    <tr><td>O susto</td><td>Reels · TikTok</td><td>“Quanto custa seu banho?” — 20 s, o valor em reais subindo enquanto o chuveiro liga</td></tr>
+    <tr><td>A revelação</td><td>Landing page</td><td>Calculadora de custo por aparelho, sem cadastro: o visitante vê o número dele</td></tr>
+    <tr><td>O método</td><td>YouTube · comunidades</td><td>“O que é NILM, sem jargão” e “Como o detector erra”</td></tr>
+    <tr><td>A prova</td><td>Instagram · influenciador</td><td>“Os 5 vilões da sua conta”, com o ranking real de um mês de R$&nbsp;187</td></tr>
+    <tr><td>A decisão</td><td>E-mail · busca</td><td>Sequência de 4 e-mails e páginas “quanto gasta um…”</td></tr>
+    <tr><td>O coletivo</td><td>LinkedIn</td><td>“O prédio inteiro no escuro” — rateio e área comum</td></tr>
+  </table>
+  <p style="margin-top:22px" class="destaque">Transmídia, não o mesmo post replicado: 6 das 9 peças usam material que já existe no repositório.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 4 · Inbound</p>
+  <h2>A isca entrega de graça uma versão pequena do produto</h2>
+  <table>
+    <tr><th>Etapa</th><th>Ação</th><th>Indicador</th></tr>
+    <tr><td>Atrair</td><td>Páginas por aparelho, vídeo curto com medição real e busca paga de fundo de funil</td><td>Sessões e posição média</td></tr>
+    <tr><td>Converter</td><td>Calculadora <strong>sem cadastro</strong>; o e-mail só é pedido depois do valor entregue</td><td>25% de uso · 24% deixam e-mail</td></tr>
+    <tr><td>Relacionar</td><td>4 e-mails: o cálculo pedido → os 5 vilões → bandeira tarifária → convite ao plano gratuito</td><td>16% do lead vira cliente</td></tr>
+    <tr><td>Fechar</td><td>O Pro é vendido <strong>dentro do produto</strong>, com o diagnóstico já na tela</td><td>&ge; 12% de Free → Pro</td></tr>
+    <tr><td>Encantar</td><td>Relatório mensal, indicação entre vizinhos e correção pública de defeito</td><td>&ge; 40% ativos no 30º dia</td></tr>
+  </table>
+  <p style="margin-top:22px" class="destaque">Marketing sem dado de usuário: a calculadora trata dado avulso e o e-mail exige consentimento revogável.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 5 · Influenciadores</p>
+  <h2>Confiança vale mais que alcance</h2>
+  <table>
+    <tr><th>Perfil (simulado)</th><th>Por que ele</th><th>Entregável</th><th class="num">Custo</th></tr>
+    <tr><td><code>@financasdacasa</code><br><span class="suave">180 mil · orçamento doméstico</span></td><td>Topo: a dor exata, conta alta no fim do mês</td><td>Reels “quanto custa seu banho” da própria casa</td><td class="num">R$ 2.000</td></tr>
+    <tr><td><code>@casa.inteligente.br</code><br><span class="suave">35 mil · automação</span></td><td>Meio: o primeiro adotante técnico, que compra hardware</td><td>Instalação e 30 dias de uso, com acertos e erros</td><td class="num">R$ 300</td></tr>
+    <tr><td><code>@sindicoprofissional</code><br><span class="suave">12 mil · LinkedIn</span></td><td>Fundo B2B: maior valor por contato</td><td>Webinar com administradoras</td><td class="num">R$ 1.200</td></tr>
+    <tr><td><code>@engenheira.eletrica</code><br><span class="suave">8 mil · segurança elétrica</span></td><td>Derruba a objeção que mais trava: “vou mexer no meu quadro?”</td><td>Vídeo técnico sobre a instalação</td><td class="num">permuta</td></tr>
+  </table>
+  <p style="margin-top:20px" class="destaque">Renova quem entregar CAC abaixo de R$ 145. O briefing pede que o erro do detector apareça no vídeo.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 6 · Mídia digital</p>
+  <h2>O orçamento não foi arbitrado — ele já existia</h2>
+  <table>
+    <tr><th>Canal</th><th>Funil</th><th class="num">Meses 1–3</th><th class="num">Meses 4–6</th><th class="num">Total</th></tr>
+    <tr><td>Meta Ads</td><td>Topo e meio</td><td class="num">4.061</td><td class="num">10.759</td><td class="num">14.820</td></tr>
+    <tr><td>Google Ads — Busca</td><td>Fundo</td><td class="num">2.436</td><td class="num">6.725</td><td class="num">9.161</td></tr>
+    <tr><td>Demand Gen / YouTube</td><td>Topo</td><td class="num">812</td><td class="num">2.690</td><td class="num">3.502</td></tr>
+    <tr><td>LinkedIn Ads</td><td>Meio e fundo, B2B</td><td class="num">—</td><td class="num">2.690</td><td class="num">2.690</td></tr>
+    <tr><td>Influenciadores</td><td>Topo e meio</td><td class="num">812</td><td class="num">2.690</td><td class="num">3.502</td></tr>
+    <tr><td>Retargeting e marketplaces</td><td>Fundo</td><td class="num">—</td><td class="num">1.344</td><td class="num">1.344</td></tr>
+    <tr><td><strong>Total</strong></td><td></td><td class="num"><strong>8.121</strong></td><td class="num"><strong>26.898</strong></td><td class="num"><strong>35.019</strong></td></tr>
+  </table>
+  <p style="margin-top:20px" class="destaque">É a linha de aquisição da projeção do CP5: CAC de R$ 145 sobre 70% da curva de 345 clientes.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 6 · Funil e retorno</p>
+  <h2>Do clique ao cliente, e o que ele devolve</h2>
+  <table>
+    <tr><th>Etapa</th><th>Métrica</th><th class="num">Volume</th><th class="num">Taxa</th><th class="num">Custo</th></tr>
+    <tr><td class="ok">Topo</td><td>Cliques / sessões</td><td class="num">25.014</td><td class="num">CTR 1,1%</td><td class="num">R$ 1,40</td></tr>
+    <tr><td class="media">Meio</td><td>Usos da calculadora</td><td class="num">6.254</td><td class="num">25%</td><td class="num">R$ 5,60</td></tr>
+    <tr><td class="media">Meio</td><td>Leads com consentimento</td><td class="num">1.501</td><td class="num">24%</td><td class="num">R$ 23,33</td></tr>
+    <tr><td class="alta">Fundo</td><td>Clientes</td><td class="num">241</td><td class="num">16%</td><td class="num">R$ 145,30</td></tr>
+  </table>
+  <table class="cols" style="margin-top:28px">
+    <tr>
+      <td><div class="cartao"><div class="rot">ROAS no período</div><div class="numerao">1,6×</div><p class="suave" style="font-size:15px;margin:4px 0 0">R$ 56.994 de receita atribuída sobre R$ 35.019</p></div></td>
+      <td><div class="cartao"><div class="rot">ROI no ciclo de vida</div><div class="numerao">257%</div><p class="suave" style="font-size:15px;margin:4px 0 0">241 clientes × R$ 518,90 de LTV</p></div></td>
+      <td><div class="cartao"><div class="rot">Caixa no mês 6</div><div class="numerao alta">−R$ 2,8 mil</div><p class="suave" style="font-size:15px;margin:4px 0 0">payback de 3,7 meses por cliente</p></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:22px" class="destaque">ROI positivo e caixa negativo ao mesmo tempo: o lançamento não pede lucro, pede R$ 3,2 mil de capital de giro.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Parte 7 · Redes sociais</p>
+  <h2>Perfil invadido não custa alcance: custa a premissa do produto</h2>
+  <table class="cols">
+    <tr>
+      <td><div class="cartao" style="height:330px">
+        <div class="rot">Proteger</div>
+        <ul style="font-size:16px; padding-left:18px">
+          <li>2FA por aplicativo, <strong>nunca SMS</strong> — troca de chip é o vetor</li>
+          <li>Dois administradores, nunca um só</li>
+          <li>Sem login compartilhado; inventário versionado e revisto</li>
+          <li>Revisão trimestral de apps e tokens</li>
+        </ul></div></td>
+      <td><div class="cartao" style="height:330px">
+        <div class="rot">Não vazar</div>
+        <ul style="font-size:16px; padding-left:18px">
+          <li>Só a conta de demonstração aparece em peça</li>
+          <li>Suporte não trafega dado pessoal em DM</li>
+          <li>Revisão de tela antes de publicar: aba, terminal, notificação</li>
+          <li>Nenhuma curva de consumo de cliente real</li>
+        </ul></div></td>
+      <td><div class="cartao" style="height:330px">
+        <div class="rot">Responder</div>
+        <ul style="font-size:16px; padding-left:18px">
+          <li>Conta tomada: conter, avaliar alcance, acionar plataforma, comunicar</li>
+          <li>Se houve dado pessoal: <strong>ANPD em 3 dias úteis</strong></li>
+          <li>Fake news de privacidade: <strong>12 h</strong>, com a política já publicada</li>
+          <li>Ataque coordenado: um posicionamento só, e denúncia</li>
+        </ul></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:24px" class="destaque">“Esse sensor espiona sua casa” é a acusação mais perigosa — e a resposta já estava escrita desde a Fase 6.</p>
+</section>
+
+<section class="slide">
+  <div class="faixa"></div>
+  <p class="kicker">Fechamento</p>
+  <h2>Funciona · é confiável · agora tem caminho até o cliente</h2>
+  <table class="cols">
+    <tr>
+      <td><div class="cartao" style="height:270px"><div class="rot">Fase 5</div>
+        <p style="font-size:17px">MVP no ar, ciclo completo do sensor ao painel, e viabilidade financeira calculada.</p></div></td>
+      <td><div class="cartao" style="height:270px"><div class="rot">Fase 6</div>
+        <p style="font-size:17px">LGPD, governança pela ISO/IEC 38500 e dez riscos de segurança lidos no próprio código.</p></div></td>
+      <td><div class="cartao" style="height:270px"><div class="rot">Fase 7</div>
+        <p style="font-size:17px">Narrativa, campanha transmídia, R$ 35 mil de mídia distribuídos e protocolo de crise em redes.</p></div></td>
+    </tr>
+  </table>
+  <p style="margin-top:26px; font-size:19px" class="suave">Os três limites que ficam registrados: a curva de clientes é a premissa mais frágil · o ROI é de ciclo de vida, o caixa do semestre é negativo · a mídia orgânica só é gratuita porque o modelo não paga os fundadores.</p>
+  <p style="margin-top:18px; font-size:19px">ampere-dashboard-six.vercel.app &nbsp;·&nbsp; github.com/GuilhermeCostaProenca/ampere-dashboard &nbsp;·&nbsp; vídeo: [INSERIR LINK DO VÍDEO]</p>
+  <div class="rodape">Amperê · Grupo SenseForge · obrigado!</div>
+</section>
+
+</body>
+</html>

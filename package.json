@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "shots": "node scripts/shoot.mjs",
     "doc": "node scripts/doc.mjs",
-    "slides": "node scripts/slides-pdf.mjs"
+    "slides": "node scripts/slides-pdf.mjs",
+    "fase7": "node scripts/fase7-pdf.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

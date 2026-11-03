@@ -1,0 +1,90 @@
+ENTREGA FASE 7 — "Plano de Lançamento da Startup"
+FIAP • Startup One • Fase 7
+Grupo SenseForge • Turma 4SIOA
+
+Guilherme Costa Proença  RM 98937
+Eduarda Quagliareli Shiratsu  RM 551188
+Hugo Antônio de Oliveira  RM 550153
+
+CONTEÚDO DESTE .ZIP
+
+  documentacao-fase7.pdf    Partes 1 a 7 do documento (21 páginas)
+  slides-fase7.pdf          Apresentação do pitch (10 slides, com o link do vídeo)
+  link-do-video.txt         YouTube, não listado, até 5 min
+  roteiro-video.md          Roteiro usado na gravação
+
+CÓDIGO DO PROJETO
+
+  https://github.com/GuilhermeCostaProenca/ampere-dashboard
+
+  O repositório é público e contém o código do front-end, do back-end e as
+  migrations do banco em nuvem. A documentação desta fase está versionada em
+  entregas/fase7/.
+
+APLICAÇÃO PUBLICADA
+
+  https://ampere-dashboard-six.vercel.app
+  Conta de demonstração indicada no README do repositório.
+
+VÍDEO-PITCH
+
+  [INSERIR LINK DO VÍDEO]
+
+PARTES DO DOCUMENTO
+
+  Parte 1 — O produto no momento do lançamento
+            O que está no ar, o que mudou desde a Fase 6 e o que ainda não está
+            pronto — com o efeito de cada pendência sobre o que a campanha pode
+            prometer.
+
+  Parte 2 — Posicionamento e narrativa central
+            Posicionamento, a narrativa "um número sem nomes", a mensagem por
+            público e os limites do que a marca não diz.
+
+  Parte 3 — Campanha transmídia
+            Transmídia e não a mesma peça replicada: um capítulo da história por
+            meio, nove peças e o calendário da semana -4 à semana +8.
+
+  Parte 4 — Inbound Marketing
+            A jornada de atrair, converter, relacionar, fechar e encantar, com a
+            calculadora como isca — e a conformidade com a LGPD em cada etapa.
+
+  Parte 5 — Influenciadores digitais
+            Critério de seleção, quatro perfis (simulados) com entregável e
+            custo, regras de contrato e medição, e os riscos do canal.
+
+  Parte 6 — Estratégia de mídia digital
+            R$ 35.019 de mídia paga em 6 meses, divididos por canal e por etapa
+            do funil; mídia orgânica; funil de topo, meio e fundo com números;
+            estimativa de ROI; e as regras de corte e de escala.
+
+  Parte 7 — Segurança, monitoramento e gestão de redes sociais
+            Proteção das contas oficiais, prevenção de vazamento, playbook de
+            conta comprometida e a matriz de resposta a ataque de reputação e
+            fake news, com prazo por classe.
+
+OBSERVAÇÃO SOBRE O ORÇAMENTO
+
+  O investimento em mídia da Parte 6 não foi arbitrado nesta fase: é a linha de
+  aquisição da projeção de fluxo de caixa construída na Fase 5 (CP5), derivada do
+  CAC de R$ 145 aplicado sobre 70% da curva de 345 novos clientes. O trabalho
+  desta entrega foi distribuí-lo entre canais e estimar o funil que ele sustenta.
+
+COMO REGERAR OS PDFS E FECHAR O .ZIP
+
+  npm run fase7
+
+  Renderiza documentacao-fase7.pdf e slides-fase7.pdf a partir dos .html desta
+  pasta, usando o Chrome instalado, e em seguida monta o Ampere-Fase7-
+  SenseForge.zip na raiz do repositório, já com os arquivos soltos na mesma
+  pasta, como a atividade pede.
+
+  Enquanto o texto [INSERIR LINK DO VÍDEO] estiver nos .html, o script gera os
+  PDFs, avisa e NÃO fecha o .ZIP. Depois de gravar e publicar o vídeo como não
+  listado no YouTube:
+
+    1. troque [INSERIR LINK DO VÍDEO] em documentacao-fase7.html (duas
+       ocorrências: identificação da entrega e encerramento);
+    2. troque também em slides-fase7.html (duas ocorrências: capa e fechamento);
+    3. escreva o link em link-do-video.txt e neste LEIA-ME;
+    4. rode "npm run fase7" de novo.

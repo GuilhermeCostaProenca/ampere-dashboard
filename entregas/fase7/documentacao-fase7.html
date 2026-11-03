@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Amperê — Documentação Fase 7</title>
+<style>
+  :root {
+    --tinta: #14201c; --suave: #55645e; --verde: #0a8f43; --verde-claro: #e8f6ee;
+    --ambar: #b06f00; --ambar-claro: #fdf3e0; --vermelho: #a3261f; --vermelho-claro: #fbeceb;
+    --linha: #d8e0dc; --fundo-bloco: #f6f9f7;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+         font-size: 10.2pt; line-height: 1.55; color: var(--tinta); }
+  code, .mono { font-family: "Consolas", "Courier New", monospace; font-size: 9pt; }
+  h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .4em; }
+  h1 { font-size: 21pt; letter-spacing: -.01em; }
+  h2 { font-size: 15pt; margin-top: 1.6em; padding-bottom: .25em;
+       border-bottom: 2px solid var(--verde); color: var(--verde); }
+  h3 { font-size: 12pt; margin-top: 1.4em; }
+  h4 { font-size: 10.5pt; margin-top: 1.1em; color: var(--suave);
+       text-transform: uppercase; letter-spacing: .08em; }
+  p { margin: 0 0 .7em; }
+  ul, ol { margin: 0 0 .8em; padding-left: 1.3em; }
+  li { margin-bottom: .25em; }
+  .quebra { page-break-before: always; }
+  .junto { page-break-inside: avoid; }
+
+  .capa { text-align: center; padding-top: 42mm; page-break-after: always; }
+  .capa .marca { display: inline-block; width: 68px; height: 68px; border: 3px solid var(--verde);
+                 font-size: 34pt; font-weight: 800; color: var(--verde); line-height: 62px; }
+  .capa h1 { font-size: 34pt; letter-spacing: .28em; margin: 18px 0 2px; }
+  .capa .sub { letter-spacing: .3em; font-size: 9pt; color: var(--suave); text-transform: uppercase; }
+  .capa .titulo { margin-top: 34mm; font-size: 15pt; font-weight: 600; }
+  .capa .curso { margin-top: 6px; color: var(--suave); }
+  .capa .rodape { margin-top: 30mm; font-size: 9.5pt; color: var(--suave); }
+
+  table { width: 100%; border-collapse: collapse; margin: .5em 0 1em; font-size: 9pt; }
+  th, td { padding: 5px 8px; border-bottom: 1px solid var(--linha); text-align: left; vertical-align: top; }
+  th { background: var(--fundo-bloco); font-weight: 600; font-size: 8.4pt;
+       text-transform: uppercase; letter-spacing: .05em; color: var(--suave); }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  .aviso { border-left: 4px solid var(--ambar); background: var(--ambar-claro);
+           padding: 10px 14px; margin: 1em 0; font-size: 9.4pt; }
+  .aviso strong { color: var(--ambar); }
+  .nota { border-left: 4px solid var(--verde); background: var(--verde-claro);
+          padding: 10px 14px; margin: 1em 0; font-size: 9.4pt; }
+  pre { background: var(--fundo-bloco); border: 1px solid var(--linha); padding: 10px 12px;
+        font-size: 8.2pt; line-height: 1.45; white-space: pre-wrap; margin: .5em 0 1em; }
+  .sev { font-weight: 700; font-size: 8.4pt; text-transform: uppercase; letter-spacing: .04em; }
+  .alta { color: var(--vermelho); } .media { color: var(--ambar); } .baixa { color: var(--verde); }
+  .sumario ol { list-style: none; padding-left: 0; }
+  .sumario > ol > li { margin-bottom: .5em; font-weight: 600; }
+  .sumario .sub { padding-left: 1.1em; margin-top: .1em; font-weight: 400;
+                  font-size: 9.2pt; color: var(--suave); }
+  .meta td { border: none; padding: 2px 8px 2px 0; font-size: 9.4pt; }
+  .meta td.rot { color: var(--suave); width: 34%; }
+  .kpis { display: flex; gap: 10px; margin: .8em 0 1.2em; }
+  .kpi { flex: 1; border: 1px solid var(--linha); border-top: 3px solid var(--verde);
+         background: var(--fundo-bloco); padding: 10px 12px; }
+  .kpi.amb { border-top-color: var(--ambar); }
+  .kpi .rot { font-size: 7.6pt; text-transform: uppercase; letter-spacing: .06em; color: var(--suave); }
+  .kpi .val { font-size: 15pt; font-weight: 700; line-height: 1.2; margin: 2px 0; }
+</style>
+</head>
+<body>
+
+<section class="capa">
+  <div class="marca">A</div>
+  <h1>AMPERÊ</h1>
+  <div class="sub">NILM Control</div>
+  <div class="titulo">Plano de Lançamento:<br>Posicionamento, Transmídia e Mídia Digital</div>
+  <div class="curso">FIAP &middot; Startup One &middot; Fase 7 &middot; Plano de Lançamento da Startup</div>
+  <div class="rodape">
+    Grupo SenseForge &middot; 4SIOA<br>
+    Guilherme Costa Proença (RM 98937) &middot; Eduarda Quagliareli Shiratsu (RM 551188) &middot; Hugo Antônio de Oliveira (RM 550153)<br>
+    Novembro de 2026
+  </div>
+</section>
+
+<section>
+<h2>Identificação da entrega</h2>
+<table class="meta">
+  <tr><td class="rot">Startup</td><td>Amperê — monitoramento de energia residencial por aparelho (NILM)</td></tr>
+  <tr><td class="rot">Aplicação publicada</td><td>https://ampere-dashboard-six.vercel.app</td></tr>
+  <tr><td class="rot">Repositório</td><td>https://github.com/GuilhermeCostaProenca/ampere-dashboard</td></tr>
+  <tr><td class="rot">Vídeo-pitch (não listado)</td><td>[INSERIR LINK DO VÍDEO]</td></tr>
+  <tr><td class="rot">Entrega anterior</td><td>Fase 6 — governança, LGPD e segurança, em <code>entregas/fase6/</code></td></tr>
+</table>
+
+<h2>Sumário</h2>
+<div class="sumario">
+<ol>
+  <li>Parte 1 — O produto no momento do lançamento
+    <div class="sub">1.1 O que está no ar &middot; 1.2 O que mudou desde a Fase 6 &middot; 1.3 O que ainda não está pronto, e por que lançamos assim</div>
+  </li>
+  <li>Parte 2 — Posicionamento e narrativa central
+    <div class="sub">2.1 Posicionamento &middot; 2.2 A narrativa central &middot; 2.3 Mensagem por público &middot; 2.4 O que a marca não diz</div>
+  </li>
+  <li>Parte 3 — Campanha transmídia
+    <div class="sub">3.1 Transmídia, e não a mesma peça replicada &middot; 3.2 As peças, canal por canal &middot; 3.3 Calendário de lançamento</div>
+  </li>
+  <li>Parte 4 — Inbound Marketing: a jornada do cliente
+    <div class="sub">4.1 Atrair &middot; 4.2 Converter &middot; 4.3 Relacionar e fechar &middot; 4.4 Encantar &middot; 4.5 A jornada sob a LGPD</div>
+  </li>
+  <li>Parte 5 — Influenciadores digitais
+    <div class="sub">5.1 Critério de seleção &middot; 5.2 Perfis escolhidos &middot; 5.3 Entregáveis, contrato e medição &middot; 5.4 Riscos do canal</div>
+  </li>
+  <li>Parte 6 — Estratégia de mídia digital
+    <div class="sub">6.1 Orçamento de mídia paga &middot; 6.2 Divisão por canal e papel no funil &middot; 6.3 Mídia orgânica &middot; 6.4 Análise do funil &middot; 6.5 Estimativa de ROI &middot; 6.6 Regras de corte e de escala</div>
+  </li>
+  <li>Parte 7 — Segurança, monitoramento e gestão de redes sociais
+    <div class="sub">7.1 Inventário e proteção das contas oficiais &middot; 7.2 Prevenção de vazamento &middot; 7.3 Resposta a ataque cibernético &middot; 7.4 Ataque de reputação e fake news &middot; 7.5 Monitoramento e indicadores</div>
+  </li>
+</ol>
+</div>
+</section>
+
+<section class="quebra">
+<h2>Parte 1 — O produto no momento do lançamento</h2>
+
+<h3>1.1 O que está no ar</h3>
+<p>O Amperê identifica quanto cada aparelho da casa pesa na conta de luz a partir de um
+único sensor de corrente no quadro elétrico, usando NILM (<em>Non-Intrusive Load
+Monitoring</em>): o software separa do sinal agregado o consumo de cada carga e apresenta o
+resultado em reais.</p>
+
+<table>
+  <tr><th>Camada</th><th>Situação no lançamento</th></tr>
+  <tr><td>Front-end (React, Vite, TypeScript)</td><td>Publicado na Vercel, com landing pública e painel autenticado</td></tr>
+  <tr><td>API (Node, Express, TypeScript)</td><td>Publicada como função serverless, na mesma origem do front</td></tr>
+  <tr><td>Banco (PostgreSQL gerenciado, Supabase)</td><td>Star Schema com 6 dimensões e 2 fatos, 8 migrations, RLS em todas as tabelas</td></tr>
+  <tr><td>Motor NILM</td><td>Detector por degraus de potência: recall de 93,6% e precisão de 99,0% em 30 dias de dados</td></tr>
+  <tr><td>Dispositivo (ESP32 + SCT-013-030)</td><td>Em montagem; o simulador publica no mesmo endpoint, formato e autenticação previstos para o firmware</td></tr>
+</table>
+
+<p>O perfil de consumo apresentado no produto foi conferido contra as âncoras levantadas em
+campo: ar-condicionado R$&nbsp;89,00 &middot; chuveiro R$&nbsp;42,00 &middot; geladeira
+R$&nbsp;22,97 &middot; máquina de lavar R$&nbsp;10,00 &middot; TV R$&nbsp;9,00 &middot;
+iluminação R$&nbsp;5,00 — total de R$&nbsp;187,04 contra a âncora de R$&nbsp;187. Esses
+números são a matéria-prima da campanha: toda peça criativa deste plano usa valor medido
+pelo próprio sistema, nunca número ilustrativo.</p>
+
+<h3>1.2 O que mudou desde a Fase 6</h3>
+<ul>
+  <li><strong>Correção de ciclos com duração inflada.</strong> Quando um reprocessamento
+      insere leituras anteriores a leituras já gravadas, o fechamento do ciclo era pareado
+      com o <em>ligou</em> mais antigo, produzindo duração de horas no lugar de minutos — e
+      custo proporcional ao erro. A correção recalcula a duração pelo <em>ligou</em>
+      imediatamente anterior ao evento e deriva energia e custo daí, usando a potência
+      gravada no próprio evento e a tarifa vigente.</li>
+  <li><strong>Base de conteúdo pronta.</strong> A landing já traz as mídias de produto,
+      instalação, quadro elétrico e painel em formato moderno, servidas por CDN. São os
+      ativos reaproveitados pela campanha da Parte 3, sem nova produção.</li>
+  <li><strong>Plano de privacidade escrito.</strong> A Fase 6 deixou pronta a política de
+      tratamento, a base legal de cada operação e o canal do encarregado. Sem isso este
+      plano de lançamento não existiria: a objeção central do público — "esse sensor vai
+      espionar minha casa?" — exige resposta documentada, não slogan.</li>
+</ul>
+
+<h3>1.3 O que ainda não está pronto, e por que lançamos assim</h3>
+<p>O lançamento aqui descrito é um <strong>lançamento de aquisição</strong>, não um
+lançamento de venda em massa de hardware. A distinção importa porque o que ainda falta
+limita o que se pode prometer.</p>
+<table>
+  <tr><th>Pendência</th><th>Efeito sobre o lançamento</th></tr>
+  <tr><td>Hardware físico não montado</td><td>A venda do Node abre como pré-venda com prazo declarado, nunca com promessa de entrega imediata</td></tr>
+  <tr><td>Limitação de taxa e trilha de auditoria (riscos R2 e R6 da Fase 6)</td><td>Entram antes de a campanha paga escalar: tráfego pago apontando para rota de cadastro sem limitação de taxa é convite a abuso</td></tr>
+  <tr><td>Domínio próprio</td><td>Precisa estar no ar antes do primeiro real investido em conteúdo; endereço provisório de provedor não se leva para a marca</td></tr>
+  <tr><td>Calculadora pública</td><td>É a isca de conversão da Parte 4, e por isso a primeira peça a ficar pronta</td></tr>
+</table>
+<div class="aviso">
+<strong>Regra de honestidade da campanha.</strong> Nenhuma peça pode afirmar que o hardware
+está em produção, que o NILM usa aprendizado de máquina ou que a economia é garantida. O
+produto mede e aponta; quem economiza é o morador. A regra vale para o criativo pago, para
+o conteúdo orgânico e para o briefing de influenciador — e está repetida na Parte 5 porque
+é lá que o risco de exagero é maior.
+</div>
+</section>
+
+<section class="quebra">
+<h2>Parte 2 — Posicionamento e narrativa central</h2>
+
+<h3>2.1 Posicionamento</h3>
+<p>A pesquisa de campo do grupo, com 18 respondentes, delimita o problema: 78% não sabem
+quais aparelhos mais consomem, 89% não conseguem quantificar esse consumo e 83% já se
+surpreenderam com a conta. O problema não é falta de vontade de economizar — é falta de
+informação acionável.</p>
+
+<table>
+  <tr><th>Dimensão</th><th>Definição</th></tr>
+  <tr><td>Para quem</td><td>Famílias de classe média em apartamento ou casa, nas capitais e regiões metropolitanas, com conta entre R$&nbsp;150 e R$&nbsp;400, que já tentaram economizar e não souberam onde mexer</td></tr>
+  <tr><td>Primeiros adotantes</td><td>Perfil técnico-curioso, com alguma automação em casa — gera conteúdo, indicação e correção de defeito</td></tr>
+  <tr><td>Que precisa</td><td>Saber qual aparelho pesa, quanto pesa em reais e o que fazer a respeito</td></tr>
+  <tr><td>O Amperê é</td><td>Um medidor por aparelho que usa um sensor só, instalado no quadro, sem obra e sem trocar tomada</td></tr>
+  <tr><td>Diferente de</td><td>Tomadas inteligentes (uma por aparelho, caras e parciais) e dos aplicativos da distribuidora (mostram o total, nunca o detalhe)</td></tr>
+  <tr><td>Porque</td><td>O NILM separa as cargas do sinal agregado — e o resultado é entregue em reais, não em kWh</td></tr>
+  <tr><td>Fora do escopo</td><td>Comércio e indústria, que exigem medição trifásica e outra proposta comercial</td></tr>
+</table>
+
+<h3>2.2 A narrativa central</h3>
+<p>A narrativa que sustenta toda a campanha cabe em uma frase:</p>
+<div class="nota" style="font-size:11.5pt; text-align:center">
+<strong>A sua conta de luz é um número sem nomes.<br>O Amperê devolve os nomes.</strong>
+</div>
+<p>O desenho narrativo é deliberado e se repete em toda peça:</p>
+<table>
+  <tr><th>Elemento</th><th>No Amperê</th></tr>
+  <tr><td>Herói</td><td>O morador — não o produto, não a tecnologia</td></tr>
+  <tr><td>Vilão</td><td>Não é a energia nem a distribuidora: é a <strong>opacidade</strong>. Uma vez por mês chega um número fechado, e não há como agir sobre ele</td></tr>
+  <tr><td>Virada</td><td>O instante em que o número vira lista: "ar-condicionado R$&nbsp;89, chuveiro R$&nbsp;42, geladeira R$&nbsp;23"</td></tr>
+  <tr><td>Mentor</td><td>O Amperê, que entrega o diagnóstico e aponta a ação — mas não decide pelo morador</td></tr>
+  <tr><td>Transformação</td><td>De "levei um susto com a conta" para "eu já sabia que ia dar isso"</td></tr>
+</table>
+<p>A promessa escrita, usada como título da landing e como primeira linha de todo anúncio:
+<strong>"Descubra quanto cada aparelho custa na sua conta de luz — com um sensor só, sem
+obra e sem trocar tomada."</strong></p>
+
+<h3>2.3 Mensagem por público</h3>
+<p>A narrativa é uma só; o recorte muda conforme quem escuta.</p>
+<table>
+  <tr><th>Público</th><th>O que dói</th><th>Mensagem</th><th>Prova que acompanha</th></tr>
+  <tr><td>Família que levou susto na conta</td><td>Não sabe onde mexer</td><td>"O vilão da sua conta tem nome."</td><td>O ranking real de um mês: R$&nbsp;89 de ar-condicionado em uma conta de R$&nbsp;187</td></tr>
+  <tr><td>Técnico-curioso</td><td>Quer dado, não resumo</td><td>"Um sensor, o sinal agregado e um detector de degraus: 93,6% de recall."</td><td>Repositório público e a explicação do método</td></tr>
+  <tr><td>Síndico e administradora</td><td>Reclamação de rateio e de conta de área comum</td><td>"Medição por aparelho sem trocar a instalação do prédio."</td><td>Piloto em um condomínio, com antes e depois</td></tr>
+  <tr><td>Cético de privacidade</td><td>Teme vigilância dentro de casa</td><td>"Agregamos em 15 minutos, não vendemos dado e dizemos isso por escrito."</td><td>Política de privacidade e canal do encarregado, publicados desde a Fase 6</td></tr>
+</table>
+
+<h3>2.4 O que a marca não diz</h3>
+<ul>
+  <li>Não promete percentual de economia. Promete <em>saber</em> — a economia depende de uma
+      decisão do morador que o produto não toma.</li>
+  <li>Não usa medo de conta alta como gatilho. Usa o alívio de entender.</li>
+  <li>Não fala "kWh" em peça de topo de funil. Fala em reais.</li>
+  <li>Não se compara nominalmente a concorrente. Compara categorias: um sensor contra
+      dezenas de tomadas inteligentes.</li>
+  <li>Não publica curva de consumo de usuário real, nem mesmo anonimizada, conforme o
+      princípio de minimização da Fase 6. O material de campanha usa a base sintética de
+      90 dias do próprio projeto.</li>
+</ul>
+</section>
+
+<section class="quebra">
+<h2>Parte 3 — Campanha transmídia</h2>
+
+<h3>3.1 Transmídia, e não a mesma peça replicada</h3>
+<p>Republicar o mesmo post em cinco redes é <em>crossmedia</em>. O que se propõe aqui é
+transmídia: cada canal conta um <strong>pedaço diferente</strong> da mesma história, com
+entrada própria e valor próprio, de modo que quem acompanha dois canais recebe mais do que
+quem acompanha um — e quem acompanha só um ainda entende a história inteira.</p>
+<p>O eixo é o da Parte 2 — o número sem nomes — e cada meio assume um capítulo:</p>
+<table>
+  <tr><th>Capítulo da narrativa</th><th>Meio</th><th>Por que esse meio</th></tr>
+  <tr><td>O susto</td><td>Reels e TikTok</td><td>Vídeo curto é onde a surpresa cabe em 20 segundos</td></tr>
+  <tr><td>A revelação</td><td>Landing page com calculadora</td><td>Precisa ser interativo: o visitante vê o número <em>dele</em></td></tr>
+  <tr><td>O método</td><td>YouTube e comunidades técnicas</td><td>Exige tempo e profundidade, e é onde mora o primeiro adotante</td></tr>
+  <tr><td>A prova</td><td>Instagram (carrossel) e influenciador</td><td>Rosto e caso concreto convertem desconfiança</td></tr>
+  <tr><td>A decisão</td><td>E-mail e busca</td><td>Fundo de funil, com intenção declarada</td></tr>
+  <tr><td>O coletivo</td><td>LinkedIn</td><td>Onde estão síndico, administradora e eficiência energética</td></tr>
+</table>
+
+<h3>3.2 As peças, canal por canal</h3>
+<table>
+  <tr><th>Peça</th><th>Canal e formato</th><th>Conteúdo</th><th>Chamada</th></tr>
+  <tr><td>"Quanto custa seu banho?"</td><td>Reels / TikTok, 20 s, vertical</td><td>Chuveiro ligando, o painel reagindo ao degrau de potência e o valor em reais subindo na tela</td><td>Calcule o seu</td></tr>
+  <tr><td>"Os 5 vilões da sua conta"</td><td>Instagram, carrossel de 6 telas</td><td>O ranking real de um mês de R$&nbsp;187, aparelho por aparelho, com o custo de cada um</td><td>Veja o da sua casa</td></tr>
+  <tr><td>"Instalação em 2 minutos"</td><td>YouTube, 2 min</td><td>O vídeo de instalação já produzido: sensor no quadro, sem obra, sem trocar tomada</td><td>Pré-venda do Node</td></tr>
+  <tr><td>"O que é NILM, sem jargão"</td><td>YouTube, 6 min</td><td>Por que um degrau na potência total identifica uma carga; o que o método acerta e o que ainda erra</td><td>Repositório público</td></tr>
+  <tr><td>Calculadora de custo por aparelho</td><td>Landing page, interativo</td><td>Aparelho, tempo de uso e tarifa, devolvendo o custo mensal — sem exigir cadastro</td><td>Receba o detalhe por e-mail</td></tr>
+  <tr><td>Páginas "quanto gasta um…"</td><td>Busca orgânica, uma por aparelho</td><td>Chuveiro, ar-condicionado e geladeira, com cálculo real e tarifa vigente</td><td>Calculadora na própria página</td></tr>
+  <tr><td>"O prédio inteiro no escuro"</td><td>LinkedIn, texto + carrossel</td><td>Rateio de área comum e reclamação de morador; o que a medição por aparelho muda na assembleia</td><td>Piloto em condomínio</td></tr>
+  <tr><td>"Como o detector erra"</td><td>Comunidade técnica, texto longo</td><td>Cargas simultâneas, baixa potência e o que o recall de 93,6% significa na prática</td><td>Contribuir no repositório</td></tr>
+  <tr><td>Sequência de boas-vindas</td><td>E-mail, 4 mensagens</td><td>Detalhada na Parte 4</td><td>Plano gratuito</td></tr>
+</table>
+<div class="nota">
+<strong>Produção realista.</strong> Seis das nove peças usam material que já existe no
+repositório: os vídeos de produto, instalação, quadro e sinal em <code>public/midia/</code>,
+as capturas de tela do painel em <code>docs/</code> e os números conferidos pelo script de
+verificação de perfil. A campanha de lançamento não depende de orçamento de produção.
+</div>
+
+<h3>3.3 Calendário de lançamento</h3>
+<table>
+  <tr><th>Semana</th><th>Foco</th><th>O que acontece</th></tr>
+  <tr><td>&minus;4</td><td>Preparo técnico</td><td>Domínio próprio, limitação de taxa e trilha de auditoria no ar; contas oficiais criadas conforme a Parte 7</td></tr>
+  <tr><td>&minus;3</td><td>Conteúdo-base</td><td>Calculadora publicada; três páginas "quanto gasta um…"; <code>sitemap.xml</code> e <code>robots.txt</code></td></tr>
+  <tr><td>&minus;2</td><td>Prova</td><td>Gravação das peças de vídeo; envio dos kits aos perfis de permuta da Parte 5</td></tr>
+  <tr><td>&minus;1</td><td>Aquecimento</td><td>Publicação do "O que é NILM" e do texto em comunidade técnica; lista de espera aberta</td></tr>
+  <tr><td>0</td><td>Lançamento</td><td>Abertura da pré-venda do Node e do plano gratuito; Reels e carrossel no ar; mídia paga ligada no orçamento do mês 1</td></tr>
+  <tr><td>+1 a +2</td><td>Validação de mensagem</td><td>Teste de criativo e de público; primeiros influenciadores publicam; corte do que não performa</td></tr>
+  <tr><td>+3 a +4</td><td>Prova social</td><td>Primeiros usuários com telemetria real; depoimento e caso de uso; abertura do LinkedIn</td></tr>
+  <tr><td>+5 a +8</td><td>Escala</td><td>Aumento de orçamento nos canais aprovados; prospecção de síndicos e administradoras; programa de indicação</td></tr>
+</table>
+</section>
+
+<section class="quebra">
+<h2>Parte 4 — Inbound Marketing: a jornada do cliente</h2>
+
+<p>A lógica da jornada é uma só: <strong>a isca precisa entregar de graça uma versão pequena
+do que o produto entrega</strong> — a resposta para "quanto isso me custa". Quem responde
+essa pergunta antes de pedir qualquer coisa ganha o direito de pedir o e-mail depois.</p>
+
+<h3>4.1 Atrair</h3>
+<table>
+  <tr><th>Ação</th><th>Onde</th><th>Por quê</th></tr>
+  <tr><td>Páginas por aparelho de alto consumo</td><td>Busca orgânica</td><td>"Quanto gasta um chuveiro elétrico" é exatamente a pergunta que o produto responde — e tem volume de busca próprio</td></tr>
+  <tr><td>Vídeo curto com medição real</td><td>Reels, TikTok</td><td>A surpresa do valor em reais é o gancho de maior alcance</td></tr>
+  <tr><td>Conteúdo técnico sobre NILM</td><td>YouTube, comunidades</td><td>Atrai o primeiro adotante, que vira prova e corretor de defeito</td></tr>
+  <tr><td>Campanha de busca em termos de fundo de funil</td><td>Google Ads</td><td>Captura quem já procura "medidor de consumo de energia residencial"</td></tr>
+</table>
+
+<h3>4.2 Converter</h3>
+<ol>
+  <li><strong>A calculadora, sem cadastro.</strong> O visitante escolhe o aparelho, informa o
+      tempo de uso e a tarifa e recebe o custo mensal na hora. Sem muro e sem formulário —
+      a prova de valor vem antes do pedido.</li>
+  <li><strong>O pedido de e-mail vem depois do valor entregue.</strong> Para receber o
+      detalhamento — comparação com a média do segmento, projeção anual e o efeito de trocar
+      de equipamento — o visitante deixa o endereço, com consentimento específico para
+      comunicação de marketing.</li>
+  <li><strong>Cadastro no plano gratuito.</strong> É o passo seguinte e não exige compra: o
+      Free entrega o diagnóstico completo e cria o hábito de abrir o aplicativo.</li>
+</ol>
+
+<h3>4.3 Relacionar e fechar</h3>
+<p>Sequência de quatro e-mails, disparada a partir do consentimento:</p>
+<table>
+  <tr><th>#</th><th>Quando</th><th>Assunto</th><th>Papel</th></tr>
+  <tr><td>1</td><td>Imediato</td><td>O detalhamento do cálculo que o visitante pediu</td><td>Cumprir a promessa</td></tr>
+  <tr><td>2</td><td>+2 dias</td><td>"Os cinco aparelhos que mais pesam na conta", com os valores reais do perfil</td><td>Ampliar o diagnóstico</td></tr>
+  <tr><td>3</td><td>+5 dias</td><td>"Por que sua conta muda sem você mudar nada": bandeira tarifária explicada</td><td>Construir autoridade</td></tr>
+  <tr><td>4</td><td>+9 dias</td><td>"Um sensor, a casa inteira": convite para o plano gratuito e pré-venda do Node</td><td>Converter</td></tr>
+</table>
+<p>A venda do plano Pro (R$&nbsp;19,90/mês) não acontece nessa sequência. Acontece
+<em>dentro do produto</em>, quando o usuário já tem o diagnóstico na tela e o Pro oferece a
+prescrição: quanto cada troca economiza e em quantos meses se paga. A promoção de lançamento
+— três meses de Pro inclusos na compra do Node — existe para que a decisão de pagar seja
+tomada depois de usar, não antes.</p>
+
+<h3>4.4 Encantar</h3>
+<ul>
+  <li><strong>O relatório mensal é o produto e é a retenção.</strong> Chega todo mês com o
+      gasto do ciclo, o ranking de aparelhos e quanto se economizou frente aos ciclos
+      anteriores.</li>
+  <li><strong>Programa de indicação.</strong> Desconto para quem indica e para quem é
+      indicado. Em um produto que depende de confiança para entrar na casa de alguém, o
+      vizinho satisfeito é o canal mais barato e o mais crível.</li>
+  <li><strong>Resposta pública a defeito.</strong> Quando o NILM erra uma identificação, a
+      correção é publicada. Para o público técnico isso vale mais que qualquer anúncio.</li>
+  <li><strong>Comunidade de usuários.</strong> Canal onde se discute o que mudou na conta de
+      cada um; o conteúdo gerado ali alimenta o topo do funil sem custo de produção.</li>
+</ul>
+
+<h3>4.5 A jornada sob a LGPD</h3>
+<div class="aviso">
+<strong>Coerência com a Fase 6.</strong> Nenhuma ação de marketing usa dado de consumo de
+usuário real. A calculadora trata dados informados avulsos, sem vínculo com conta. O disparo
+de e-mails depende de consentimento específico, separado do aceite dos termos de uso e
+revogável em um clique, conforme o art. 7º, I da LGPD. O descadastro é honrado em até 48
+horas e o endereço sai da base de disparo — não vai para uma lista de "inativos" que alguém
+possa reativar depois.
+</div>
+</section>
+
+<section class="quebra">
+<h2>Parte 5 — Influenciadores digitais</h2>
+
+<h3>5.1 Critério de seleção</h3>
+<p>O produto exige que alguém deixe um sensor instalado no quadro elétrico da própria casa.
+Isso muda o critério: audiência grande importa menos do que confiança. A seleção segue
+quatro regras, aplicadas nessa ordem:</p>
+<ol>
+  <li><strong>Aderência à dor, não ao tema.</strong> Serve o perfil cuja audiência fala de
+      conta de luz, orçamento doméstico e casa — não "tecnologia" em geral.</li>
+  <li><strong>Capacidade de demonstrar.</strong> O perfil precisa poder instalar o sensor e
+      mostrar o número na própria conta. Sem demonstração, o conteúdo é anúncio.</li>
+  <li><strong>Micro antes de macro.</strong> Perfis de 5 mil a 200 mil seguidores, com
+      engajamento acima de 3%. Em orçamento de R$&nbsp;3.502 (Parte 6), um macro consumiria
+      tudo em um post só.</li>
+  <li><strong>Disposição a falar do limite.</strong> Quem aceita dizer "o detector errou a
+      máquina de lavar duas vezes" gera mais conversão do que quem só elogia — e protege a
+      marca do risco descrito em 5.4.</li>
+</ol>
+
+<h3>5.2 Perfis escolhidos</h3>
+<div class="aviso">
+<strong>Perfis simulados.</strong> Os quatro perfis abaixo são <strong>fictícios</strong>,
+construídos como arquétipos para dimensionar orçamento e entregável. Nenhum contato foi
+feito e nenhum nome real é citado. Na execução, o critério de 5.1 é aplicado sobre perfis
+reais do mercado brasileiro de economia doméstica, automação residencial e gestão de
+condomínios, e os valores abaixo passam a servir de teto de negociação.
+</div>
+<table>
+  <tr><th>Perfil (simulado)</th><th>Nicho e porte</th><th>Papel no funil</th><th>Entregável</th><th class="num">Custo</th></tr>
+  <tr>
+    <td><code>@financasdacasa</code></td>
+    <td>Orçamento doméstico<br>180 mil seguidores, Instagram e TikTok</td>
+    <td><strong>Topo.</strong> Maior alcance e a dor exata: conta alta no fim do mês</td>
+    <td>Um Reels "quanto custa seu banho" com a medição da própria casa, mais um Stories com a calculadora</td>
+    <td class="num">R$ 2.000</td>
+  </tr>
+  <tr>
+    <td><code>@casa.inteligente.br</code></td>
+    <td>Automação residencial<br>35 mil seguidores, YouTube e Instagram</td>
+    <td><strong>Meio.</strong> Fala com o primeiro adotante técnico, que compra hardware e gera conteúdo próprio</td>
+    <td>Vídeo de instalação e 30 dias de uso, com os acertos e os erros do detector</td>
+    <td class="num">R$ 300<br><span class="mono">+ Node em permuta</span></td>
+  </tr>
+  <tr>
+    <td><code>@sindicoprofissional</code></td>
+    <td>Gestão de condomínio<br>12 mil seguidores, LinkedIn</td>
+    <td><strong>Fundo, B2B.</strong> Canal de maior valor por contato</td>
+    <td>Participação em um webinar com administradoras e um post sobre rateio de área comum</td>
+    <td class="num">R$ 1.200</td>
+  </tr>
+  <tr>
+    <td><code>@engenheira.eletrica</code></td>
+    <td>Segurança elétrica<br>8 mil seguidores, Instagram</td>
+    <td><strong>Meio.</strong> Derruba a objeção que mais trava a compra: "vou mexer no meu quadro?"</td>
+    <td>Vídeo técnico atestando que a instalação do sensor não exige intervenção no circuito</td>
+    <td class="num">Permuta<br><span class="mono">(custo R$ 118)</span></td>
+  </tr>
+</table>
+<p>O total em caixa é de R$&nbsp;3.500, dentro da linha de R$&nbsp;3.502 reservada no plano de
+mídia, mais duas unidades de hardware em permuta (R$&nbsp;236 de custo). A escolha de
+concentrar quase 60% do valor em um único perfil de topo é deliberada: no lançamento falta
+alcance, e os três perfis menores entregam credibilidade, não volume.</p>
+
+<h3>5.3 Entregáveis, contrato e medição</h3>
+<table>
+  <tr><th>Item</th><th>Regra</th></tr>
+  <tr><td>Publicidade declarada</td><td>Marcação de parceria paga obrigatória em toda peça, conforme o Código de Autorregulação Publicitária e o CDC. Perfil que se recusa está fora</td></tr>
+  <tr><td>Roteiro</td><td>O número mostrado tem de ser o da casa do próprio perfil. É vedado reaproveitar os valores do nosso perfil de referência como se fossem dele</td></tr>
+  <tr><td>Regra de honestidade</td><td>A mesma da Parte 1: nada de hardware "em produção", nada de aprendizado de máquina, nada de economia garantida. Vai por escrito no briefing</td></tr>
+  <tr><td>Aprovação prévia</td><td>Direito de revisão técnica antes da publicação, sem direito de alterar a opinião do criador</td></tr>
+  <tr><td>Medição</td><td>Cupom e link com parâmetro próprio por perfil, para apurar CAC individual</td></tr>
+  <tr><td>Critério de renovação</td><td>Renova quem entregar CAC abaixo de R$&nbsp;145. Abaixo de R$&nbsp;100, o orçamento do perfil dobra no mês seguinte</td></tr>
+  <tr><td>Dados pessoais</td><td>Nenhum dado de usuário real é compartilhado com o criador. A conta usada em demonstração é a de demonstração, com base sintética</td></tr>
+</table>
+
+<h3>5.4 Riscos do canal</h3>
+<table>
+  <tr><th>Risco</th><th>Mitigação</th></tr>
+  <tr><td>O perfil promete economia que o produto não entrega</td><td>Regra de honestidade no contrato e revisão técnica antes da publicação</td></tr>
+  <tr><td>O detector erra no vídeo, ao vivo</td><td>Aceito e previsto: o briefing pede que o erro seja mostrado. Esconder é pior, e o público técnico percebe</td></tr>
+  <tr><td>Audiência inflada ou comprada</td><td>Conferência de engajamento e de proporção de comentários antes de fechar</td></tr>
+  <tr><td>Crise de imagem do próprio criador</td><td>Cláusula de encerramento imediato, sem multa, e nenhum perfil responde por mais de 60% do investimento do mês</td></tr>
+  <tr><td>Conteúdo pago sem marcação, gerando risco regulatório para a marca</td><td>Checagem da peça publicada no dia da publicação; peça sem marcação é retirada antes do pagamento</td></tr>
+</table>
+</section>
+
+<section class="quebra">
+<h2>Parte 6 — Estratégia de mídia digital</h2>
+
+<h3>6.1 Orçamento de mídia paga</h3>
+<p>O orçamento não é arbitrado aqui: ele <strong>já existe</strong>. É a linha de aquisição da
+projeção de fluxo de caixa construída na Fase 5 (CP5), que aplica o CAC de R$&nbsp;145 sobre
+os 70% de clientes adquiridos por mídia paga, na curva de 15, 25, 40, 60, 85 e 120 novos
+clientes por mês. Este plano apenas distribui esse valor entre canais.</p>
+<table>
+  <tr>
+    <th>Linha (R$)</th><th class="num">Mês 1</th><th class="num">Mês 2</th><th class="num">Mês 3</th>
+    <th class="num">Mês 4</th><th class="num">Mês 5</th><th class="num">Mês 6</th><th class="num">Total</th>
+  </tr>
+  <tr><td>Novos clientes (meta)</td><td class="num">15</td><td class="num">25</td><td class="num">40</td><td class="num">60</td><td class="num">85</td><td class="num">120</td><td class="num">345</td></tr>
+  <tr><td>Adquiridos por mídia paga (70%)</td><td class="num">10,5</td><td class="num">17,5</td><td class="num">28</td><td class="num">42</td><td class="num">59,5</td><td class="num">84</td><td class="num">241,5</td></tr>
+  <tr><td><strong>Investimento em mídia</strong></td><td class="num"><strong>1.523</strong></td><td class="num"><strong>2.538</strong></td><td class="num"><strong>4.060</strong></td><td class="num"><strong>6.090</strong></td><td class="num"><strong>8.628</strong></td><td class="num"><strong>12.180</strong></td><td class="num"><strong>35.019</strong></td></tr>
+</table>
+<div class="aviso">
+<strong>A premissa mais frágil.</strong> A curva de novos clientes é, como registrado no CP5,
+a premissa menos sustentada do modelo — é cenário de trabalho, não previsão. O orçamento
+acima é consequência dela. Se a curva não se confirmar nos dois primeiros meses, o que muda
+não é o orçamento: é a curva. As regras de 6.6 existem exatamente para isso.
+</div>
+
+<h3>6.2 Divisão por canal e papel no funil</h3>
+<p>A divisão muda entre as duas metades do semestre. Nos meses 1 a 3 o objetivo é
+<strong>validar mensagem</strong> com orçamento pequeno; nos meses 4 a 6, <strong>escalar o
+que foi aprovado</strong> e abrir o canal B2B.</p>
+<table>
+  <tr>
+    <th>Canal</th><th>Papel no funil</th><th>Formato</th>
+    <th class="num">Meses 1–3</th><th class="num">Meses 4–6</th><th class="num">Total</th>
+  </tr>
+  <tr><td>Meta Ads (Instagram, Facebook)</td><td>Topo e meio</td><td>Vídeo vertical "quanto custa seu banho"; carrossel dos cinco vilões; retargeting de quem usou a calculadora</td><td class="num">4.061</td><td class="num">10.759</td><td class="num">14.820</td></tr>
+  <tr><td>Google Ads — Rede de Busca</td><td>Fundo</td><td>Termos de solução e produto: "medidor de consumo de energia residencial", "monitor de energia wi-fi", "preço monitor de consumo"</td><td class="num">2.436</td><td class="num">6.725</td><td class="num">9.161</td></tr>
+  <tr><td>Google Demand Gen / YouTube</td><td>Topo</td><td>"Instalação em 2 minutos" como anúncio pulável, para público afim de casa e eficiência energética</td><td class="num">812</td><td class="num">2.690</td><td class="num">3.502</td></tr>
+  <tr><td>LinkedIn Ads</td><td>Meio e fundo, B2B</td><td>Conteúdo de condomínio para cargo de síndico, administrador e gestor predial; convite para o webinar</td><td class="num">—</td><td class="num">2.690</td><td class="num">2.690</td></tr>
+  <tr><td>Influenciadores (Parte 5)</td><td>Topo e meio</td><td>Quatro perfis, com cupom e link próprios</td><td class="num">812</td><td class="num">2.690</td><td class="num">3.502</td></tr>
+  <tr><td>Retargeting e marketplaces</td><td>Fundo</td><td>Anúncio patrocinado nos marketplaces onde o Node é listado, a partir do mês 3</td><td class="num">—</td><td class="num">1.344</td><td class="num">1.344</td></tr>
+  <tr><td><strong>Total</strong></td><td></td><td></td><td class="num"><strong>8.121</strong></td><td class="num"><strong>26.898</strong></td><td class="num"><strong>35.019</strong></td></tr>
+</table>
+<p>Três decisões explicam essa distribuição:</p>
+<ul>
+  <li><strong>Meta concentra 42% do investimento</strong> porque a peça de maior potencial é
+      um vídeo de 20 segundos com um número surpreendente na tela, e é lá que esse formato
+      tem o menor custo por mil impressões.</li>
+  <li><strong>Busca leva 26% apesar do volume pequeno</strong> porque quem digita "preço
+      monitor de consumo" já decidiu comprar — é o tráfego mais barato por cliente, mesmo
+      sendo o mais caro por clique.</li>
+  <li><strong>LinkedIn só entra no mês 4</strong> porque o canal B2B exige prova: sem um
+      piloto em condomínio para mostrar, o anúncio não tem o que dizer ao síndico.</li>
+</ul>
+
+<h3>6.3 Mídia orgânica</h3>
+<p>Os outros 30% dos clientes — 104 dos 345 do semestre — vêm sem custo de mídia. Não vêm
+sem custo.</p>
+<table>
+  <tr><th>Frente</th><th>Esforço mensal</th><th>Entrega</th></tr>
+  <tr><td>Páginas "quanto gasta um…" e SEO técnico</td><td>8 h</td><td>Uma página nova por mês; <code>sitemap.xml</code>, <code>robots.txt</code> e dados estruturados <code>schema.org</code> na semana &minus;3</td></tr>
+  <tr><td>Reels e TikTok próprios</td><td>6 h</td><td>Dois vídeos curtos por semana, cortados do material já gravado</td></tr>
+  <tr><td>YouTube</td><td>4 h</td><td>Um vídeo longo por mês: método, comparação e caso de uso</td></tr>
+  <tr><td>Comunidades técnicas e repositório público</td><td>3 h</td><td>Um texto longo por mês; resposta a dúvida técnica como rotina</td></tr>
+  <tr><td>Programa de indicação</td><td>2 h</td><td>Operação do cupom e acompanhamento do custo por indicação</td></tr>
+</table>
+<div class="aviso">
+<strong>O custo que não aparece.</strong> São 23 horas por mês de trabalho dos fundadores.
+O modelo do CP5 não carrega pró-labore, e por isso a mídia orgânica aparece como gratuita no
+fluxo de caixa. Não é: avaliada a R$&nbsp;50 a hora, a frente orgânica custaria cerca de
+R$&nbsp;1.150 por mês, ou R$&nbsp;6.900 no semestre. Esse valor precisa entrar no modelo
+antes de qualquer conversa com investidor.
+</div>
+
+<h3>6.4 Análise do funil</h3>
+<p>O funil abaixo é o da mídia paga no acumulado de seis meses. Ele é construído de baixo
+para cima: o número de clientes é a meta, o CAC é a premissa, e o resto é consequência.</p>
+<table>
+  <tr><th>Etapa</th><th>Métrica</th><th class="num">Volume</th><th class="num">Taxa</th><th class="num">Custo unitário</th></tr>
+  <tr><td><strong>Topo</strong></td><td>Impressões</td><td class="num">2,27 mi</td><td class="num">—</td><td class="num">R$ 15,40 / mil</td></tr>
+  <tr><td><strong>Topo</strong></td><td>Cliques / sessões</td><td class="num">25.014</td><td class="num">1,1% de CTR</td><td class="num">R$ 1,40 por clique</td></tr>
+  <tr><td><strong>Meio</strong></td><td>Usos da calculadora</td><td class="num">6.254</td><td class="num">25% das sessões</td><td class="num">R$ 5,60 por uso</td></tr>
+  <tr><td><strong>Meio</strong></td><td>Leads (e-mail com consentimento)</td><td class="num">1.501</td><td class="num">24% dos usos</td><td class="num">R$ 23,33 por lead</td></tr>
+  <tr><td><strong>Fundo</strong></td><td>Clientes (Node + plano)</td><td class="num">241</td><td class="num">16% dos leads</td><td class="num">R$ 145,30 de CAC</td></tr>
+</table>
+<p>Depois da compra o funil continua dentro do produto, e é aí que o negócio se decide:</p>
+<table>
+  <tr><th>Etapa pós-venda</th><th>Indicador</th><th class="num">Meta</th></tr>
+  <tr><td>Ativação</td><td>Comprador que instala e vê o primeiro aparelho identificado em 48 h</td><td class="num">&ge; 70%</td></tr>
+  <tr><td>Conversão para o Pro</td><td>Usuário Free que assina depois dos três meses de promoção</td><td class="num">&ge; 12%</td></tr>
+  <tr><td>Retenção</td><td>Usuário ativo no trigésimo dia</td><td class="num">&ge; 40%</td></tr>
+  <tr><td>Churn</td><td>Cancelamento mensal da assinatura</td><td class="num">&le; 4%</td></tr>
+  <tr><td>Valor entregue</td><td>Economia média que o cliente de fato reduziu</td><td class="num">&ge; R$ 20 / mês</td></tr>
+</table>
+<p>As taxas de 25%, 24% e 16% são premissas de trabalho, e as duas primeiras já aparecem como
+meta na Fase 6. A medição real usa os dados da própria aplicação sempre que possível —
+<code>dim_dispositivo.ultimo_contato</code> para ativação, o banco para retenção e churn —
+o que evita contratar mais uma ferramenta tratando dado pessoal.</p>
+
+<h3>6.5 Estimativa de ROI</h3>
+<div class="kpis">
+  <div class="kpi"><div class="rot">Investido em mídia</div><div class="val">R$ 35.019</div><div class="rot">6 meses</div></div>
+  <div class="kpi"><div class="rot">ROAS no período</div><div class="val">1,6&times;</div><div class="rot">receita atribuída</div></div>
+  <div class="kpi amb"><div class="rot">ROI no ciclo de vida</div><div class="val">257%</div><div class="rot">margem gerada</div></div>
+  <div class="kpi amb"><div class="rot">Payback</div><div class="val">3,7 m</div><div class="rot">por cliente</div></div>
+</div>
+<table>
+  <tr><th>Métrica</th><th>Cálculo</th><th class="num">Resultado</th></tr>
+  <tr><td>Investimento em mídia paga</td><td>Soma da linha de aquisição dos 6 meses</td><td class="num">R$ 35.019</td></tr>
+  <tr><td>Clientes adquiridos por mídia</td><td>70% de 345</td><td class="num">241</td></tr>
+  <tr><td>CAC apurado</td><td>35.019 &divide; 241</td><td class="num">R$ 145,30</td></tr>
+  <tr><td>Receita total do período</td><td>Projeção do CP5, hardware + assinatura</td><td class="num">R$ 81.420</td></tr>
+  <tr><td>Receita atribuída à mídia</td><td>70% de 81.420</td><td class="num">R$ 56.994</td></tr>
+  <tr><td><strong>ROAS no período</strong></td><td>56.994 &divide; 35.019</td><td class="num"><strong>1,6&times;</strong></td></tr>
+  <tr><td>Margem de contribuição no ciclo de vida</td><td>241 &times; R$ 518,90 de LTV</td><td class="num">R$ 125.055</td></tr>
+  <tr><td><strong>ROI no ciclo de vida</strong></td><td>(125.055 &minus; 35.019) &divide; 35.019</td><td class="num"><strong>257%</strong></td></tr>
+  <tr><td>Payback do investimento por cliente</td><td>(145 &minus; 81 de MC do hardware) &divide; 17,52 de MC da assinatura</td><td class="num">3,7 meses</td></tr>
+</table>
+<pre>LTV        = MC hardware + MC assinatura × vida média
+           = 81,00 + 17,52 × 25                      = R$ 518,90
+LTV / CAC  = 518,90 / 145,30                          = 3,6×
+ROI (ciclo de vida) = LTV/CAC − 1                     = 257%</pre>
+<div class="aviso">
+<strong>O ROI é positivo e o caixa é negativo — as duas coisas ao mesmo tempo.</strong> Cada
+real investido em mídia devolve R$&nbsp;3,57 de margem ao longo da vida do cliente, mas
+devolve em 25 meses. No semestre, a projeção do CP5 fecha com caixa acumulado de
+&minus;R$&nbsp;2.781, com pior ponto de &minus;R$&nbsp;3.192 no mês 5. Apresentar o ROI de
+ciclo de vida sem esse contrapeso seria enganoso: o que o lançamento exige não é lucro, é
+R$&nbsp;3,2 mil de capital de giro.
+</div>
+
+<h3>6.6 Regras de corte e de escala</h3>
+<p>Decidir no meio da campanha, com o criativo rodando, é como se perde orçamento. Por isso
+as regras são escritas antes:</p>
+<table>
+  <tr><th>Situação</th><th>Decisão</th></tr>
+  <tr><td>Conjunto de anúncios com CAC acima de R$&nbsp;217 (1,5&times; a meta) após R$&nbsp;300 gastos</td><td>Desligar. Não otimizar, não esperar mais uma semana</td></tr>
+  <tr><td>Criativo com CAC abaixo de R$&nbsp;100</td><td>Dobrar o orçamento do conjunto na semana seguinte, no máximo 2&times; por semana</td></tr>
+  <tr><td>Custo por lead acima de R$&nbsp;47 (2&times; a meta)</td><td>O problema é a página, não o anúncio: revisar a calculadora antes de mexer na mídia</td></tr>
+  <tr><td>Ativação em 48 h abaixo de 50%</td><td>Congelar aumento de orçamento. Adquirir mais cliente que não ativa é queimar caixa</td></tr>
+  <tr><td>Churn acima de 6% por dois meses</td><td>Suspender a escala. Com churn de 6%, a vida média cai para 17 meses e o LTV/CAC vai a 2,5&times;</td></tr>
+  <tr><td>CAC médio dobrando para R$&nbsp;290</td><td>Como já registrado no CP5, o LTV/CAC cai para 1,8&times; e o modelo deixa de se sustentar: parar a mídia paga e viver do orgânico até entender o motivo</td></tr>
+</table>
+</section>
+
+<section class="quebra">
+<h2>Parte 7 — Segurança, monitoramento e gestão de redes sociais</h2>
+
+<p>Uma conta oficial tomada vale mais para o atacante do que o banco de dados: dá acesso a
+toda a audiência construída, com a credibilidade da marca. E para o Amperê o dano é
+específico — somos a empresa que pede para instalar um sensor dentro da casa do cliente.
+Um perfil invadido publicando link de phishing não custa alcance: custa a premissa do
+produto.</p>
+
+<h3>7.1 Inventário e proteção das contas oficiais</h3>
+<p>Primeiro passo, antes de abrir qualquer conta: o inventário. O que não está na lista não
+é oficial, e perfil não oficial com o nome da marca é denunciado como falso.</p>
+<table>
+  <tr><th>Controle</th><th>Regra</th></tr>
+  <tr><td>Inventário</td><td>Documento versionado no repositório com cada conta oficial, quem administra, quem tem acesso e o e-mail vinculado. Revisto a cada trimestre</td></tr>
+  <tr><td>Autenticação em dois fatores</td><td>Obrigatória em todas as contas, por aplicativo autenticador ou chave física. <strong>Nunca por SMS</strong> — troca de chip é o vetor mais usado em invasão de perfil no Brasil</td></tr>
+  <tr><td>Senhas</td><td>Únicas por conta, geradas e guardadas em gerenciador de senhas da equipe. Nenhuma senha em conversa, planilha ou anotação</td></tr>
+  <tr><td>E-mail de recuperação</td><td>Endereço dedicado, usado só para isso, também com dois fatores. Não é o e-mail pessoal de ninguém</td></tr>
+  <tr><td>Login compartilhado</td><td>Proibido. Cada pessoa acessa com o próprio usuário, pelo gerenciador de negócios da plataforma</td></tr>
+  <tr><td>Papéis mínimos</td><td>Dois administradores (nunca um só, para não perder a conta se alguém sair); os demais como editores. Quem publica não precisa poder remover administrador</td></tr>
+  <tr><td>Aplicativos conectados</td><td>Revisão trimestral de aplicativos, tokens e integrações com permissão de publicação. O que não é usado é revogado</td></tr>
+  <tr><td>Domínio verificado</td><td>Domínio próprio verificado no gerenciador de negócios, e selo de verificação solicitado assim que houver tração</td></tr>
+  <tr><td>Saída de integrante</td><td>Revogação de acesso no mesmo dia, troca das senhas que a pessoa conhecia e encerramento das sessões ativas</td></tr>
+</table>
+
+<h3>7.2 Prevenção de vazamento</h3>
+<p>Em uma startup pequena o vazamento raro é o ataque; o comum é a captura de tela.</p>
+<ul>
+  <li><strong>Nenhuma captura de produção.</strong> Todo material de campanha sai da conta de
+      demonstração, com a base sintética de 90 dias. É a prática já adotada nas capturas de
+      <code>docs/</code>, e aqui passa a ser regra escrita.</li>
+  <li><strong>Suporte não trafega dado pessoal em mensagem direta.</strong> Dúvida que exija
+      identificar conta é respondida pelo canal autenticado, nunca por comentário ou DM.
+      A resposta pública padrão aponta o canal, sem confirmar que a pessoa é cliente — a
+      própria confirmação já é dado pessoal.</li>
+  <li><strong>Nenhum número de cliente nominalmente.</strong> Depoimento só com autorização
+      por escrito, e sem a curva de consumo da pessoa.</li>
+  <li><strong>Revisão antes de publicar.</strong> Peça com tela de sistema passa por uma
+      segunda pessoa, olhando especificamente para o que ficou na barra de endereço, na aba
+      do navegador, no terminal e nas notificações.</li>
+  <li><strong>Segredos nunca aparecem em tela gravada.</strong> Chave de ingestão, token e
+      variável de ambiente ficam fora de qualquer gravação — foi por isso que o material de
+      apoio da demonstração do CP5 ficou fora do repositório.</li>
+</ul>
+
+<h3>7.3 Resposta a ataque cibernético</h3>
+<h4>O que esperar</h4>
+<table>
+  <tr><th>Vetor</th><th>Como chega</th><th>Defesa</th></tr>
+  <tr><td>Phishing dirigido à equipe</td><td>Mensagem direta ou e-mail imitando a plataforma: "sua página será desativada por violação de direitos autorais, confirme aqui". É o vetor mais comum contra perfil de marca</td><td>Regra fixa: a equipe nunca autentica a partir de link recebido. O acesso é sempre digitando o endereço da plataforma. Ninguém da plataforma pede senha ou código</td></tr>
+  <tr><td>Sequestro de conta por sessão ativa</td><td>Máquina ou celular comprometido com sessão aberta</td><td>Dois fatores, encerramento periódico de sessões e dispositivo da equipe com tela bloqueada e disco cifrado</td></tr>
+  <tr><td>Aplicativo malicioso autorizado</td><td>Ferramenta de agendamento ou de "análise de seguidores" com permissão de publicação</td><td>Revisão trimestral e política de só autorizar ferramenta aprovada pelos três sócios</td></tr>
+  <tr><td>Perfil falso da marca</td><td>Clone pedindo dado ou pagamento a seguidores</td><td>Busca mensal pelo nome da marca, denúncia imediata e aviso público nos canais oficiais</td></tr>
+</table>
+<h4>Playbook de conta comprometida</h4>
+<ol>
+  <li><strong>Conter, em minutos.</strong> Encerrar todas as sessões, trocar a senha pelo
+      gerenciador, conferir e revogar aplicativos conectados e remover administrador
+      desconhecido.</li>
+  <li><strong>Avaliar o alcance.</strong> Verificar o que foi publicado, o que foi enviado por
+      mensagem direta e se houve acesso a mensagens com dado pessoal de seguidor.</li>
+  <li><strong>Acionar a plataforma.</strong> Abrir o fluxo de conta comprometida; se o acesso
+      foi perdido, usar o e-mail de recuperação dedicado.</li>
+  <li><strong>Comunicar.</strong> Aviso nos outros canais oficiais e no topo da landing,
+      dizendo o que aconteceu, o que não fazer (não clicar no link publicado) e quando houver
+      normalização.</li>
+  <li><strong>Avaliar o dever legal.</strong> Se houve acesso a dado pessoal de titular, vale
+      o procedimento de incidente da Fase 6: comunicação à ANPD e aos titulares em até
+      <strong>3 dias úteis</strong>, conforme a Resolução CD/ANPD nº 15/2024. A decisão é
+      colegiada entre os três sócios, como já definido na governança.</li>
+  <li><strong>Registrar e corrigir.</strong> Registro do incidente com linha de tempo, causa
+      raiz e o controle que falhou, no mesmo formato da trilha de auditoria da Fase 6.</li>
+</ol>
+
+<h3>7.4 Ataque de reputação e fake news</h3>
+<p>Não se responde a tudo do mesmo jeito. A classificação vem primeiro, e define o prazo e
+quem responde:</p>
+<table>
+  <tr><th>Classe</th><th>Exemplo</th><th>Resposta</th><th class="num">Prazo</th></tr>
+  <tr><td><strong>Crítica justa</strong></td><td>"O detector não identificou minha máquina de lavar"</td><td>Resposta pública reconhecendo, com o encaminhamento técnico. Se for defeito, entra no repositório e a correção é publicada</td><td class="num">24 h</td></tr>
+  <tr><td><strong>Erro factual de boa-fé</strong></td><td>"Precisa trocar todas as tomadas"</td><td>Correção cordial e pública, uma vez, com link para a página que explica. Sem discussão em série</td><td class="num">24 h</td></tr>
+  <tr><td><strong>Desinformação sobre privacidade</strong></td><td>"Esse sensor grava o que acontece na sua casa" · "eles vendem seu consumo para a distribuidora"</td><td>Resposta com documento: a política pública, a agregação em 15 minutos e a vedação expressa de venda de dados, todas escritas na Fase 6. Página de fatos fixada na landing e um post próprio, não só comentário</td><td class="num">12 h</td></tr>
+  <tr><td><strong>Ataque coordenado</strong></td><td>Volume anormal de comentários idênticos, contas novas, em janela curta</td><td>Não responder individualmente. Um posicionamento único, público e datado; coleta de evidência (capturas, horários, perfis) e denúncia à plataforma</td><td class="num">6 h para o posicionamento</td></tr>
+  <tr><td><strong>Ataque de concorrente ou difamação</strong></td><td>Afirmação falsa sobre segurança elétrica do produto</td><td>Resposta técnica pública e preservação de prova; avaliação jurídica antes de qualquer notificação</td><td class="num">24 h</td></tr>
+</table>
+<div class="nota">
+<strong>Por que a classe de privacidade tem o prazo mais curto.</strong> É a única acusação que
+ataca a premissa do produto. Quem acredita que o sensor espiona não deixa de comprar: deixa
+de confiar, e conta para os vizinhos. Essa é a razão prática de a Fase 6 ter sido escrita
+antes desta: a resposta a essa crise não se improvisa no dia, ela já está publicada.
+</div>
+<h4>Princípios de resposta</h4>
+<ul>
+  <li>Responder com dado próprio e verificável, nunca com adjetivo.</li>
+  <li>Em público uma vez; o resto segue em canal privado. Discussão em série alimenta o
+      alcance do atacante.</li>
+  <li>Nunca apagar crítica legítima. Apagar é a notícia seguinte.</li>
+  <li>Quem responde é definido antes: assuntos técnicos e de privacidade, o responsável
+      técnico e encarregado; assuntos de produto e comercial, quem cuida de marketing.
+      Crise de classe "ataque coordenado" sobe para decisão dos três.</li>
+  <li>Toda crise fica registrada com data, classe, alcance e desfecho. Reputação se defende
+      com histórico, não com memória.</li>
+</ul>
+
+<h3>7.5 Monitoramento e indicadores</h3>
+<table>
+  <tr><th>O que se observa</th><th>Como</th><th>Frequência</th><th>Gatilho</th></tr>
+  <tr><td>Menções à marca fora dos canais</td><td>Alerta de busca pelo nome e variações, busca por hashtag nas redes</td><td>Diária</td><td>Qualquer menção de classe "privacidade" ou "coordenado" aciona o fluxo de 7.4</td></tr>
+  <tr><td>Comentários e mensagens diretas</td><td>Caixa de entrada unificada do gerenciador de negócios</td><td>Duas janelas por dia, manhã e fim do dia</td><td>Pergunta sem resposta por mais de 24 h</td></tr>
+  <tr><td>Perfis falsos</td><td>Busca pelo nome da marca em cada rede</td><td>Mensal</td><td>Denúncia no mesmo dia e aviso público</td></tr>
+  <tr><td>Acessos e papéis nas contas</td><td>Revisão do inventário de 7.1</td><td>Trimestral</td><td>Qualquer acesso que não esteja no inventário</td></tr>
+  <tr><td>Aplicativos e tokens conectados</td><td>Painel de aplicativos de cada plataforma</td><td>Trimestral</td><td>Permissão de publicação não reconhecida</td></tr>
+  <tr><td>Tentativa de login e alerta de segurança</td><td>Notificação das plataformas no e-mail dedicado</td><td>Contínua</td><td>Login de local desconhecido abre o playbook de 7.3</td></tr>
+</table>
+<h4>Indicadores de gestão</h4>
+<table>
+  <tr><th>Indicador</th><th class="num">Meta</th></tr>
+  <tr><td>Tempo mediano de primeira resposta a comentário ou mensagem</td><td class="num">&le; 12 h</td></tr>
+  <tr><td>Contas oficiais com dois fatores por aplicativo</td><td class="num">100%</td></tr>
+  <tr><td>Incidentes de segurança em redes sociais no trimestre</td><td class="num">0</td></tr>
+  <tr><td>Crises de reputação respondidas dentro do prazo da classe</td><td class="num">100%</td></tr>
+  <tr><td>Revisões trimestrais de acesso executadas</td><td class="num">4 por ano</td></tr>
+  <tr><td>Sentimento das menções</td><td class="num">Acompanhamento qualitativo semanal</td></tr>
+</table>
+<p>O protocolo desta parte não é um anexo de marketing: é a extensão, para os canais
+públicos, do mesmo sistema de gestão desenhado na Fase 6 — o ciclo
+<em>avaliar&ndash;dirigir&ndash;monitorar</em> da ISO/IEC 38500, os controles de acesso e de
+registro da ISO 27001 e 27002, e o procedimento de incidente da LGPD.</p>
+</section>
+
+<section class="quebra">
+<h2>Encerramento</h2>
+<p>Esta fase fecha o percurso: o sistema funciona (Fase 5), é confiável e auditável (Fase 6)
+e agora tem um caminho escrito para chegar ao primeiro cliente. A decisão central do plano
+foi não arbitrar o orçamento de mídia. Ele é a linha de aquisição da projeção financeira já
+construída — R$&nbsp;35.019 em seis meses, derivados do CAC de R$&nbsp;145 e da curva de
+345 clientes — e o trabalho aqui foi distribuí-la entre canais, estimar o funil que ela
+sustenta e dizer o que se faz quando o número não vier.</p>
+<p>Três coisas ficam registradas como limite, e não como ressalva de rodapé: a curva de
+clientes é a premissa mais frágil do modelo e nenhuma peça deste plano a torna mais sólida;
+o ROI de 257% é de ciclo de vida, enquanto o caixa do semestre fecha negativo em
+R$&nbsp;2,8 mil; e a mídia orgânica aparece gratuita porque o modelo não paga os fundadores.
+Registrar isso é o que separa um plano de lançamento de uma peça de venda.</p>
+<table class="meta">
+  <tr><td class="rot">Repositório</td><td>https://github.com/GuilhermeCostaProenca/ampere-dashboard</td></tr>
+  <tr><td class="rot">Aplicação</td><td>https://ampere-dashboard-six.vercel.app</td></tr>
+  <tr><td class="rot">Vídeo-pitch (não listado)</td><td>[INSERIR LINK DO VÍDEO]</td></tr>
+</table>
+</section>
+
+</body>
+</html>
