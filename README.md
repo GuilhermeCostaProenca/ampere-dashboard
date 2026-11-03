@@ -1,14 +1,32 @@
-# ⚡ Amperê — MVP NILM (Fase 5)
+# ⚡ Amperê — monitoramento de energia por aparelho (NILM)
 
 Sistema de monitoramento energético residencial baseado em **NILM**
 (*Non-Intrusive Load Monitoring*): **um único sensor** no quadro elétrico
 (ESP32 + SCT-013-030) mede a corrente total da casa, e o software separa dali o
 consumo de cada aparelho — mostrando tudo em **R$**, não em kWh.
 
-> **CP5 — "MVP Completo: Programando a Solução e Produzindo um Produto"**
-> Startup One (FIAP) · Fase 5.
-> Front-end e back-end reais, banco em nuvem, autenticação e ingestão de
-> telemetria. O CP4 era protótipo com dados locais; agora tudo vem do banco.
+> Startup One (FIAP) · Grupo SenseForge · Turma 4SIOA<br>
+> **No ar:** <https://ampere-dashboard-six.vercel.app> · conta de demonstração
+> `demo@ampere.app` / `ampere2026`
+>
+> Este repositório acompanha o projeto desde o protótipo. O código descrito
+> abaixo é o estado atual; cada entrega acadêmica está versionada em
+> [`entregas/`](entregas/) — ver o índice logo adiante.
+
+---
+
+## 📦 Entregas por fase
+
+| Fase | Tema | Onde |
+| --- | --- | --- |
+| **CP4** | Protótipo navegável com dados locais e teste de usabilidade com 3 personas | [`entregas/cp4/`](entregas/cp4/) — deck e vídeo |
+| **CP5** · Fase 5 | MVP completo: front, API, banco em nuvem, autenticação e ingestão de telemetria. Estratégia de mercado e viabilidade financeira | [`entregas/cp5/`](entregas/cp5/) — documentação, deck, roteiro |
+| **Fase 6** | Governança de TI (ISO/IEC 38500), adequação à LGPD, 10 riscos de segurança lidos no próprio código e plano de aquisição de usuários | [`entregas/fase6/`](entregas/fase6/) — documentação (13 p.), deck (8 slides), roteiro |
+| **Fase 7** | Plano de lançamento: posicionamento e narrativa, campanha transmídia, inbound, influenciadores, mídia digital com ROI e protocolo de segurança em redes sociais | [`entregas/fase7/`](entregas/fase7/) — documentação (21 p.), deck (10 slides), roteiro |
+
+Da Fase 5 em diante cada pasta traz um `LEIA-ME.txt` com os RMs do grupo, o link
+do vídeo e o resumo das partes do documento. Os PDFs da Fase 7 são regerados com
+`npm run fase7`.
 
 ---
 
@@ -74,7 +92,7 @@ Rota protegida sem sessão redireciona para `/entrar`; com sessão ativa,
 ```
 ┌─────────────────────┐
 │  Amperê Node        │   ESP32 + SCT-013-030 no quadro elétrico.
-│  (hardware — F6)    │   Hoje substituído por server/src/simulator/,
+│  (em montagem)      │   Hoje substituído por server/src/simulator/,
 │                     │   que publica no MESMO endpoint e formato.
 └──────────┬──────────┘
            │  POST /ingest/readings          autenticação: X-Device-Key
@@ -476,11 +494,16 @@ public/midia/            fotos e vídeos do produto usados na landing
 
 ---
 
-## 🚧 Fora do escopo desta fase
+## 🚧 Fora do escopo do que está implementado
 
 Hardware ESP32 físico · modelo de ML para desagregação · pagamento real do
 plano Pro · app mobile nativo · multi-sensor por residência.
 
+Os controles de segurança ainda pendentes (limitação de taxa, trilha de
+auditoria e hash da chave de ingestão) estão levantados e priorizados na
+documentação da Fase 6, seção 1.3.
+
 ---
 
-**FIAP · Startup One · Fase 5 — CP5**
+**FIAP · Startup One · Grupo SenseForge · 4SIOA**<br>
+Guilherme Costa Proença (RM 98937) · Eduarda Quagliareli Shiratsu (RM 551188) · Hugo Antônio de Oliveira (RM 550153)
