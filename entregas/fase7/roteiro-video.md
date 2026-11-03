@@ -14,6 +14,7 @@ Antes de gravar:
 - Terminal na pasta `server`, com o simulador pronto para rodar.
 - Aba Network do navegador aberta, para mostrar a chamada saindo.
 - `entregas/fase7/slides-fase7.pdf` aberto em tela cheia, ou o HTML no navegador.
+  O deck tem 11 slides em 1920x1080 (16:9), já no formato do vídeo.
 - Link do vídeo já trocado nos dois HTML e os PDFs regerados com `npm run fase7`.
 
 ---
@@ -120,7 +121,7 @@ Sequência enxuta, quatro passos:
 
 ---
 
-## [3:25–4:05] Mídia digital, funil e ROI — Hugo · slides 7 e 8
+## [3:25–4:05] Mídia digital, funil e ROI — Hugo · slides 7, 8 e 9
 
 > "O orçamento de mídia não foi arbitrado nesta fase: ele já existia. É a linha de aquisição
 > da projeção financeira do CP5 — o custo de aquisição de cento e quarenta e cinco reais
@@ -143,7 +144,7 @@ Sequência enxuta, quatro passos:
 
 ---
 
-## [4:05–4:40] Segurança e reputação em redes sociais — Hugo · slide 9
+## [4:05–4:40] Segurança e reputação em redes sociais — Hugo · slide 10
 
 > "Uma conta oficial tomada vale mais para o atacante do que o nosso banco de dados — e para
 > nós o dano é específico: somos a empresa que pede para instalar um sensor dentro da casa do
@@ -167,7 +168,7 @@ Sequência enxuta, quatro passos:
 
 ---
 
-## [4:40–5:00] Fechamento — Duda · slide 10
+## [4:40–5:00] Fechamento — Duda · slide 11
 
 > "Fase cinco: funciona. Fase seis: é confiável. Fase sete: tem caminho até o primeiro
 > cliente.

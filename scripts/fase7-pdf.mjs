@@ -27,9 +27,9 @@ const RODAPE =
   '<span>Amperê &middot; FIAP Startup One &middot; Fase 7</span>' +
   '<span class="pageNumber"></span></div>'
 
-// O slide tem a altura fixa de 790px definida em .slide; a largura acompanha a
-// página, então a folha precisa ter exatamente essas medidas para não sobrar
-// faixa branca nem cortar conteúdo.
+// O slide é um canvas fixo de 1920x1080 (16:9) definido em .slide, então a folha
+// precisa ter exatamente essas medidas para não sobrar faixa branca nem cortar
+// conteúdo. O 16:9 é o formato do vídeo da entrega.
 const TRABALHOS = [
   {
     html: 'entregas/fase7/documentacao-fase7.html',
@@ -46,8 +46,8 @@ const TRABALHOS = [
     html: 'entregas/fase7/slides-fase7.html',
     pdf: 'entregas/fase7/slides-fase7.pdf',
     opcoes: {
-      width: '1280px',
-      height: '790px',
+      width: '1920px',
+      height: '1080px',
       margin: { top: '0', bottom: '0', left: '0', right: '0' },
     },
   },

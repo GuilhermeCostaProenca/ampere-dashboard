@@ -8,8 +8,8 @@ Hugo Antônio de Oliveira  RM 550153
 
 CONTEÚDO DESTE .ZIP
 
-  documentacao-fase7.pdf    Partes 1 a 7 do documento (21 páginas)
-  slides-fase7.pdf          Apresentação do pitch (10 slides, com o link do vídeo)
+  documentacao-fase7.pdf    Partes 1 a 7 do documento (22 páginas)
+  slides-fase7.pdf          Apresentação do pitch (11 slides em 16:9, com o link do vídeo)
   link-do-video.txt         YouTube, não listado, até 5 min
   roteiro-video.md          Roteiro usado na gravação
 

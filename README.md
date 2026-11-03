@@ -22,7 +22,7 @@ consumo de cada aparelho — mostrando tudo em **R$**, não em kWh.
 | **CP4** | Protótipo navegável com dados locais e teste de usabilidade com 3 personas | [`entregas/cp4/`](entregas/cp4/) — deck e vídeo |
 | **CP5** · Fase 5 | MVP completo: front, API, banco em nuvem, autenticação e ingestão de telemetria. Estratégia de mercado e viabilidade financeira | [`entregas/cp5/`](entregas/cp5/) — documentação, deck, roteiro |
 | **Fase 6** | Governança de TI (ISO/IEC 38500), adequação à LGPD, 10 riscos de segurança lidos no próprio código e plano de aquisição de usuários | [`entregas/fase6/`](entregas/fase6/) — documentação (13 p.), deck (8 slides), roteiro |
-| **Fase 7** | Plano de lançamento: posicionamento e narrativa, campanha transmídia, inbound, influenciadores, mídia digital com ROI e protocolo de segurança em redes sociais | [`entregas/fase7/`](entregas/fase7/) — documentação (21 p.), deck (10 slides), roteiro |
+| **Fase 7** | Plano de lançamento: posicionamento e narrativa, campanha transmídia, inbound, influenciadores, mídia digital com ROI e protocolo de segurança em redes sociais | [`entregas/fase7/`](entregas/fase7/) — documentação (22 p.), deck (11 slides), roteiro |
 
 Da Fase 5 em diante cada pasta traz um `LEIA-ME.txt` com os RMs do grupo, o link
 do vídeo e o resumo das partes do documento. Os PDFs da Fase 7 são regerados com
