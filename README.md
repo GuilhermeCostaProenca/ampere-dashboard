@@ -231,7 +231,8 @@ o degrau nitidamente melhor que uma carga isolada.
 **Limite conhecido:** três ou mais cargas simultâneas, e o caso em que uma liga
 no exato instante em que outra desliga (degrau de sinais trocados), continuam
 sem separação. Resolver isso é desagregação de verdade, com modelo treinado —
-**Fase 6**.
+item de **horizonte médio** no roadmap (ver [`entregas/fase6/`](entregas/fase6/),
+seção 1.3).
 
 A troca está isolada: `DetectorNILM` (em [`server/src/nilm/types.ts`](server/src/nilm/types.ts))
 é a fronteira. Substituir a heurística por um modelo não toca em rota, serviço
