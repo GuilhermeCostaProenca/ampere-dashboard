@@ -28,7 +28,7 @@ APLICAÇÃO PUBLICADA
 
 VÍDEO-PITCH
 
-  [INSERIR LINK DO VÍDEO]
+  https://youtu.be/qyt1q5DYUTw
 
 PARTES DO DOCUMENTO
 
@@ -79,12 +79,9 @@ COMO REGERAR OS PDFS E FECHAR O .ZIP
   SenseForge.zip na raiz do repositório, já com os arquivos soltos na mesma
   pasta, como a atividade pede.
 
-  Enquanto o texto [INSERIR LINK DO VÍDEO] estiver nos .html, o script gera os
-  PDFs, avisa e NÃO fecha o .ZIP. Depois de gravar e publicar o vídeo como não
-  listado no YouTube:
-
-    1. troque [INSERIR LINK DO VÍDEO] em documentacao-fase7.html (duas
-       ocorrências: identificação da entrega e encerramento);
-    2. troque também em slides-fase7.html (duas ocorrências: capa e fechamento);
-    3. escreva o link em link-do-video.txt e neste LEIA-ME;
-    4. rode "npm run fase7" de novo.
+  O link do vídeo já está nos dois .html, neste arquivo e em link-do-video.txt,
+  e os PDFs desta pasta foram gerados com ele. Se o vídeo for substituído, troque
+  o endereço nos dois .html (duas ocorrências em cada: identificação e
+  encerramento, no documento; capa e fechamento, nos slides), neste LEIA-ME e em
+  link-do-video.txt, e rode "npm run fase7" de novo — o script se recusa a fechar
+  o .ZIP enquanto houver placeholder pendente.
