@@ -37,6 +37,10 @@ Antes de gravar:
 
 Quatro passos. Deixe a tela respirar: um terço deste bloco é ação, não fala.
 
+**Gravando sem terminal?** Há uma versão deste bloco só com o navegador, mesma duração e
+mesma fala, em [guia-demo-dashboard.md](guia-demo-dashboard.md). A prova de que o sistema
+está vivo passa a ser a aba Network em vez do simulador.
+
 1. **Dashboard logado:** gasto do mês, consumo agora e o ranking de aparelhos por custo.
 2. **Terminal:** `npm run simulate` — as leituras saindo.
 3. **Supabase:** `fato_leitura_agregada` com a contagem subindo.
