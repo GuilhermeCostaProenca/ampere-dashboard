@@ -13,11 +13,15 @@ Este arquivo é material de apoio da gravação. Ele **não** entra no .ZIP da e
 **Link:** <https://ampere-dashboard-six.vercel.app>
 **Conta de demonstração:** `demo@ampere.app` · senha `ampere2026`
 
-Conferido em 03/11/2026: o site responde e o banco está acordado.
+**Confira que o login funciona antes de montar a gravação.** O banco fica num plano gratuito
+que **pausa sozinho** depois de uns 7 dias sem uso, e quando está pausado a tela de acesso
+diz **"E-mail ou senha incorretos"** mesmo com a senha certa — o aplicativo trata qualquer
+falha de autenticação com essa mesma mensagem. Ou seja: se a senha "não está indo", quase
+sempre não é a senha, é o banco dormindo.
 
-**Se a tela de acesso der "Erro interno"**, não é erro seu — o banco fica num plano gratuito
-que pausa sozinho depois de uns 7 dias sem uso. Nesse caso avisa o Guilherme antes de
-gravar: são dois minutos para reativar, mas tem que ser ele.
+Nesse caso avisa o Guilherme: são dois minutos para reativar no painel do Supabase, mas tem
+que ser ele. Depois de reativar, ele também precisa rodar `npm run seed` para reposicionar
+a janela de 90 dias, senão os gráficos aparecem vazios.
 
 **Gravação:** grave em **1920x1080** (Full HD, 16:9). É a mesma proporção do deck de slides,
 então a troca entre slide e tela não muda o enquadramento.
@@ -39,8 +43,10 @@ Começa em <https://ampere-dashboard-six.vercel.app>. Mostra que é um produto p
 verdade, não uma tela solta. Dá uma rolada curta e para.
 
 **2. Entrar** (uns 5s)
-Clica em acessar, digita `demo@ampere.app` e a senha, e entra. **Deixa o login aparecer na
-gravação** — é o que prova que tem autenticação real, não é tela estática.
+Clica em acessar. **O campo de e-mail já vem preenchido** com `demo@ampere.app` — não digita
+de novo, senão o endereço duplica e o login falha dizendo que a senha está incorreta.
+Preenche só a senha e entra. **Deixa o login aparecer na gravação** — é o que prova que tem
+autenticação real, não é tela estática.
 
 **3. O painel** (uns 8s — é aqui que a história acontece)
 Você cai em **Painel de controle**. Três coisas para mostrar, nessa ordem:
