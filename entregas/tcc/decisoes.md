@@ -68,7 +68,57 @@ A literatura compilada reforça com nuance: dados Procel/EPE (PPH 2019) indicam 
 problema é de informação, não de desperdício: as pessoas agem sobre o aparelho errado
 porque medem pelo senso comum. E é a demonstração mais limpa do valor do produto.
 
-## 5. Conflito de números entre as duas fontes de mercado
+## 5. Validação das fontes — o que foi conferido e o que foi corrigido
+
+Antes da entrega, cada afirmação com citação foi conferida na fonte. O resultado
+foi ruim o bastante para justificar uma regra: **nada vindo do documento de
+mercado compilado entrou no TCC sem verificação independente.**
+
+### Conferido na fonte primária e mantido
+
+| Afirmação | Fonte lida | Situação |
+| --- | --- | --- |
+| 83.470.520 consumidores residenciais (jun/2025); CRM de 178,2 kWh/mês; 90.861 GWh no semestre; 31,0% do consumo | EPE, *Mercado de energia elétrica*, set. 2025 | Confere. A soma das cinco regiões fecha exatamente com o total |
+| Geladeira é o maior consumo do 1º ao 9º decil; ar-condicionado só supera no 10º | EPE, *Consumo residencial por classes de renda*, 2023 (Gráfico 5) | Confere, textualmente |
+| Posse de ar-condicionado de 0,04 a 0,83 por domicílio entre as faixas extremas | mesma publicação | Confere |
+| 176.519 GWh em 2024; 82,9 milhões de UCs (88,0%) em dez/2024; 31,4% do consumo | EPE, *Anuário 2025*, fact sheet | Confere |
+| PPH em 18.775 domicílios de 166 municípios | Procel/Eletrobras, PPH 2019 | Confere |
+| Consumidor subestima custos de energia antes e depois do PBE | Huse, Lucinda e Cardoso, *Energy Policy*, v. 138, art. 111207 | Confere; faltava o número do artigo na referência |
+| Distribuição de classes da Grande São Paulo | ABEP, Critério Brasil 2024 | Confere: B1 7,6%, B2 23,1%, C1 24,6%, C2 26,7% |
+
+### Corrigido
+
+| O que estava escrito | O que a fonte diz |
+| --- | --- |
+| "208 kWh/mês na região **Sudeste**" | 208,0 é o **Sul**. O Sudeste é **183,8 kWh/mês** (+4,4%). As UFs de destaque no fact sheet confirmam: ES e SP aparecem sob 183,8; SC e PR sob 208,0 |
+| "consumo de 290 a 310 kWh é 40% a 50% acima da média do Sudeste" | Recalculado sobre 183,8: é de 60% a 70% acima |
+| "pesquisa **Datafolha** apurou que **84%** acham a energia cara" | Os 84% são de **Ibope/Abraceel (2020)**. O Datafolha (2021) apurou **8 em cada 10**, com 2.081 entrevistados em 130 municípios. Passou a citar o Datafolha |
+| "(PORTAL GIRO, 2025)" para a compreensão da fatura | O estudo é da **Bulbe Energia**, mar. 2025, com 500 respondentes. "Portal Giro" era apenas um veículo que o noticiou |
+| "40% não entendem os tributos" | Não confirmado em nenhuma fonte. **Removido** |
+| "5,6% utilizam aplicativos para acompanhar consumo" | Não confirmado. **Removido** |
+| INESC: "famílias de baixa renda comprometem 11,57%, contra 1,46% das de alta renda" | O estudo é sobre injustiça racial e de gênero. Os 11,57% são de famílias chefiadas por **mulheres negras** de baixa renda; o 1,46% não foi confirmado e saiu. A comparação 262,72 × 102,84 kWh é entre famílias chefiadas por homens brancos de alta renda e homens negros de baixa renda |
+| Schultz *et al.* (2019), *Nature Energy*, com o título do artigo de 2015 | São dois artigos. O de 2015 saiu na *Energy*, v. 90; o de 2019, que trata da persistência em dois anos, é *Making the smart meter social promotes long-term energy conservation*, na *Humanities and Social Sciences Communications* |
+| Statista: "12% de crescimento e 11,3% de penetração no Brasil" | Não confirmados para o Brasil. A penetração de 11,6% e o crescimento de 10,97% são da **América do Sul**. O texto passou a dizer isso |
+| SAM com "classes B e C em 54% dos domicílios" | Número não encontrado em nenhuma tabela da ABEP. Substituído por B1+B2+C1 = **55,3%**, com o corte justificado pela renda média de C1 (R$ 3.980,38) |
+| Preço do Node no dimensionamento e na SWOT | Estava R$ 199 em três lugares e R$ 299 nos demais. Unificado em R$ 299, que é o preço proposto na seção 8.5 |
+
+### Removido por não se sustentar
+
+Quatro afirmações saíram do documento por dependerem de fonte que não resistiu à
+conferência: o peso da conta no orçamento familiar passando de 2,1% para 4,4%;
+os 4,54% do PIB por habitante como maior percentual da OCDE; as tarifas de São
+Paulo entre R$ 0,64 e R$ 0,725; e os dados de familiaridade com casa inteligente
+atribuídos a GfK, YouGov e CNI. O documento ficou com 16 referências em vez de
+23 — todas verificadas, todas com endereço e data de acesso.
+
+### Erro meu no caminho
+
+Ao ler o fact sheet da EPE sobre classes de renda, concluí cedo demais, pelo
+Gráfico 4, que a afirmação sobre decis estava errada. O Gráfico 5 da mesma
+publicação usa decis e confirma a frase original. A afirmação estava certa; a
+leitura parcial é que não estava.
+
+## 6. Conflito de números entre as duas fontes de mercado
 
 O documento compilado pelo grupo e a apresentação da EPE que eu li direto não dão os
 mesmos valores, porque são períodos diferentes:
@@ -79,9 +129,11 @@ mesmos valores, porque são períodos diferentes:
 | Consumo médio Sudeste | 208 kWh/mês | 182,8 kWh/mês |
 | Participação no consumo total | 31,4% | 31,0% |
 
-Não é contradição: 208 kWh/mês é média anual de 2024 e 182,8 é o mês de junho de 2025,
-que é inverno e tem menos climatização. O crescimento de 82,9 para 83,5 milhões em meio
-ano também é coerente com os 2,0% a.a. que a própria EPE reporta.
+**Esta explicação estava errada e foi corrigida na seção 5 acima.** A diferença
+entre 208 e 182,8 não é sazonal: 208,0 kWh/mês é o consumo médio do **Sul**, não
+do Sudeste. O Sudeste em 2024 foi de 183,8 kWh/mês, praticamente igual aos 182,8
+de junho de 2025. O crescimento de 82,9 para 83,5 milhões em meio ano, esse sim,
+é coerente com os 2,0% a.a. que a EPE reporta.
 
 **Decisão:** cada número no documento vai com período de referência explícito e fonte
 própria. Onde os dois servem, uso o mais recente que eu verifiquei na fonte primária

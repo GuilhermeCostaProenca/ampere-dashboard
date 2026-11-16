@@ -36,6 +36,10 @@
   /* Citação direta longa */
   blockquote { margin: .75em 0 .75em 4cm; font-size: 10pt; line-height: 1;
                text-align: justify; }
+  /* Equações: centradas, sem o recuo de 4 cm reservado à citação direta longa */
+  .formula { margin: 1em 0; text-align: center; text-indent: 0;
+             font-family: "Courier New", monospace; font-size: 11pt;
+             line-height: 1.6; }
 
   /* Figuras e tabelas: identificação acima, fonte abaixo, ambas centradas */
   figure { margin: 1.2em 0; page-break-inside: avoid; }
@@ -252,20 +256,21 @@ distribuídos por 166 municípios, é a fonte mais ampla sobre conhecimento
 energético residencial no país e levanta, entre outros aspectos, a consciência
 dos moradores sobre uso eficiente de energia (PROCEL, 2019).</p>
 
-<p>Levantamentos mais recentes sobre a compreensão da fatura indicam que, embora
-oito em cada dez brasileiros leiam a conta de luz mensalmente, metade não
-compreende as cobranças que a compõem; 41% não entendem o sistema de bandeiras
-tarifárias e 40% não entendem os tributos incidentes (PORTAL GIRO, 2025). A busca
-ativa por esclarecimento é reduzida: apenas 24% procuram explicações em fontes
-técnicas, aplicativos ou junto à distribuidora, e somente 5,6% utilizam
-aplicativos para acompanhar o consumo (CANAL SOLAR, 2025). A maioria limita-se a
-comparar o valor final com o dos meses anteriores.</p>
+<p>Levantamento conduzido pela Bulbe Energia em março de 2025, com 500
+consumidores, indica que, embora oito em cada dez brasileiros analisem a conta de
+luz todos os meses, metade enfrenta dificuldade para compreendê-la. A maior
+confusão está na diferença entre o consumo registrado e o valor cobrado, apontada
+por 48% dos respondentes, e 41% declaram não compreender plenamente o
+funcionamento das bandeiras tarifárias. A busca ativa por esclarecimento é
+reduzida: cerca de 24% procuram explicações sobre valores, tarifas e tributos
+(BULBE ENERGIA, 2025). A maioria limita-se a comparar o valor final com o dos
+meses anteriores.</p>
 
-<p>Existe, porém, demanda latente por essa informação. Levantamento de buscas na
-internet registrou mais de 600 mil consultas de brasileiros procurando descobrir
-o que mais consome energia em casa, concentradas em eletrodomésticos de cozinha,
-ar-condicionado e chuveiro (BULBE ENERGIA, 2025). Há, portanto, interesse
-manifesto por um dado que a infraestrutura atual de medição não entrega.</p>
+<p>Existe, porém, demanda latente por essa informação. O mesmo levantamento
+registra volume expressivo de consultas na internet de brasileiros procurando
+descobrir o que mais consome energia em casa, concentradas em eletrodomésticos
+de cozinha, ar-condicionado e chuveiro. Há, portanto, interesse manifesto por um
+dado que a infraestrutura atual de medição não entrega.</p>
 
 <p>A literatura acadêmica sugere que a correção desse déficit informacional não é
 automática. Huse, Lucinda e Cardoso (2020), utilizando dados da PPH, concluíram
@@ -278,20 +283,21 @@ as mais prejudicadas.</p>
 
 <h2>1.2 O peso da energia no orçamento familiar</h2>
 
-<p>A relevância do problema é proporcional ao peso da despesa. A conta de luz
-passou de 2,1% do orçamento familiar em 2012 para 4,4% em 2024 (BRASIL ENERGIA,
-2024), e o país compromete 4,54% do produto interno bruto por habitante com
-energia elétrica, o maior percentual entre os países da Organização para a
-Cooperação e Desenvolvimento Econômico (ALDO, 2024).</p>
+<p>A relevância do problema é proporcional ao peso da despesa, e esse peso é
+distribuído de forma desigual. Estudo do Instituto de Estudos Socioeconômicos
+sobre injustiça energética indica que famílias chefiadas por homens brancos de
+alta renda consomem em média 262,72 kWh mensais, contra 102,84 kWh das famílias
+chefiadas por homens negros de baixa renda — diferença de 2,5 vezes. Entre as
+famílias de baixa renda, as chefiadas por mulheres negras comprometem 11,57% da
+renda total com energia elétrica, percentual que pode alcançar 13% em cenário de
+bandeira vermelha (INESC, 2024).</p>
 
-<p>A distribuição desse peso é desigual. Dados do Instituto de Estudos
-Socioeconômicos indicam que famílias de baixa renda comprometem 11,57% da renda
-com energia elétrica, contra 1,46% das famílias de alta renda, embora estas
-consumam em média 262,72 kWh por mês contra 102,84 kWh das primeiras — diferença
-de 2,5 vezes no consumo (INESC, 2024). A percepção de custo elevado, contudo, é
-transversal: pesquisa Datafolha encomendada pela Associação Brasileira dos
-Comercializadores de Energia apurou que 84% dos brasileiros consideram a energia
-elétrica cara ou muito cara (AGÊNCIA BRASIL, 2024).</p>
+<p>A percepção de custo elevado, contudo, é transversal às faixas de renda.
+Pesquisa Datafolha encomendada pela Associação Brasileira dos Comercializadores
+de Energia, realizada por telefone com 2.081 entrevistados em 130 municípios,
+apurou que oito em cada dez brasileiros consideram a energia elétrica cara ou
+muito cara — o maior percentual da série iniciada em 2014, quando o índice era
+de 67% (ABRACEEL, 2021).</p>
 
 <h2>1.3 Percepção contra medição</h2>
 
@@ -854,11 +860,19 @@ apresenta a distribuição regional.</p>
 <p>O consumo residencial médio nacional situou-se em 178,2 kWh mensais em junho
 de 2025, com leve retração de 0,2% em relação ao mesmo mês do ano anterior,
 atribuída pela própria publicação a clima mais ameno e consequente redução do
-uso de climatização (EPE, 2025). Cabe atenção metodológica: trata-se de medição
-mensal em mês de inverno, inferior à média anual. Para o ano-base 2024, o
-Anuário Estatístico registra consumo médio de 208 kWh mensais na região Sudeste
-e consumo residencial total de 176,5 TWh, com crescimento de 7,2% sobre 2023
+uso de climatização (EPE, 2025). Para o ano-base 2024, o Anuário Estatístico
+registra consumo residencial total de 176.519 GWh, equivalentes a 31,4% do
+consumo nacional de eletricidade, e 82,9 milhões de unidades consumidoras
+residenciais em dezembro de 2024, correspondentes a 88,0% do total de
+consumidores do país, com acréscimo superior a 1,7 milhão de unidades no ano
 (EPE, 2025b).</p>
+
+<p>O consumo médio por consumidor residencial em 2024 cresceu em todas as
+regiões: 220,3 kWh mensais no Norte (+7,7%), 136,2 kWh no Nordeste (+3,9%),
+183,8 kWh no Sudeste (+4,4%), 208,0 kWh no Sul (+4,6%) e 215,1 kWh no
+Centro-Oeste (+5,9%). A comparação com os valores de junho de 2025 da tabela 1
+deve considerar que estes últimos são medição de um único mês de inverno, quando
+a demanda por climatização é menor.</p>
 
 <p>O crescimento do número de consumidores residenciais desacelerou ao longo da
 série histórica: de 3,3% ao ano no período 2010–2014 para 2,2% ao ano entre 2015
@@ -866,52 +880,46 @@ e 2025 (EPE, 2025). Ainda assim, trata-se de base ampliando-se em cerca de 1,6
 milhão de unidades por ano, o que significa que o mercado endereçável cresce
 independentemente de conquista de participação.</p>
 
-<p>Quanto ao valor da fatura, as tarifas residenciais praticadas em São Paulo
-situaram-se entre R$ 0,64 e R$ 0,725 por quilowatt-hora antes de tributos no
-período 2025–2026, atingindo aproximadamente R$ 0,85 com tributos incidentes
-(CLARKE ENERGIA, 2025). Aplicando-se a tarifa efetiva de R$ 0,86885 adotada
-neste projeto — composta pela tarifa de R$ 0,85 acrescida da bandeira amarela —
-ao consumo médio nacional de 178,2 kWh, obtém-se conta média da ordem de
-R$ 154,80 mensais. O valor é inferior à âncora de R$ 187,04 utilizada no
-protótipo, o que é coerente: o perfil-alvo definido a seguir consome acima da
-média nacional.</p>
+<p>Quanto ao valor da fatura, o projeto adota como premissa a tarifa efetiva de
+R$ 0,86885 por quilowatt-hora, composta pela tarifa de R$ 0,85 acrescida da
+bandeira amarela. Trata-se de premissa do trabalho, e não de tarifa média
+apurada por órgão oficial. Aplicada ao consumo médio nacional de 178,2 kWh,
+resulta conta média da ordem de R$ 154,80 mensais — valor inferior à âncora de
+R$ 187,04 utilizada no protótipo, o que é coerente, pois o perfil-alvo definido
+a seguir consome acima da média nacional.</p>
 
 <h2>5.2 O mercado de casa inteligente</h2>
 
 <p>O produto compete também por orçamento na categoria de automação residencial.
-O mercado brasileiro de <em>smart home</em> deve atingir aproximadamente
-US$ 2,9 bilhões até 2028, com crescimento anual composto da ordem de 12%
-(STATISTA, 2024). A penetração domiciliar, porém, é estimada em apenas 11,3%,
-cerca de 8 milhões de residências, contra 43,5% na América do Norte — indicando
-espaço de expansão, mas também mercado ainda não formado.</p>
+Projeção da Statista estima a receita do mercado brasileiro de <em>smart home</em>
+em aproximadamente US$ 2,9 bilhões em 2028 (STATISTA, 2023). Para a América do
+Sul, a mesma base projeta crescimento de 10,97% entre 2024 e 2028, com volume de
+US$ 4,6 bilhões ao fim do período, e penetração domiciliar evoluindo de 11,6%
+para 21,4% (STATISTA, 2024).</p>
 
-<p>Os dados de familiaridade são divergentes e merecem registro. Pesquisa YouGov
-de fevereiro de 2024 apurou que 30,1% dos consumidores brasileiros não são
-familiarizados com o termo <em>smart home</em>, a segunda maior taxa de
-desconhecimento entre os países pesquisados, e que 43,1% não possuem nenhum
-dispositivo da categoria (YOUGOV, 2024). Em sentido oposto, levantamento da GfK
-indica que 92% dos brasileiros sabem o que é uma casa inteligente e que quase
-60% acreditam que a tendência impactará suas vidas (TERRA, 2024). A divergência
-provavelmente decorre da formulação das perguntas — reconhecimento do conceito
-contra familiaridade com o termo em inglês — e sugere cautela ao tratar
-familiaridade como indicador de prontidão de compra.</p>
+<p>Dois registros de cautela acompanham esses números. O primeiro é que a
+projeção de receita brasileira data de 2023 e não incorpora a conjuntura dos
+anos seguintes. O segundo, mais relevante para este trabalho, é que a penetração
+de 11,6% refere-se à América do Sul, e não exclusivamente ao Brasil: trata-se de
+indicador regional, utilizado aqui como ordem de grandeza e não como medida do
+mercado nacional.</p>
 
-<p>Há sinal consistente de intenção: a Confederação Nacional da Indústria apurou
-que 48% dos brasileiros consideram sistemas de monitoramento uma prioridade e
-declaram disposição a investir neles (EXAME, 2024). As barreiras de adoção
-identificadas pela associação setorial são, em ordem, a usabilidade e a
-complexidade, a percepção de custo elevado, a falta de conhecimento, as
-preocupações com privacidade e a infraestrutura de imóveis antigos — conjunto
-que dialoga diretamente com as barreiras levantadas na validação descrita na
-seção 4.</p>
+<p>O que esses dados sustentam é modesto, e convém não exceder o que
+sustentam: a categoria cresce a dois dígitos sobre uma base de penetração
+baixa. Isso significa espaço de expansão, mas também que o mercado ainda não
+está formado — o que, para o Amperê, é simultaneamente a oportunidade descrita
+em 6.1 e a ameaça registrada na matriz SWOT. A validação da seção 4 oferece
+evidência mais próxima do problema concreto do que qualquer projeção setorial:
+94% dos respondentes tentam economizar energia e nenhum utiliza dado ou
+monitoramento como instrumento.</p>
 
 <h2>5.3 Mercado total, endereçável e acessível</h2>
 
-<p>O dimensionamento adota o preço do Amperê Node, de R$ 199,00, como unidade de
-receita de entrada, por ser a receita de aquisição efetivamente validada pela
-pesquisa. A receita recorrente não é considerada no dimensionamento, por
-depender de taxa de conversão ainda não observada em operação. As premissas de
-recorte estão explicitadas porque determinam o resultado.</p>
+<p>O dimensionamento adota como unidade de receita de entrada o preço proposto
+para o Amperê Node, de R$ 299,00, cuja justificativa consta da seção 8.5. A
+receita recorrente não é considerada, por depender de taxa de conversão ainda
+não observada em operação. As premissas de recorte estão explicitadas porque
+determinam o resultado.</p>
 
 <figure>
 <p class="legenda">Quadro 5 — Dimensionamento do mercado</p>
@@ -922,19 +930,19 @@ recorte estão explicitadas porque determinam o resultado.</p>
   <td><strong>TAM</strong><br>mercado total</td>
   <td>Todas as unidades consumidoras residenciais do país (EPE, jun. 2025).</td>
   <td class="num">83.470.520</td>
-  <td class="num">R$ 16,6 bilhões</td>
+  <td class="num">R$ 25,0 bilhões</td>
 </tr>
 <tr>
   <td><strong>SAM</strong><br>mercado endereçável</td>
-  <td>Sudeste, Sul e Centro-Oeste, regiões cujo consumo médio supera a média nacional, restritas às classes B e C, estimadas em 54% dos domicílios da Grande São Paulo (ABEP, 2024), proporção aqui aplicada às três regiões.</td>
-  <td class="num">29.765.700</td>
-  <td class="num">R$ 5,9 bilhões</td>
+  <td>Sudeste, Sul e Centro-Oeste, somando 55.121.666 unidades, restritas às classes B1, B2 e C1, que representam 55,3% dos domicílios da Grande São Paulo (ABEP, 2024) — proporção aqui aplicada às três regiões. O corte em C1 decorre da renda domiciliar média da classe, de R$ 3.980,38, abaixo da qual a aquisição do equipamento deixa de ser plausível.</td>
+  <td class="num">30.482.281</td>
+  <td class="num">R$ 9,1 bilhões</td>
 </tr>
 <tr>
   <td><strong>SOM</strong><br>mercado acessível</td>
   <td>Captura de 0,1% do SAM em cinco anos, compatível com estrutura de aquisição de startup em estágio inicial e sem aporte relevante.</td>
-  <td class="num">29.766</td>
-  <td class="num">R$ 5,9 milhões</td>
+  <td class="num">30.482</td>
+  <td class="num">R$ 9,1 milhões</td>
 </tr>
 </tbody>
 </table>
@@ -942,19 +950,21 @@ recorte estão explicitadas porque determinam o resultado.</p>
 </figure>
 
 <p>A premissa mais frágil do quadro 5 é a aplicação, às três regiões, da
-proporção de classes B e C observada na Grande São Paulo. Trata-se de
-extrapolação, adotada por ausência de distribuição de faixa de conta por região
-nas fontes consultadas, e que tende a superestimar o SAM nas regiões menos
-urbanizadas. O SOM, por sua vez, não é derivado do SAM por participação
-desejada, mas limitado pela capacidade de aquisição demonstrada na projeção
-financeira da seção 8.</p>
+distribuição de classes observada na Grande São Paulo, que é a região
+metropolitana de maior renda do país. Trata-se de extrapolação, adotada por
+ausência de distribuição de faixa de conta por região nas fontes consultadas, e
+que tende a superestimar o SAM nas áreas menos urbanizadas. O SOM, por sua vez,
+não é derivado do SAM por participação desejada, mas limitado pela capacidade de
+aquisição demonstrada na projeção financeira da seção 8.</p>
 
 <p>O perfil do domicílio-alvo, cruzando as fontes, caracteriza-se por conta
 mensal entre R$ 150 e R$ 400, consumo entre 180 e 400 kWh mensais, três ou mais
-moradores, posse de ar-condicionado — equipamento que diferencia o consumo das
-classes B e C do consumo médio — e localização em capital ou região
+moradores, posse de ar-condicionado — equipamento cuja posse média varia de 0,04
+unidade por domicílio na faixa de até um salário mínimo a 0,83 na faixa acima de
+vinte salários mínimos (EPE, 2023) — e localização em capital ou região
 metropolitana. Para contas acima de R$ 250 mensais, o consumo necessário
-aproxima-se de 290 a 310 kWh, de 40% a 50% acima da média do Sudeste.</p>
+aproxima-se de 290 a 310 kWh, aproximadamente 60% a 70% acima da média do
+Sudeste apurada para 2024.</p>
 
 <!-- ══════════════════ 6 ANÁLISE DE MERCADO ══════════════════ -->
 <h1>6 ANÁLISE DE MERCADO</h1>
@@ -1037,7 +1047,7 @@ considerando preços de varejo consultados em novembro de 2026.</p>
 <tbody>
 <tr>
   <td><strong>Amperê</strong></td>
-  <td>R$ 199 (único) + R$ 19,90/mês opcional</td>
+  <td>R$ 299 (único) + R$ 19,90/mês opcional</td>
   <td>Um sensor no quadro; desagregação por software</td>
   <td>Custo por aparelho, em reais, com indicação de ação</td>
   <td>—</td>
@@ -1109,7 +1119,7 @@ preço em argumento de posicionamento e não apenas em variável de custo.</p>
 <ul style="padding-left:.9cm; margin:0">
 <li>Desagregação por software com um único sensor, com <em>recall</em> de 93,6% e precisão de 99,0% medidos em 30 dias de dados.</li>
 <li>Apresentação monetária, validada como preferência dos usuários.</li>
-<li>Preço de entrada de R$ 199, inferior ao dos substitutos de quadro.</li>
+<li>Preço de entrada de R$ 299, inferior ao dos substitutos de quadro, que custam de R$ 580 a R$ 985.</li>
 <li>Produto implementado e publicado, com ciclo completo em operação.</li>
 <li>Motor de desagregação isolado atrás de interface, permitindo substituição por modelo treinado sem alterar o restante do sistema.</li>
 </ul>
@@ -1490,11 +1500,11 @@ na seção 4, e considerando que 30% dos clientes são adquiridos por canais
 orgânicos — o que produz custo de aquisição misto de R$ 101,50 —, o valor do
 cliente ao longo da vida passa a ser:</p>
 
-<blockquote>
+<p class="formula">
 LTV = margem do hardware + conversão × margem da assinatura × vida média<br>
 LTV = 81,00 + 0,12 × 17,52 × 25 = R$ 133,56<br>
 LTV / CAC = 133,56 / 101,50 = 1,32
-</blockquote>
+</p>
 
 <p>A relação de 1,32 situa-se muito abaixo da referência de mercado, usualmente
 fixada em 3,0, e o retorno do investimento em aquisição leva 9,8 meses. O
@@ -1556,11 +1566,11 @@ preço do Node para R$ 299 — ainda inferior à mediana da disposição apurada
 reduz a participação da mídia paga de 70% para 50%, mediante intensificação do
 conteúdo orgânico e do programa de indicação. Os indicadores tornam-se:</p>
 
-<blockquote>
+<p class="formula">
 LTV = 181,00 + 0,12 × 17,52 × 25 = R$ 233,56<br>
 CAC misto = 145,00 × 0,50 = R$ 72,50<br>
 LTV / CAC = 233,56 / 72,50 = 3,22
-</blockquote>
+</p>
 
 <figure>
 <p class="legenda">Tabela 3 — Projeção de cinco anos no cenário ajustado (Node a R$ 299)</p>
@@ -1856,79 +1866,86 @@ consome caixa sem gerar receita recorrente.</p>
 <div class="referencias">
 <h1>REFERÊNCIAS</h1>
 
-<p>AGÊNCIA BRASIL. <strong>Pesquisa aponta que 84% dos brasileiros consideram a
-energia elétrica cara</strong>. Brasília: Empresa Brasil de Comunicação, 2024.</p>
-
-<p>ALDO SOLAR. <strong>Brasil compromete 4,54% do PIB per capita com conta de
-luz</strong>. Maringá, 2024.</p>
-
 <p>ASSOCIAÇÃO BRASILEIRA DE EMPRESAS DE PESQUISA (ABEP). <strong>Critério de
-Classificação Econômica Brasil 2024</strong>. São Paulo: ABEP, 2024.</p>
+Classificação Econômica Brasil</strong>: alterações na aplicação, válidas a
+partir de 2024. São Paulo: ABEP, 2024. Disponível em:
+https://abep.org/wp-content/uploads/2024/09/01_cceb_2024.pdf. Acesso em:
+16 nov. 2026.</p>
+
+<p>ASSOCIAÇÃO BRASILEIRA DOS COMERCIALIZADORES DE ENERGIA (ABRACEEL).
+<strong>Pesquisa Datafolha 2021</strong>: percepção dos brasileiros sobre o
+preço da energia elétrica. Brasília: Abraceel, 2021. Pesquisa realizada por
+telefone com 2.081 entrevistados em 130 municípios. Disponível em:
+https://abraceel.com.br/blog/2021/08/o-brasileiro-nao-e-livre-live-apresenta-os-dados-da-pesquisa-datafolha-2021/.
+Acesso em: 16 nov. 2026.</p>
 
 <p>BRASIL. <strong>Lei nº 13.709, de 14 de agosto de 2018</strong>. Lei Geral de
-Proteção de Dados Pessoais. Brasília: Presidência da República, 2018.</p>
+Proteção de Dados Pessoais (LGPD). Brasília, DF: Presidência da República, 2018.
+Disponível em:
+https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm. Acesso
+em: 16 nov. 2026.</p>
 
-<p>BRASIL ENERGIA. <strong>Conta de luz passa de 2,1% para 4,4% do orçamento
-familiar entre 2012 e 2024</strong>. Rio de Janeiro, 2024.</p>
+<p>BULBE ENERGIA. <strong>Pesquisa sobre a compreensão da conta de luz pelo
+consumidor brasileiro</strong>. São Paulo: Bulbe Energia, mar. 2025. 500
+respondentes. Divulgada por CartaCapital. Disponível em:
+https://www.cartacapital.com.br/do-micro-ao-macro/8-em-cada-10-brasileiros-tem-dificuldade-para-entender-a-conta-de-luz-aponta-estudo/.
+Acesso em: 16 nov. 2026.</p>
 
-<p>BULBE ENERGIA. <strong>Levantamento de buscas sobre consumo de energia
-residencial</strong>. São Paulo, 2025.</p>
+<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Consumo residencial de energia
+elétrica por classes de renda</strong>. Rio de Janeiro: EPE, 2023. Disponível em:
+https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-729/FactSheetConsumoPorClassesDeRenda_Final09032023.pdf.
+Acesso em: 16 nov. 2026.</p>
 
-<p>CANAL SOLAR. <strong>Apenas 5,6% dos brasileiros utilizam aplicativos para
-acompanhar o consumo de energia</strong>. Campinas, 2025.</p>
-
-<p>CLARKE ENERGIA. <strong>Tarifas residenciais de energia elétrica no estado de
-São Paulo</strong>. São Paulo, 2025.</p>
-
-<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Fact sheet: posse e hábitos de uso de
-equipamentos</strong>. Rio de Janeiro: EPE, 2023.</p>
-
-<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Mercado de energia elétrica:
-resultados de 2025, 2º trimestre</strong>. Rio de Janeiro: EPE,
-Superintendência de Estudos Econômicos e Energéticos, set. 2025.</p>
+<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Mercado de energia
+elétrica</strong>: resultados de 2025, 2º trimestre. Rio de Janeiro: EPE,
+Superintendência de Estudos Econômicos e Energéticos, set. 2025. Disponível em:
+https://epe.gov.br/sites-pt/areas-de-atuacao/energia-eletrica/WorkshopCOPAM/.
+Acesso em: 16 nov. 2026.</p>
 
 <p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Anuário estatístico de energia
-elétrica 2025</strong>: ano-base 2024. Rio de Janeiro: EPE, 2025b.</p>
-
-<p>EXAME. <strong>CNI: 48% dos brasileiros consideram sistemas de monitoramento
-uma prioridade</strong>. São Paulo, 2024.</p>
+elétrica 2025</strong>: fact sheet, ano-base 2024. Rio de Janeiro: EPE, 2025b.
+Disponível em:
+https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-160/topico-168/anuario-factsheet.pdf.
+Acesso em: 16 nov. 2026.</p>
 
 <p>HUSE, C.; LUCINDA, C.; CARDOSO, A. R. Consumer response to energy label
-policies: evidence from the Brazilian energy label program.
-<strong>Energy Policy</strong>, v. 138, 2020.</p>
+policies: evidence from the Brazilian energy label program. <strong>Energy
+Policy</strong>, v. 138, art. 111207, mar. 2020.</p>
 
-<p>INSTITUTO DE ESTUDOS SOCIOECONÔMICOS (INESC). <strong>Desigualdade no acesso à
-energia elétrica no Brasil</strong>. Brasília: INESC, 2024.</p>
+<p>INSTITUTO DE ESTUDOS SOCIOECONÔMICOS (INESC). <strong>Mulheres negras de
+baixa renda pagam até oito vezes mais pela energia do que homens brancos de
+renda alta</strong>. Brasília: INESC, 2024. Disponível em:
+https://inesc.org.br/mulheres-negras-de-baixa-renda-pagam-ate-oito-vezes-mais-pela-energia-do-que-homens-brancos-de-renda-alta/.
+Acesso em: 16 nov. 2026.</p>
 
 <p>OSTERWALDER, A.; PIGNEUR, Y. <strong>Business model generation</strong>:
 inovação em modelos de negócios. Rio de Janeiro: Alta Books, 2011.</p>
 
 <p>OSTERWALDER, A.; PIGNEUR, Y.; BERNARDA, G.; SMITH, A. <strong>Value
 proposition design</strong>: como construir propostas de valor inovadoras. São
-Paulo: HSM, 2014.</p>
-
-<p>PORTAL GIRO. <strong>Metade dos brasileiros não entende as cobranças da conta
-de luz</strong>. São Paulo, 2025.</p>
+Paulo: HSM Editora, 2014.</p>
 
 <p>PORTER, M. E. How competitive forces shape strategy. <strong>Harvard Business
-Review</strong>, v. 57, n. 2, p. 137-145, mar./abr. 1979.</p>
+Review</strong>, Boston, v. 57, n. 2, p. 137-145, mar./abr. 1979.</p>
 
-<p>PROGRAMA NACIONAL DE CONSERVAÇÃO DE ENERGIA ELÉTRICA (PROCEL). <strong>Pesquisa de
-posse de equipamentos e hábitos de uso: ano base 2019</strong>. Rio de Janeiro:
-Procel; Eletrobras, 2019.</p>
+<p>PROGRAMA NACIONAL DE CONSERVAÇÃO DE ENERGIA ELÉTRICA (PROCEL). <strong>Pesquisa
+de posse de equipamentos e hábitos de uso — PPH 2019</strong>: classe
+residencial. Rio de Janeiro: Eletrobras/Procel, 2019. Pesquisa realizada em
+18.775 domicílios de 166 municípios, nos 26 estados e no Distrito Federal.</p>
 
-<p>SCHULTZ, P. W.; ESTRADA, M.; SCHMITT, J.; SOKOLOSKIE, R.; SILVA-SEND, N.
-Using in-home displays to provide smart meter feedback about household
-electricity consumption. <strong>Nature Energy</strong>, 2019.</p>
+<p>SCHULTZ, P. W. <em>et al.</em> Making the smart meter social promotes
+long-term energy conservation. <strong>Humanities and Social Sciences
+Communications</strong>, v. 5, n. 1, 2019. Disponível em:
+https://www.nature.com/articles/s41599-019-0254-5. Acesso em: 16 nov. 2026.</p>
 
-<p>STATISTA. <strong>Smart home market in Brazil</strong>: revenue and household
-penetration forecast. Hamburgo, 2024.</p>
+<p>STATISTA. <strong>Revenue in the smart home market in Brazil 2019-2028</strong>.
+Hamburgo: Statista, 2023. Disponível em:
+https://www.statista.com/forecasts/887546/revenue-in-the-smart-home-market-in-brazil.
+Acesso em: 16 nov. 2026.</p>
 
-<p>TERRA. <strong>Pesquisa GfK: 92% dos brasileiros sabem o que é uma casa
-inteligente</strong>. São Paulo, 2024.</p>
-
-<p>YOUGOV. <strong>Smart home device awareness and ownership survey</strong>.
-Londres, 2024.</p>
+<p>STATISTA. <strong>Smart home — South America</strong>. Hamburgo: Statista,
+2024. Disponível em: https://www.statista.com/outlook/dmo/smart-home/south-america.
+Acesso em: 16 nov. 2026.</p>
 </div>
 
 <!-- ══════════════════ APÊNDICE A ══════════════════ -->
