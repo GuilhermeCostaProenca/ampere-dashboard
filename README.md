@@ -573,6 +573,7 @@ O que faz o deploy funcionar:
 | Arquivo | Papel |
 | --- | --- |
 | `vercel.json` | build e diretório de saída, mais o rewrite `/((?!api/).*)` → `/index.html`, que faz as rotas do React Router resolverem. A Vercel só aplica rewrite quando nenhum arquivo estático nem função casou, então `/assets/*` e `/api/*` passam antes. Nada de comentários no arquivo: o schema da Vercel recusa chaves que não conhece. |
+| `package.json` (raiz) | **A Vercel instala só as dependências da raiz.** `server/package.json` não é instalado no build, então toda dependência de runtime do back-end precisa estar duplicada aqui — é por isso que `express`, `zod`, `cors`, `dotenv`, `multer` e `sharp` aparecem nos dois arquivos. Esquecer a duplicata compila o front, publica, e só quebra em runtime com `FUNCTION_INVOCATION_FAILED`. |
 | `api/index.ts` | a função; reexporta a mesma aplicação Express de `server/src/app.ts`. O roteamento vem do rewrite acima, e não do catch-all `[...path]`: aquela convenção é de framework e, num projeto sem framework, casava só um segmento — `/api/health` chegava e `/api/auth/login` dava 404. |
 
 A aplicação é montada em `server/src/app.ts` sem escutar porta, e as rotas são
