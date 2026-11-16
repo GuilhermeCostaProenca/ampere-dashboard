@@ -38,6 +38,8 @@ do vídeo e o resumo das partes do documento. Os PDFs da Fase 7 são regerados c
 | `/entrar` | pública | Login e cadastro reais (Supabase Auth) |
 | `/painel` | exige sessão | Dashboard |
 | `/painel/aparelhos`, `/painel/aparelhos/:id` | exige sessão | Inventário NILM e detalhe |
+| `/painel/escanear-conta` | exige sessão | Leitura da conta de luz por foto ([Visão computacional](#-visão-computacional)) |
+| `/painel/identificar-aparelho` | exige sessão | Leitura da etiqueta do aparelho por foto |
 | `/painel/alertas`, `/painel/relatorio`, `/painel/config` | exige sessão | Demais telas |
 
 Rota protegida sem sessão redireciona para `/entrar`; com sessão ativa,
@@ -210,7 +212,14 @@ Base local: `http://localhost:3333`
 | `GET` | `/reports/monthly` | Bearer | Total R$/kWh, distribuição, economia acumulada, dica |
 | `GET` | `/settings` | Bearer | Usuário, plano ativo, status do sensor |
 | `PUT` | `/settings` | Bearer | Atualiza perfil, plano e apelido do sensor |
-| `GET` | `/health` | — | Liveness + versão do detector NILM |
+| `POST` | `/vision/bill` | Bearer | Foto da conta (multipart `foto`) → campos extraídos, `tarifa_efetiva` e `warnings` |
+| `POST` | `/vision/bill/confirm` | Bearer | Grava a fatura conferida/corrigida |
+| `POST` | `/vision/label` | Bearer | Foto da etiqueta (multipart `foto`) → campos extraídos e assinaturas NILM candidatas |
+| `POST` | `/vision/label/confirm` | Bearer | Vincula o rótulo da etiqueta a uma assinatura NILM |
+| `GET` | `/vision/custo-aparelhos` | Bearer | Consumo por aparelho em **R$**, pela tarifa da conta escaneada |
+| `GET` | `/vision/tarifa` | Bearer | Qual tarifa está em uso (da conta ou estimada) |
+| `GET` | `/vision/acerto` | Bearer | Taxa de acerto da leitura por foto |
+| `GET` | `/health` | — | Liveness + versão do detector NILM + situação da visão |
 
 Erros saem sempre no mesmo formato:
 
@@ -255,6 +264,121 @@ seção 1.3).
 A troca está isolada: `DetectorNILM` (em [`server/src/nilm/types.ts`](server/src/nilm/types.ts))
 é a fronteira. Substituir a heurística por um modelo não toca em rota, serviço
 nem schema.
+
+---
+
+## 📷 Visão computacional
+
+O NILM sabe **quantos kWh** cada aparelho gastou. Faltavam duas coisas que só
+existem no mundo físico — e as duas estão em um papel ou numa plaqueta que a
+pessoa já tem em casa:
+
+1. **Quanto vale o kWh nesta casa.** A conta de luz tem esse número. Digitar os
+   campos à mão é o atrito que faz ninguém usar; a foto resolve.
+2. **De qual aparelho é cada assinatura.** O detector enxerga "uma carga de
+   ~1.050 W que liga às 22h", não "o ar-condicionado do quarto". A etiqueta do
+   aparelho tem a potência, e a potência casa com a assinatura.
+
+### Telas
+
+| Tela | Rota | O que faz |
+| --- | --- | --- |
+| Escanear conta | `/painel/escanear-conta` | Foto da fatura → campos com barra de confiança, editáveis, avisos em destaque, **tarifa efetiva** recalculada a cada tecla |
+| Identificar aparelho | `/painel/identificar-aparelho` | Foto da etiqueta → campos + assinaturas NILM candidatas (potência média e horário típico) para escolher qual recebe o rótulo |
+| Painel | `/painel` | Ranking de aparelhos em **R$/mês** com badge *tarifa da sua conta* × *tarifa estimada* |
+
+Mobile-first: `capture="environment"` abre a câmera traseira direto no celular.
+
+### Pipeline
+
+```
+upload multipart (multer, memoryStorage, 8 MB, só image/*)
+   ↓
+sharp: rotate() lê o EXIF · resize do lado maior para 1600 px · JPEG 85
+   ↓                                    (cada etapa cronometrada e logada)
+modelo multimodal com saída JSON  (VISION_PROVIDER=anthropic | gemini)
+   ↓
+zod valida → se o JSON vier inválido, 1 retry com prompt reforçado → senão 422
+   ↓
+derivações no back-end: tarifa_efetiva = valor_total / consumo_kwh
+                        casamento etiqueta ↔ assinatura NILM (±20% de potência)
+   ↓
+sanity checks → warnings[] (sinalizam, não bloqueiam)
+```
+
+**A tarifa efetiva nunca é pedida ao modelo.** É `valor_total / consumo_kwh`,
+calculada aqui — e é ela, não a tarifa sem tributos impressa na conta, que
+converte kWh em reais: o que se paga por kWh inclui ICMS, PIS/COFINS, bandeira e
+iluminação pública. Sem fatura confirmada, o painel cai em **R$ 0,85/kWh** e
+marca `tarifa_estimada = true`.
+
+Sanity checks sinalizam, nunca bloqueiam — conta de 4.800 kWh existe. O que não
+pode é confirmar um absurdo sem ver o aviso: consumo entre 1 e 5.000 kWh, tarifa
+efetiva entre R$ 0,30 e R$ 2,50/kWh, e divergência acima de 5% entre
+`leitura_atual − leitura_anterior` e o consumo faturado.
+
+### LGPD
+
+- **A imagem nunca é persistida.** Vive em memória (`memoryStorage`) durante a
+  requisição e é coletada pelo GC quando ela termina. Não há disco, bucket nem
+  coluna de imagem em lugar nenhum.
+- **Dado pessoal não é extraído.** O prompt proíbe explicitamente nome, CPF,
+  endereço, CEP, número de instalação, número do cliente, medidor e código de
+  barras. Essa é a primeira barreira; a segunda é o schema do zod, que não tem
+  campo para nada disso e descarta o que vier por engano; a terceira é o banco,
+  cujas tabelas também não têm essas colunas.
+- `log_extracao_visao` guarda só campos técnicos, latência, provider e modelo.
+- RLS por `usuario_id`, no mesmo padrão das demais tabelas.
+
+### Banco
+
+Migration [`20261116120000_visao_computacional.sql`](supabase/migrations/20261116120000_visao_computacional.sql):
+
+| Objeto | Papel |
+| --- | --- |
+| `fato_fatura` | A conta lida por foto. **Fato** porque é medida (kWh, R$), grão mês × residência. Única por (usuário, mês): reescanear corrige, não duplica. |
+| `dim_aparelho` (+colunas) | `marca`, `modelo`, `potencia_etiqueta_w`, `tensao_v`, `classe_eficiencia`, `consumo_kwh_mes_procel`, `rotulado_por_visao_em` |
+| `log_extracao_visao` | Extraído × confirmado por campo, latência, provider, modelo |
+| `tarifa_da_fatura()` | Tarifa efetiva da fatura mais recente confirmada |
+| `taxa_acerto_visao()` | Indicador: dos campos revisados, quantos não precisaram de correção |
+
+Os dados da etiqueta entram em `dim_aparelho`, e não numa tabela nova, porque
+**cada linha de `dim_aparelho` já é uma assinatura NILM** — rotular a assinatura
+é preencher essa linha. `potencia_etiqueta_w` fica separada de
+`potencia_nominal_w` de propósito: uma é o que a etiqueta declara, a outra é o
+degrau que o sensor mede. Ver as duas lado a lado é o que valida a identificação.
+
+### Avaliação — a taxa de acerto da leitura
+
+```bash
+cd server
+npm run eval:vision                        # fatura + etiqueta
+npm run eval:vision -- --tipo=bill         # só faturas
+npm run eval:vision -- --repeticoes=3      # 3 leituras por imagem
+```
+
+Lê `eval/bills/*.jpg` + o `.json` de gabarito ao lado, roda a extração real e
+imprime **acurácia por campo**, latência média e p95, quantas leituras
+precisaram de segunda tentativa e a taxa de acerto geral. Formato do gabarito em
+[`eval/README.md`](eval/README.md).
+
+O critério de acerto é o mesmo de `services/vision/comparacao.ts` — texto por
+match exato após normalizar caixa/acento/espaço, número com tolerância de ±1% —
+para o número do vídeo e o que sai de `taxa_acerto_visao()` medirem a mesma coisa.
+
+**Fotos reais de conta não vão para o repositório**: `eval/.gitignore` bloqueia
+toda imagem do diretório. Os gabaritos `.json` ficam versionados — só têm os
+campos técnicos.
+
+### Testes
+
+```bash
+cd server && npm test
+```
+
+79 testes com o provedor e o Supabase mockados: normalização dos schemas,
+sanity checks, cálculo da tarifa efetiva, casamento de assinatura por potência,
+política de retry e as rotas ponta a ponta (incluindo 413, 415 e 422).
 
 ---
 
@@ -342,6 +466,19 @@ grava os PNGs em `docs/`.
 | `SUPABASE_SERVICE_ROLE_KEY` | Chave secreta — usada nas queries de dados. **Nunca vai para o front.** |
 | `PORT` | Porta do Express (padrão `3333`) |
 | `CORS_ORIGIN` | Origem do front autorizada (múltiplas separadas por vírgula) |
+
+Visão computacional — **todas opcionais**. Sem elas a API sobe normal e só as
+rotas `/vision` respondem `503` dizendo o que falta:
+
+| Variável | Descrição |
+| --- | --- |
+| `VISION_PROVIDER` | `anthropic` (padrão) ou `gemini` |
+| `ANTHROPIC_API_KEY` | Chave da Anthropic — obrigatória quando o provider é `anthropic` |
+| `GEMINI_API_KEY` | Chave do Google AI Studio — obrigatória quando o provider é `gemini` |
+| `VISION_MODEL` | Modelo a usar. Vazio = padrão do provider |
+| `VISION_MAX_UPLOAD_MB` | Limite do upload (padrão `8`) |
+| `VISION_MAX_LADO_PX` | Lado maior da imagem enviada ao modelo (padrão `1600`) |
+| `VISION_TIMEOUT_MS` | Timeout de cada chamada ao modelo (padrão `45000`) |
 
 ### `.env.local` (front)
 
