@@ -1,0 +1,13 @@
+# ── LGPD ─────────────────────────────────────────────────────────────────────
+# Foto de conta de luz traz nome, CPF, endereco e numero de instalacao. Nenhuma
+# imagem deste diretorio vai para o repositorio -- nem em repositorio privado.
+#
+# Os gabaritos .json ficam versionados: eles so tem os campos tecnicos, que e
+# exatamente o que o modulo extrai.
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.heic
+*.heif
+*.pdf
