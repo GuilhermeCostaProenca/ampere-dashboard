@@ -31,6 +31,14 @@ export default {
       keyframes: {
         blink: { '0%,100%': { opacity: '1' }, '50%': { opacity: '0.2' } },
         sweep: { '0%': { transform: 'translateX(-100%)' }, '100%': { transform: 'translateX(100%)' } },
+        // Varredura VERTICAL — a linha de leitura que corre sobre a foto da
+        // conta enquanto o modelo de visão a processa. A sweep é horizontal e
+        // é o gesto do osciloscópio; são dois gestos diferentes de propósito.
+        scan: {
+          '0%': { top: '-15%', opacity: '0.2' },
+          '50%': { opacity: '1' },
+          '100%': { top: '100%', opacity: '0.2' },
+        },
         flicker: { '0%,100%': { opacity: '1' }, '92%': { opacity: '1' }, '94%': { opacity: '0.6' }, '96%': { opacity: '1' } },
         'alarm-pulse': {
           '0%,100%': { backgroundColor: 'rgba(255,65,54,0.08)', boxShadow: '0 0 0 rgba(255,65,54,0)' },
@@ -40,6 +48,7 @@ export default {
       animation: {
         blink: 'blink 1.4s steps(2,end) infinite',
         sweep: 'sweep 3.5s linear infinite',
+        scan: 'scan 1.8s ease-in-out infinite',
         flicker: 'flicker 6s linear infinite',
         'alarm-pulse': 'alarm-pulse 1.8s ease-in-out infinite',
       },

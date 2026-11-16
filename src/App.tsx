@@ -7,6 +7,8 @@ import { Devices } from './pages/Devices'
 import { Landing } from './pages/Landing'
 import { Report } from './pages/Report'
 import { Settings } from './pages/Settings'
+import { EscanearConta } from './pages/EscanearConta'
+import { IdentificarAparelho } from './pages/IdentificarAparelho'
 import { Acesso } from './pages/Acesso'
 import { useAuth } from './auth/AuthContext'
 import { HudLoading } from './components/HudState'
@@ -53,6 +55,9 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="aparelhos" element={<Devices />} />
           <Route path="aparelhos/:id" element={<DeviceDetail />} />
+          {/* Visão computacional (GS2): leitura da conta e da etiqueta por foto. */}
+          <Route path="escanear-conta" element={<EscanearConta />} />
+          <Route path="identificar-aparelho" element={<IdentificarAparelho />} />
           <Route path="alertas" element={<Alerts />} />
           <Route path="relatorio" element={<Report />} />
           <Route path="config" element={<Settings />} />

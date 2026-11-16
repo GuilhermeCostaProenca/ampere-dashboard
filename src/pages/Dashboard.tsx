@@ -4,6 +4,7 @@ import { Bar, Panel, StatusDot } from '../components/Hud'
 import { DeviceIcon } from '../components/icons'
 import { Scope } from '../components/Scope'
 import { HudErro, HudLoading, ScopeSemSinal } from '../components/HudState'
+import { RankingReais } from '../components/vision/RankingReais'
 import { BRL, WATTS, api } from '../api/client'
 import { useRecurso } from '../hooks/useRecurso'
 import type { TopAparelho } from '../api/types'
@@ -178,6 +179,10 @@ export function Dashboard() {
       >
         <TopAparelhos itens={dados.top_aparelhos} />
       </Panel>
+
+      {/* ── Mesmo ranking, em R$/mes pela tarifa da conta escaneada (GS2) ── */}
+      <RankingReais />
+
 
       {/* ── 2º: osciloscópio grande + coluna estreita de KPIs ── */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
