@@ -18,7 +18,9 @@ import { devicesRouter } from './routes/devices.routes.js'
 import { alertsRouter } from './routes/alerts.routes.js'
 import { reportsRouter } from './routes/reports.routes.js'
 import { settingsRouter } from './routes/settings.routes.js'
+import { visionRouter } from './routes/vision.routes.js'
 import { detector } from './nilm/index.js'
+import { situacaoDaVisao } from './services/vision/index.js'
 
 export function criarApp() {
   const app = express()
@@ -60,6 +62,7 @@ export function criarApp() {
       status: erroDeConfiguracao ? 'configuracao_invalida' : 'ok',
       servico: 'ampere-api',
       nilm: { detector: detector.nome, versao: detector.versao },
+      visao: situacaoDaVisao(),
     })
   })
 
@@ -82,6 +85,7 @@ export function criarApp() {
     rotas.use('/alerts', alertsRouter)
     rotas.use('/reports', reportsRouter)
     rotas.use('/settings', settingsRouter)
+    rotas.use('/vision', visionRouter)
   }
 
   // Montado nos dois prefixos: na raiz para o servidor local, e sob /api para

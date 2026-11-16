@@ -8,6 +8,10 @@ import { useAuth } from '../auth/AuthContext'
 const NAV = [
   { to: '/painel', label: 'Início', icon: '◰', end: true },
   { to: '/painel/aparelhos', label: 'Aparelhos', icon: '⏚', end: false },
+  // Visão computacional (GS2): um item só na navegação; a escolha entre conta
+  // e etiqueta fica nas abas dentro da tela, para a barra do celular não virar
+  // sete alvos de toque.
+  { to: '/painel/escanear-conta', label: 'Escanear', icon: '⬚', end: false },
   { to: '/painel/alertas', label: 'Alertas', icon: '⚠', end: false },
   { to: '/painel/relatorio', label: 'Relatório', icon: '▤', end: false },
   { to: '/painel/config', label: 'Config', icon: '⚙', end: false },

@@ -1,0 +1,9 @@
+{
+  "tipo_aparelho": "ar_condicionado",
+  "marca": "Electrolux",
+  "modelo": "VI12F",
+  "potencia_w": 1050,
+  "tensao_v": 220,
+  "consumo_kwh_mes_procel": 39.5,
+  "classe_eficiencia": "A"
+}
