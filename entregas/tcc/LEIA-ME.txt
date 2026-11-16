@@ -1,0 +1,69 @@
+ENTREGA — DOCUMENTAÇÃO FINAL DO TCC
+FIAP • Startup One • Turma 4SIOA
+Grupo SenseForge
+
+Eduarda Quagliareli Shiratsu  RM 551188
+Guilherme Costa Proença       RM 98937
+Hugo Antônio de Oliveira      RM 550153
+
+O QUE ENTREGAR
+
+  documentacao-tcc.pdf                  O documento. 49 páginas, padrão ABNT.
+                                        É o único arquivo exigido pela atividade.
+
+  apendice-a-planilha-financeira.xlsx   A planilha do Apêndice A, no template da
+                                        disciplina, com as fórmulas preservadas.
+                                        O conteúdo dela também está reproduzido
+                                        dentro do PDF, então enviá-la é opcional.
+
+MATERIAL DE APOIO (não entra na entrega)
+
+  documentacao-tcc.html   Fonte do PDF.
+  fontes.md               Os números de mercado com a fonte de cada um.
+  decisoes.md             As escolhas editoriais e o porquê de cada uma.
+  _img/                   Capturas de tela otimizadas para o PDF.
+
+ESTRUTURA DO DOCUMENTO
+
+  Pré-textuais   Capa, folha de rosto, resumo com palavras-chave e sumário.
+  1  Problema                     p. 6
+  2  Solução                      p. 9
+  3  Equipe                       p. 11
+  4  Validação do problema        p. 12   (3 gráficos, hipóteses H1 a H9)
+  5  Mercado-alvo                 p. 20   (TAM, SAM e SOM)
+  6  Análise de mercado           p. 23   (Porter e SWOT)
+  7  Modelo de negócios           p. 27   (Canvas, proposta de valor, empatia, jornada)
+  8  Análise financeira           p. 32   (dois cenários e sensibilidade)
+  9  Protótipo do produto         p. 36   (arquitetura, desempenho, telas)
+  10 Plano de marketing           p. 42
+  Referências                     p. 45   (23 entradas, só as citadas no corpo)
+  Apêndice A — Planilha           p. 47
+  Apêndice B — Casos de uso       p. 48
+
+TRÊS COISAS QUE O DOCUMENTO ASSUME E CONVÉM SABER ANTES DA APRESENTAÇÃO
+
+  1. As 8 entrevistas são declaradas como SIMULADAS, porque é o que os arquivos
+     de origem dizem. A metodologia explica que as conclusões quantitativas se
+     apoiam no formulário (18 respondentes) e nas fontes oficiais, e que as
+     entrevistas servem para interpretar, não para substituir.
+
+  2. A seção 8 conclui que o modelo com o Node a R$ 199 NÃO se sustenta: com a
+     conversão de 12% para o plano Pro, cada cliente custa mais do que a margem
+     que gera, e o prejuízo cresce junto com a operação. A correção proposta é
+     elevar o Node para R$ 299, preço que fica dentro da disposição de pagamento
+     medida nas próprias entrevistas e bem abaixo dos concorrentes (R$ 580 a
+     R$ 985). Nesse cenário o resultado é positivo desde o primeiro ano.
+
+  3. A pesquisa foi aplicada quando o projeto se chamava bgkubu. O documento usa
+     Amperê do início ao fim, com uma nota registrando isso na metodologia.
+
+COMO REGERAR
+
+  npm run tcc                      Gera o PDF a partir do HTML.
+  python scripts/tcc-planilha.py   Repreenche a planilha e imprime os dois
+                                   cenários financeiros.
+
+REPOSITÓRIO E APLICAÇÃO
+
+  https://github.com/GuilhermeCostaProenca/ampere-dashboard
+  https://ampere-dashboard-six.vercel.app

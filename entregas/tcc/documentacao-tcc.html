@@ -1,0 +1,2112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Amperê — Documentação Final do TCC</title>
+<style>
+  /* ──────────────────────────────────────────────────────────────────────────
+     Formatação ABNT (NBR 14724): A4, margens 3cm esquerda/superior e 2cm
+     direita/inferior, Arial 12, entrelinha 1,5, parágrafo justificado com
+     recuo de 1,25cm na primeira linha. Citação longa (mais de 3 linhas) com
+     recuo de 4cm, corpo 10 e entrelinha simples.
+     ────────────────────────────────────────────────────────────────────────── */
+  @page { size: A4; margin: 3cm 2cm 2cm 3cm; }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+          font-size: 12pt; line-height: 1.5; color: #000; text-align: justify;
+          hyphens: auto; }
+
+  p { margin: 0 0 .5em; text-indent: 1.25cm; }
+  p.sem-recuo { text-indent: 0; }
+
+  /* Títulos. Seção primária em versal e negrito, iniciando em nova página. */
+  h1 { font-size: 12pt; font-weight: bold; text-transform: uppercase;
+       text-align: left; margin: 0 0 1.5em; page-break-before: always;
+       line-height: 1.5; }
+  h1.sem-quebra { page-break-before: auto; }
+  h2 { font-size: 12pt; font-weight: bold; text-align: left;
+       margin: 1.5em 0 .75em; line-height: 1.5; }
+  h3 { font-size: 12pt; font-weight: normal; font-style: italic;
+       text-align: left; margin: 1.5em 0 .75em; line-height: 1.5; }
+
+  ul, ol { margin: 0 0 .75em; padding-left: 2.2cm; }
+  li { margin-bottom: .3em; text-align: justify; }
+
+  /* Citação direta longa */
+  blockquote { margin: .75em 0 .75em 4cm; font-size: 10pt; line-height: 1;
+               text-align: justify; }
+
+  /* Figuras e tabelas: identificação acima, fonte abaixo, ambas centradas */
+  figure { margin: 1.2em 0; page-break-inside: avoid; }
+  .legenda { font-size: 10pt; text-align: center; margin-bottom: .3em;
+             text-indent: 0; line-height: 1.2; }
+  .fonte { font-size: 10pt; text-align: center; margin-top: .3em;
+           text-indent: 0; line-height: 1.2; }
+  figure img, figure svg { display: block; margin: 0 auto; max-width: 100%; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 10pt;
+          margin: 0 auto; line-height: 1.2; }
+  /* Tabela ABNT: sem fechamento lateral, apenas traços horizontais */
+  table.abnt { border-top: 1.2pt solid #000; border-bottom: 1.2pt solid #000; }
+  table.abnt thead th { border-bottom: .8pt solid #000; font-weight: bold;
+                        padding: 5px 6px; text-align: left; vertical-align: bottom; }
+  table.abnt td { padding: 4px 6px; vertical-align: top; }
+  table.abnt tbody tr.total td { border-top: .8pt solid #000; font-weight: bold; }
+  .num { text-align: right; white-space: nowrap; }
+  .centro { text-align: center; }
+
+  /* Quadros (conteúdo não numérico) podem ter grade completa */
+  table.quadro { border: .8pt solid #000; }
+  table.quadro th, table.quadro td { border: .5pt solid #000; padding: 4px 6px;
+                                     vertical-align: top; }
+  table.quadro th { font-weight: bold; text-align: left; }
+
+  /* ── Elementos pré-textuais ── */
+  .capa, .rosto { text-align: center; page-break-after: always; }
+  .capa p, .rosto p { text-indent: 0; text-align: center; }
+  .instituicao { font-weight: bold; margin-bottom: 0; }
+  .autores { margin-top: 5cm; }
+  .titulo-trabalho { margin-top: 5cm; font-weight: bold; text-transform: uppercase; }
+  .local-ano { margin-top: 5cm; }
+  .natureza { margin: 3cm 0 0 8cm; text-align: justify; font-size: 10pt;
+              line-height: 1.2; text-indent: 0; }
+
+  .resumo h1 { page-break-before: always; text-align: center; }
+  .resumo p { text-indent: 0; }
+  .palavras-chave { margin-top: 1em; text-indent: 0; }
+
+  .sumario h1 { text-align: center; }
+  .sumario ol { list-style: none; padding-left: 0; margin: 0; }
+  .sumario li { text-indent: 0; margin-bottom: .35em; text-align: left; }
+  .sumario .n2 { padding-left: 1cm; }
+  .sumario .forte { font-weight: bold; }
+
+  .referencias p { text-indent: 0; margin-bottom: .9em; text-align: left;
+                   line-height: 1; }
+  .nota-rodape { font-size: 10pt; line-height: 1.2; text-indent: 0;
+                 border-top: .5pt solid #000; padding-top: .3em; margin-top: 1.5em; }
+  .destaque-caixa { border: .8pt solid #000; padding: 10px 12px; margin: 1.2em 0;
+                    font-size: 11pt; line-height: 1.3; }
+  .destaque-caixa p { text-indent: 0; margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ CAPA ══════════════════ -->
+<section class="capa">
+  <p class="instituicao">FACULDADE DE INFORMÁTICA E ADMINISTRAÇÃO PAULISTA — FIAP</p>
+  <p>Startup One</p>
+
+  <div class="autores">
+    <p>EDUARDA QUAGLIARELI SHIRATSU — RM 551188</p>
+    <p>GUILHERME COSTA PROENÇA — RM 98937</p>
+    <p>HUGO ANTÔNIO DE OLIVEIRA — RM 550153</p>
+  </div>
+
+  <div class="titulo-trabalho">
+    <p>AMPERÊ: MONITORAMENTO DE ENERGIA ELÉTRICA RESIDENCIAL POR APARELHO
+       COM DESAGREGAÇÃO NÃO INTRUSIVA DE CARGAS</p>
+  </div>
+
+  <div class="local-ano">
+    <p>São Paulo</p>
+    <p>2026</p>
+  </div>
+</section>
+
+<!-- ══════════════════ FOLHA DE ROSTO ══════════════════ -->
+<section class="rosto">
+  <div class="autores" style="margin-top:2cm">
+    <p>EDUARDA QUAGLIARELI SHIRATSU — RM 551188</p>
+    <p>GUILHERME COSTA PROENÇA — RM 98937</p>
+    <p>HUGO ANTÔNIO DE OLIVEIRA — RM 550153</p>
+  </div>
+
+  <div class="titulo-trabalho" style="margin-top:4cm">
+    <p>AMPERÊ: MONITORAMENTO DE ENERGIA ELÉTRICA RESIDENCIAL POR APARELHO
+       COM DESAGREGAÇÃO NÃO INTRUSIVA DE CARGAS</p>
+  </div>
+
+  <p class="natureza">Documentação final de Trabalho de Conclusão de Curso
+  apresentada à Faculdade de Informática e Administração Paulista (FIAP), como
+  requisito parcial de avaliação da disciplina Startup One, do curso de
+  Engenharia de Software, turma 4SIOA.</p>
+
+  <div class="local-ano" style="margin-top:4cm">
+    <p>São Paulo</p>
+    <p>2026</p>
+  </div>
+</section>
+
+<!-- ══════════════════ RESUMO ══════════════════ -->
+<section class="resumo">
+<h1 class="sem-quebra">RESUMO</h1>
+
+<p>A conta de energia elétrica residencial brasileira chega uma vez por mês como
+um valor fechado, sem discriminar o consumo por aparelho. Pesquisa de campo
+conduzida por este grupo, com 18 respondentes da classe média urbana de São
+Paulo, apurou que 78% não sabem quais aparelhos consomem mais energia em suas
+residências e 89% não conseguem quantificar esse consumo, embora 94% declarem
+tentar economizar. O problema, portanto, não é ausência de disposição para
+economizar, mas ausência de informação acionável. Este trabalho apresenta o
+Amperê, sistema de monitoramento energético residencial baseado em
+<em>Non-Intrusive Load Monitoring</em> (NILM): um único sensor de corrente
+instalado no quadro elétrico mede o consumo agregado da residência, e um
+detector de degraus de potência separa desse sinal o consumo de cada aparelho,
+apresentando o resultado em reais. O produto foi implementado como aplicação web
+publicada, com <em>front-end</em> em React, API em Node.js e banco de dados
+PostgreSQL gerenciado, e seu motor de desagregação alcançou <em>recall</em> de
+93,6% e precisão de 99,0% em janela de 30 dias de dados. A documentação
+compreende a validação do problema por formulário e entrevistas, o
+dimensionamento do mercado residencial brasileiro a partir de dados da Empresa
+de Pesquisa Energética, a análise competitiva pelas cinco forças de Porter e por
+matriz SWOT, o modelo de negócios em <em>Business Model Canvas</em>, a análise
+financeira com ponto de equilíbrio e projeção de cinco anos, a descrição técnica
+do protótipo e o plano de entrada no mercado. Entre os achados, destaca-se a
+invalidação da hipótese de aceitação natural de assinatura mensal, que levou à
+adoção de modelo híbrido com receita de hardware e plano gratuito.</p>
+
+<p class="palavras-chave"><strong>Palavras-chave:</strong> eficiência energética;
+monitoramento não intrusivo de cargas; NILM; <em>startup</em>; internet das
+coisas.</p>
+</section>
+
+<!-- ══════════════════ SUMÁRIO ══════════════════ -->
+<section class="sumario">
+<h1>SUMÁRIO</h1>
+<ol>
+  <li class="forte">1 PROBLEMA</li>
+  <li class="n2">1.1 A invisibilidade do consumo residencial</li>
+  <li class="n2">1.2 O peso da energia no orçamento familiar</li>
+  <li class="n2">1.3 Percepção contra medição</li>
+  <li class="forte">2 SOLUÇÃO</li>
+  <li class="n2">2.1 O que é desagregação não intrusiva de cargas</li>
+  <li class="n2">2.2 As três decisões de produto</li>
+  <li class="n2">2.3 Delimitação: o que o Amperê não é</li>
+  <li class="forte">3 EQUIPE</li>
+  <li class="forte">4 VALIDAÇÃO DO PROBLEMA</li>
+  <li class="n2">4.1 Hipóteses e matriz CSD</li>
+  <li class="n2">4.2 Metodologia</li>
+  <li class="n2">4.3 Resultados do formulário</li>
+  <li class="n2">4.4 Resultados das entrevistas</li>
+  <li class="n2">4.5 Reclassificação das hipóteses</li>
+  <li class="n2">4.6 Conclusão da validação</li>
+  <li class="forte">5 MERCADO-ALVO</li>
+  <li class="n2">5.1 Os números do mercado residencial brasileiro</li>
+  <li class="n2">5.2 O mercado de casa inteligente</li>
+  <li class="n2">5.3 Mercado total, endereçável e acessível</li>
+  <li class="forte">6 ANÁLISE DE MERCADO</li>
+  <li class="n2">6.1 As cinco forças de Porter</li>
+  <li class="n2">6.2 Concorrentes diretos e substitutos</li>
+  <li class="n2">6.3 Matriz SWOT</li>
+  <li class="forte">7 MODELO DE NEGÓCIOS</li>
+  <li class="n2">7.1 Business Model Canvas</li>
+  <li class="n2">7.2 Mapa da proposta de valor</li>
+  <li class="n2">7.3 Mapa de empatia e perfil da persona</li>
+  <li class="n2">7.4 Mapa da jornada do usuário</li>
+  <li class="forte">8 ANÁLISE FINANCEIRA E PROJEÇÃO DE CRESCIMENTO</li>
+  <li class="n2">8.1 Premissas do modelo</li>
+  <li class="n2">8.2 Estrutura de custos e margem de contribuição</li>
+  <li class="n2">8.3 Indicadores de aquisição: CAC, LTV e payback</li>
+  <li class="n2">8.4 Ponto de equilíbrio</li>
+  <li class="n2">8.5 Projeção de cinco anos e análise de sensibilidade</li>
+  <li class="forte">9 PROTÓTIPO DO PRODUTO</li>
+  <li class="n2">9.1 Funcionalidades essenciais do MVP</li>
+  <li class="n2">9.2 Arquitetura e desenvolvimento tecnológico</li>
+  <li class="n2">9.3 O motor de desagregação e seu desempenho</li>
+  <li class="n2">9.4 Telas do sistema</li>
+  <li class="n2">9.5 Governança, privacidade e segurança</li>
+  <li class="forte">10 PLANO DE MARKETING</li>
+  <li class="n2">10.1 Posicionamento e narrativa</li>
+  <li class="n2">10.2 Jornada de atração e conversão</li>
+  <li class="n2">10.3 Plano de mídia e retorno esperado</li>
+  <li class="forte">REFERÊNCIAS</li>
+  <li class="forte">APÊNDICE A — PLANILHA FINANCEIRA</li>
+  <li class="forte">APÊNDICE B — DIAGRAMA DE CASOS DE USO</li>
+</ol>
+</section>
+
+<!-- ══════════════════ 1 PROBLEMA ══════════════════ -->
+<h1>1 PROBLEMA</h1>
+
+<p>A fatura de energia elétrica residencial é, no Brasil, um documento de síntese.
+Ela informa o total de quilowatt-hora consumidos no ciclo, aplica tarifa e
+tributos e apresenta um valor a pagar. O que ela não informa — e não tem como
+informar, dada a tecnologia de medição instalada — é a destinação desse consumo:
+quanto foi do chuveiro, quanto do ar-condicionado, quanto da geladeira. O morador
+recebe o resultado de trinta dias de decisões sem qualquer discriminação das
+decisões que o produziram.</p>
+
+<p>Essa característica cria um problema de informação que antecede e condiciona
+qualquer problema de custo. Quem não sabe de onde vem o gasto não tem como agir
+sobre ele com eficácia, e passa a agir por suposição. É esse deslocamento — de um
+problema aparentemente financeiro para um problema efetivamente informacional —
+que delimita a oportunidade deste trabalho.</p>
+
+<h2>1.1 A invisibilidade do consumo residencial</h2>
+
+<p>A Pesquisa de Posse de Equipamentos e Hábitos de Uso (PPH), conduzida pelo
+Programa Nacional de Conservação de Energia Elétrica em 18.775 domicílios
+distribuídos por 166 municípios, é a fonte mais ampla sobre conhecimento
+energético residencial no país e levanta, entre outros aspectos, a consciência
+dos moradores sobre uso eficiente de energia (PROCEL, 2019).</p>
+
+<p>Levantamentos mais recentes sobre a compreensão da fatura indicam que, embora
+oito em cada dez brasileiros leiam a conta de luz mensalmente, metade não
+compreende as cobranças que a compõem; 41% não entendem o sistema de bandeiras
+tarifárias e 40% não entendem os tributos incidentes (PORTAL GIRO, 2025). A busca
+ativa por esclarecimento é reduzida: apenas 24% procuram explicações em fontes
+técnicas, aplicativos ou junto à distribuidora, e somente 5,6% utilizam
+aplicativos para acompanhar o consumo (CANAL SOLAR, 2025). A maioria limita-se a
+comparar o valor final com o dos meses anteriores.</p>
+
+<p>Existe, porém, demanda latente por essa informação. Levantamento de buscas na
+internet registrou mais de 600 mil consultas de brasileiros procurando descobrir
+o que mais consome energia em casa, concentradas em eletrodomésticos de cozinha,
+ar-condicionado e chuveiro (BULBE ENERGIA, 2025). Há, portanto, interesse
+manifesto por um dado que a infraestrutura atual de medição não entrega.</p>
+
+<p>A literatura acadêmica sugere que a correção desse déficit informacional não é
+automática. Huse, Lucinda e Cardoso (2020), utilizando dados da PPH, concluíram
+que o Programa Brasileiro de Etiquetagem produziu apenas aumento modesto na
+valorização dos custos energéticos pelos consumidores, que subestimam tais custos
+antes e depois da implementação do programa, de modo que o programa não eliminou
+o chamado <em>gap</em> de eficiência energética. Os autores encontraram respostas
+heterogêneas entre estratos demográficos, com as famílias menos informadas sendo
+as mais prejudicadas.</p>
+
+<h2>1.2 O peso da energia no orçamento familiar</h2>
+
+<p>A relevância do problema é proporcional ao peso da despesa. A conta de luz
+passou de 2,1% do orçamento familiar em 2012 para 4,4% em 2024 (BRASIL ENERGIA,
+2024), e o país compromete 4,54% do produto interno bruto por habitante com
+energia elétrica, o maior percentual entre os países da Organização para a
+Cooperação e Desenvolvimento Econômico (ALDO, 2024).</p>
+
+<p>A distribuição desse peso é desigual. Dados do Instituto de Estudos
+Socioeconômicos indicam que famílias de baixa renda comprometem 11,57% da renda
+com energia elétrica, contra 1,46% das famílias de alta renda, embora estas
+consumam em média 262,72 kWh por mês contra 102,84 kWh das primeiras — diferença
+de 2,5 vezes no consumo (INESC, 2024). A percepção de custo elevado, contudo, é
+transversal: pesquisa Datafolha encomendada pela Associação Brasileira dos
+Comercializadores de Energia apurou que 84% dos brasileiros consideram a energia
+elétrica cara ou muito cara (AGÊNCIA BRASIL, 2024).</p>
+
+<h2>1.3 Percepção contra medição</h2>
+
+<p>O achado mais consequente da pesquisa de campo conduzida por este grupo, cuja
+metodologia e resultados completos constam da seção 4, é a distância entre o que
+o morador supõe e o que de fato ocorre. Entre os 18 respondentes, 71% percebiam o
+chuveiro elétrico como o maior consumidor da residência. A medição realizada pelo
+próprio sistema desenvolvido neste trabalho, sobre o perfil de consumo calibrado
+com os valores levantados em campo, atribui ao ar-condicionado R$ 89,00 por mês
+contra R$ 42,00 do chuveiro, em uma conta total de R$ 187,04.</p>
+
+<p>A literatura adiciona nuance relevante a esse contraste. Dados da PPH
+sistematizados pela Empresa de Pesquisa Energética indicam que, do primeiro ao
+nono decil de renda, a geladeira é o aparelho de maior consumo absoluto, e
+somente no décimo decil o ar-condicionado a supera — comportamento explicado pela
+posse média do equipamento, que varia de 0,04 unidade por domicílio na faixa de
+até um salário mínimo a 0,83 unidade na faixa acima de vinte salários mínimos
+(EPE, 2023).</p>
+
+<p>A consequência prática é direta: o morador que reduz o tempo de banho está
+agindo sobre o segundo ou terceiro item de sua própria conta, enquanto o primeiro
+permanece intocado, e não dispõe de meio para perceber o equívoco. A pesquisa de
+campo registrou que 94% dos respondentes tentam economizar energia, mas nenhum
+mencionou qualquer forma de monitoramento ou dado como instrumento dessa
+tentativa. Há disposição para agir sem instrumento que oriente a ação.</p>
+
+<div class="destaque-caixa">
+<p><strong>Síntese do problema.</strong> O consumo residencial de energia elétrica
+é medido de forma agregada e comunicado de forma mensal, o que impede a
+atribuição do gasto a aparelhos específicos. A consequência não é apenas o custo,
+mas a impossibilidade de decisão informada: o morador age por suposição, com
+frequência sobre o aparelho errado, e não dispõe de meio para verificar o
+resultado da própria ação.</p>
+</div>
+
+<!-- ══════════════════ 2 SOLUÇÃO ══════════════════ -->
+<h1>2 SOLUÇÃO</h1>
+
+<p>O Amperê é um sistema de monitoramento energético residencial que identifica o
+consumo de cada aparelho a partir de um único sensor de corrente instalado no
+quadro elétrico, apresentando o resultado em reais. A proposta de valor, tal como
+enunciada ao usuário final, é descobrir quanto cada aparelho custa na conta de
+luz com um sensor apenas, sem obra e sem substituição de tomadas.</p>
+
+<h2>2.1 O que é desagregação não intrusiva de cargas</h2>
+
+<p>A técnica empregada denomina-se <em>Non-Intrusive Load Monitoring</em> (NILM),
+ou monitoramento não intrusivo de cargas. O princípio é o seguinte: o sensor mede
+apenas a potência total da residência, mas essa potência total não varia de forma
+contínua. Quando uma carga é acionada, a potência agregada apresenta um salto
+cujo tamanho corresponde à potência daquela carga; quando a carga é desligada, a
+potência cai na mesma proporção.</p>
+
+<p>O motor de desagregação implementado neste trabalho analisa essa série
+temporal, identifica os degraus e associa cada degrau à faixa de potência
+conhecida dos aparelhos catalogados, atribuindo o evento ao aparelho
+correspondente. Dessa forma, obtém-se o consumo individualizado sem instalar um
+sensor por tomada. O detalhamento técnico, incluindo o tratamento de cargas
+compostas e os limites conhecidos do método, consta da seção 9.</p>
+
+<h2>2.2 As três decisões de produto</h2>
+
+<p>Três decisões de projeto sustentam a proposta, e todas as três decorrem de
+achados da validação descrita na seção 4.</p>
+
+<p class="sem-recuo"><strong>a) Apresentação em reais, não em quilowatt-hora.</strong>
+Na pesquisa de campo, quando perguntados sobre a funcionalidade mais útil, os
+respondentes escolheram ver o gasto em reais em tempo real acima de ver o consumo
+por aparelho. A unidade técnica não orienta decisão doméstica; o valor monetário
+orienta. Todo número apresentado pelo produto é convertido para moeda corrente,
+considerando a tarifa e a bandeira tarifária vigentes.</p>
+
+<p class="sem-recuo"><strong>b) Um sensor, não um por tomada.</strong> É o que a
+técnica NILM permite e o que viabiliza a instalação em minutos no quadro elétrico,
+em contraste com a aquisição e configuração de dezenas de tomadas inteligentes.
+Essa decisão responde também à barreira de adoção identificada nas entrevistas,
+em que a complexidade de instalação apareceu como objeção recorrente.</p>
+
+<p class="sem-recuo"><strong>c) Indicação de ação, não apenas de número.</strong>
+O produto informa que determinado aparelho responde por determinada fração da
+conta e indica o que fazer a respeito, com estimativa de retorno. A validação
+registrou desconfiança quanto ao retorno — formulada por respondentes como
+dúvida sobre se haveria economia efetiva —, o que tornou a demonstração de
+retorno um requisito e não um adicional.</p>
+
+<h2>2.3 Delimitação: o que o Amperê não é</h2>
+
+<p>A delimitação do escopo é parte da definição da solução. O Amperê não é um
+sistema de geração de energia, não substitui o medidor da distribuidora e não
+promete percentual de economia: o sistema mede e aponta, e a economia depende de
+decisão do morador. Não se destina, na fase atual, a consumidores comerciais e
+industriais, que demandam medição trifásica e proposta comercial distinta. O
+estado atual de implementação, com as funcionalidades já operantes e as
+pendências reconhecidas, está descrito na seção 9.</p>
+
+<!-- ══════════════════ 3 EQUIPE ══════════════════ -->
+<h1>3 EQUIPE</h1>
+
+<p>A startup é conduzida por três integrantes, com atribuições definidas conforme
+o quadro 1. A distribuição reflete a divisão de trabalho efetivamente praticada
+ao longo do desenvolvimento do projeto.</p>
+
+<figure>
+<p class="legenda">Quadro 1 — Composição da equipe e atribuições</p>
+<table class="quadro">
+<thead>
+<tr><th style="width:24%">Integrante</th><th style="width:20%">Função</th><th>Atribuições</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td>Guilherme Costa Proença<br>RM 98937</td>
+  <td>Diretor de tecnologia e encarregado de proteção de dados</td>
+  <td>Arquitetura da solução, modelagem do banco de dados, implementação do motor
+  de desagregação e da API. Responde pelas requisições de titulares de dados
+  pessoais e pela manutenção do registro das operações de tratamento, conforme
+  designação formal registrada no planejamento de adequação à Lei Geral de
+  Proteção de Dados.</td>
+</tr>
+<tr>
+  <td>Hugo Antônio de Oliveira<br>RM 550153</td>
+  <td>Engenharia de dados e segurança da informação</td>
+  <td>Ingestão e qualidade da telemetria, simulação do dispositivo, levantamento
+  de riscos de segurança sobre o código da aplicação e definição do plano de
+  auditoria.</td>
+</tr>
+<tr>
+  <td>Eduarda Quagliareli Shiratsu<br>RM 551188</td>
+  <td>Marketing e produto</td>
+  <td>Pesquisa de campo e validação de hipóteses, posicionamento e narrativa da
+  marca, plano de mídia e aquisição de usuários, condução dos testes de
+  usabilidade.</td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<p>Cabe registrar que, em uma equipe de três integrantes, há acúmulo de papéis, e
+esse acúmulo tem consequência de governança. A designação do responsável técnico
+como encarregado de proteção de dados, por exemplo, configura potencial conflito
+de interesse, uma vez que a mesma pessoa responde pela arquitetura que trata os
+dados e pela defesa dos direitos dos titulares. A medida mitigadora adotada é
+procedimental: a comunicação de incidente de segurança exige deliberação dos três
+integrantes, e não decisão individual do encarregado.</p>
+
+<!-- ══════════════════ 4 VALIDAÇÃO DO PROBLEMA ══════════════════ -->
+<h1>4 VALIDAÇÃO DO PROBLEMA</h1>
+
+<p>Esta seção apresenta a pesquisa de campo conduzida para verificar se as
+suposições construídas pelo grupo se sustentam do ponto de vista do cliente
+potencial. O objetivo não foi coletar opiniões favoráveis, mas submeter as
+hipóteses a dados capazes de invalidá-las — e, como se verá, três hipóteses
+foram efetivamente invalidadas, com consequência direta sobre o modelo de
+negócios descrito na seção 7.</p>
+
+<p>Registra-se que a pesquisa foi aplicada quando o projeto adotava a
+denominação <em>bgkubu</em>, posteriormente alterada para Amperê. Os instrumentos
+e resultados são os mesmos; apenas a denominação do produto mudou.</p>
+
+<h2>4.1 Hipóteses e matriz CSD</h2>
+
+<p>A formulação das hipóteses partiu da matriz Certezas, Suposições e Dúvidas
+(CSD), construída em etapa anterior do projeto. Dessa matriz derivaram nove
+hipóteses submetidas a verificação, organizadas em três grupos: a existência e a
+natureza do problema (H1 a H5), a disposição de pagamento e o canal de entrega
+(H6 e H7) e as premissas de modelo comercial e adoção (H8 e H9). O quadro 2
+apresenta o enunciado de cada hipótese.</p>
+
+<figure>
+<p class="legenda">Quadro 2 — Hipóteses submetidas à validação</p>
+<table class="quadro">
+<thead><tr><th style="width:10%">Código</th><th>Enunciado</th></tr></thead>
+<tbody>
+<tr><td>H1</td><td>A invisibilidade energética é um problema real e disseminado.</td></tr>
+<tr><td>H2</td><td>O cliente sofre emocionalmente com a conta de energia.</td></tr>
+<tr><td>H3</td><td>Existe interesse em conhecer o consumo por aparelho.</td></tr>
+<tr><td>H4</td><td>Usuários raciocinam em reais, e não em quilowatt-hora.</td></tr>
+<tr><td>H5</td><td>O trabalho a ser feito pelo cliente é obter controle e explicação, mais do que economia pura.</td></tr>
+<tr><td>H6</td><td>O usuário pagaria pela solução.</td></tr>
+<tr><td>H7</td><td>O aplicativo móvel é o canal principal de entrega da informação.</td></tr>
+<tr><td>H8</td><td>A assinatura mensal seria naturalmente aceita.</td></tr>
+<tr><td>H9</td><td>A instalação seria uma barreira secundária.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), a partir da matriz CSD do projeto.</p>
+</figure>
+
+<h2>4.2 Metodologia</h2>
+
+<p>A validação foi estruturada em duas frentes complementares, de naturezas
+distintas e com funções distintas.</p>
+
+<p class="sem-recuo"><strong>Formulário on-line.</strong> Aplicou-se formulário
+estruturado a 18 respondentes da classe média urbana de São Paulo, com perfil
+aderente ao problema investigado. O instrumento abordou perfil domiciliar,
+consciência sobre o consumo, dor associada à conta, comportamento de economia,
+interesse na informação por aparelho e disposição de pagamento. A função desta
+frente foi medir incidência e frequência.</p>
+
+<p class="sem-recuo"><strong>Entrevistas em profundidade simuladas.</strong>
+Realizaram-se oito entrevistas em profundidade <em>simuladas</em>, com roteiro
+semiestruturado, construídas pelo grupo a partir de perfis aderentes ao público
+investigado. Cada entrevista define idade, ocupação, tipo de moradia, valor da
+conta de energia e perfil socioeconômico, e desenvolve diálogo sobre emoção,
+contexto de uso, barreiras de adoção e disposição de pagamento. A função desta
+frente foi explorar motivos, contexto e linguagem.</p>
+
+<p>A natureza simulada das entrevistas é explicitada aqui por exigência de
+honestidade metodológica, e impõe limite interpretativo preciso: as entrevistas
+não constituem evidência empírica sobre a população, mas instrumento de
+estruturação de hipóteses e de antecipação de objeções. Toda conclusão
+quantitativa deste trabalho apoia-se no formulário e nas fontes secundárias
+citadas na seção 5; as entrevistas são utilizadas para interpretar e qualificar
+esses achados, nunca para substituí-los.</p>
+
+<p>A combinação dos dois métodos justifica-se porque cada um responde a um tipo
+diferente de dúvida. O formulário permite dimensionar quantos respondentes
+compartilham determinada condição; o roteiro de entrevista permite compreender
+por que a compartilham e o que fariam diante de uma solução. Reconhece-se,
+ainda, a limitação de amostra: 18 respondentes de um único recorte geográfico e
+socioeconômico não autorizam inferência estatística para a população brasileira,
+e por essa razão o dimensionamento de mercado da seção 5 recorre a fontes
+oficiais de abrangência nacional.</p>
+
+<h2>4.3 Resultados do formulário</h2>
+
+<p>Entre os 18 respondentes, 94% pagam conta de energia elétrica, o perfil etário
+concentra-se entre 25 e 50 anos (72%), 56% residem em apartamentos e 67% dividem
+o domicílio com três ou mais pessoas. A concentração em domicílios maiores é
+relevante porque associa-se a consumo mais alto e, por consequência, a maior
+pressão financeira da conta. A predominância de apartamentos tem efeito direto
+sobre a estratégia de instalação do sensor no quadro elétrico, aspecto retomado
+em H9.</p>
+
+<h3>4.3.1 Consciência e capacidade de quantificação</h3>
+
+<p>As duas primeiras perguntas de conteúdo mediram o núcleo do problema. O
+gráfico 1 apresenta os resultados.</p>
+
+<figure>
+<p class="legenda">Gráfico 1 — Consciência sobre o consumo por aparelho (n = 18)</p>
+<svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" width="500">
+  <style>
+    .rot { font: 9px Arial, sans-serif; fill:#000; }
+    .val { font: bold 10px Arial, sans-serif; fill:#000; }
+    .eixo { stroke:#000; stroke-width:.8; }
+  </style>
+  <!-- pergunta 1 -->
+  <text class="rot" x="0" y="22">Sabe quais aparelhos consomem mais?</text>
+  <rect x="0" y="30" width="312" height="22" fill="#404040"/>
+  <rect x="312" y="30" width="88" height="22" fill="#c8c8c8" stroke="#000" stroke-width=".5"/>
+  <text class="val" x="8" y="45" fill="#fff">Não sabe com certeza — 78%</text>
+  <text class="val" x="406" y="45">22%</text>
+  <!-- pergunta 2 -->
+  <text class="rot" x="0" y="90">Saberia dizer quanto cada aparelho consome?</text>
+  <rect x="0" y="98" width="356" height="22" fill="#404040"/>
+  <rect x="356" y="98" width="44" height="22" fill="#c8c8c8" stroke="#000" stroke-width=".5"/>
+  <text class="val" x="8" y="113" fill="#fff">Não consegue quantificar — 89%</text>
+  <text class="val" x="406" y="113">11%</text>
+  <!-- escala -->
+  <line class="eixo" x1="0" y1="134" x2="400" y2="134"/>
+  <text class="rot" x="0" y="146">0%</text>
+  <text class="rot" x="190" y="146">50%</text>
+  <text class="rot" x="382" y="146">100%</text>
+</svg>
+<p class="fonte">Fonte: dados da pesquisa (2026).</p>
+</figure>
+
+<p>O segundo resultado é o mais expressivo do instrumento. A distinção entre as
+duas perguntas é importante: o respondente pode suspeitar de quais aparelhos
+pesam mais — e 22% afirmam saber —, mas apenas 11% conseguem converter essa
+suspeita em valor. O intervalo entre suspeitar e quantificar é precisamente o
+espaço que a desagregação de cargas ocupa.</p>
+
+<p>Esse resultado converge com a literatura. A PPH, aplicada a 18.775 domicílios,
+documenta o baixo conhecimento sobre uso eficiente de energia na população
+brasileira (PROCEL, 2019), e o estudo de Huse, Lucinda e Cardoso (2020) conclui
+que o consumidor brasileiro subestima sistematicamente custos energéticos.</p>
+
+<h3>4.3.2 Dor e comportamento</h3>
+
+<p>O gráfico 2 reúne os indicadores de dor e de comportamento declarado.</p>
+
+<figure>
+<p class="legenda">Gráfico 2 — Dor associada à conta e comportamento de economia (n = 18)</p>
+<svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg" width="500">
+  <style>
+    .rot2 { font: 9px Arial, sans-serif; fill:#000; }
+    .val2 { font: bold 10px Arial, sans-serif; fill:#000; }
+  </style>
+  <text class="rot2" x="0" y="14">Já se surpreendeu com o valor da conta</text>
+  <rect x="0" y="18" width="332" height="20" fill="#404040"/>
+  <text class="val2" x="338" y="33">83%</text>
+
+  <text class="rot2" x="0" y="60">Tenta economizar energia</text>
+  <rect x="0" y="64" width="376" height="20" fill="#404040"/>
+  <text class="val2" x="382" y="79">94%</text>
+
+  <text class="rot2" x="0" y="106">Verifica a conta todo mês</text>
+  <rect x="0" y="110" width="224" height="20" fill="#404040"/>
+  <text class="val2" x="230" y="125">56%</text>
+
+  <text class="rot2" x="0" y="152">Incomoda-se por “não saber o que consome mais”</text>
+  <rect x="0" y="156" width="200" height="20" fill="#808080"/>
+  <text class="val2" x="206" y="171">50%</text>
+
+  <text class="rot2" x="0" y="198">Incomoda-se com a “falta de clareza” da fatura</text>
+  <rect x="0" y="182" width="176" height="20" fill="#808080"/>
+  <text class="val2" x="182" y="197">44%</text>
+</svg>
+<p class="fonte">Fonte: dados da pesquisa (2026).</p>
+</figure>
+
+<p>A leitura conjunta desses cinco indicadores sustenta a tese central do
+trabalho. A dor é vivencial e recorrente, não hipotética: 83% já foram
+surpreendidos pelo valor da conta. Existe engajamento, e não indiferença: 56%
+verificam a fatura mensalmente. Existe disposição para agir: 94% declaram tentar
+economizar. E o incômodo declarado não se resume ao valor: metade dos
+respondentes aponta especificamente o desconhecimento sobre o que consome mais, e
+44% a falta de clareza da fatura.</p>
+
+<p>Dois achados qualitativos reforçam a interpretação. Quanto ao sentimento
+diante de uma conta mais alta que o esperado, predominaram frustração,
+impotência e tentativa de corte sem direção — a resposta mais frequente
+expressando simultaneamente irritação e desconhecimento sobre como agir. Quanto
+às estratégias de economia declaradas, todas se mostraram genéricas e intuitivas,
+como desligar aparelhos e reduzir o tempo de banho, e <em>nenhum</em> respondente
+mencionou monitoramento ou dado como instrumento. Confirma-se a formulação da
+seção 1: há disposição para agir sem instrumento que oriente a ação.</p>
+
+<h3>4.3.3 Interesse na solução e disposição de pagamento</h3>
+
+<p>O gráfico 3 apresenta o interesse na informação e a disposição declarada de
+pagamento, cujo contraste constitui o achado mais importante da validação.</p>
+
+<figure>
+<p class="legenda">Gráfico 3 — Interesse na informação e disposição de pagamento (n = 18)</p>
+<svg viewBox="0 0 520 230" xmlns="http://www.w3.org/2000/svg" width="500">
+  <style>
+    .rot3 { font: 9px Arial, sans-serif; fill:#000; }
+    .val3 { font: bold 9px Arial, sans-serif; fill:#000; }
+    .valb { font: bold 9px Arial, sans-serif; fill:#fff; }
+    .leg3 { font: 8px Arial, sans-serif; fill:#000; }
+  </style>
+  <text class="rot3" x="0" y="14">Gostaria de saber quanto cada aparelho consome?</text>
+  <rect x="0"   y="20" width="312" height="22" fill="#404040"/>
+  <rect x="312" y="20" width="68"  height="22" fill="#808080"/>
+  <rect x="380" y="20" width="24"  height="22" fill="#d8d8d8" stroke="#000" stroke-width=".5"/>
+  <text class="valb" x="8"   y="35">Sim — 78%</text>
+  <text class="valb" x="320" y="35">17%</text>
+  <text class="val3" x="410" y="35">6%</text>
+
+  <text class="rot3" x="0" y="72">Pagaria por um sistema que ajude a economizar?</text>
+  <rect x="0"   y="78" width="156" height="22" fill="#404040"/>
+  <rect x="156" y="78" width="176" height="22" fill="#808080"/>
+  <rect x="332" y="78" width="68"  height="22" fill="#d8d8d8" stroke="#000" stroke-width=".5"/>
+  <text class="valb" x="8"   y="93">Sim — 39%</text>
+  <text class="valb" x="164" y="93">Talvez — 44%</text>
+  <text class="val3" x="340" y="93">Não — 17%</text>
+
+  <text class="rot3" x="0" y="130">Quanto pagaria por mês?</text>
+  <rect x="0"   y="136" width="212" height="22" fill="#404040"/>
+  <rect x="212" y="136" width="136" height="22" fill="#808080"/>
+  <rect x="348" y="136" width="52"  height="22" fill="#d8d8d8" stroke="#000" stroke-width=".5"/>
+  <text class="valb" x="8"   y="151">Até R$ 10 — 53%</text>
+  <text class="valb" x="220" y="151">R$ 10–30 — 34%</text>
+  <text class="val3" x="406" y="151">acima de R$ 30 — 13%</text>
+
+  <line x1="0" y1="176" x2="400" y2="176" stroke="#000" stroke-width=".8"/>
+  <text class="leg3" x="0" y="188">0%</text>
+  <text class="leg3" x="190" y="188">50%</text>
+  <text class="leg3" x="382" y="188">100%</text>
+
+  <rect x="0" y="202" width="10" height="10" fill="#404040"/>
+  <text class="leg3" x="14" y="211">resposta afirmativa / faixa inferior</text>
+  <rect x="200" y="202" width="10" height="10" fill="#808080"/>
+  <text class="leg3" x="214" y="211">intermediária</text>
+  <rect x="320" y="202" width="10" height="10" fill="#d8d8d8" stroke="#000" stroke-width=".5"/>
+  <text class="leg3" x="334" y="211">negativa / faixa superior</text>
+</svg>
+<p class="fonte">Fonte: dados da pesquisa (2026). Faixa intermediária de preço obtida por complemento.</p>
+</figure>
+
+<p>O interesse pela informação é expressivo: 78% desejam conhecer o consumo por
+aparelho sem qualquer condicionante, e o único respondente que declarou não ter
+interesse reside sozinho e paga menos de R$ 100 mensais, situando-se fora do
+segmento-alvo definido na seção 5.</p>
+
+<p>A disposição de pagamento, contudo, não acompanha o interesse. Apenas 39%
+declararam disposição firme de pagar, contra o critério de 70% que o próprio
+grupo havia estabelecido na matriz CSD como limiar de validação. Somando as
+respostas afirmativas e condicionais chega-se a 83%, mas resposta condicional não
+constitui receita. E o dado de faixa de preço é mais restritivo ainda: 53%
+aceitariam pagar no máximo R$ 10 mensais, e somente 13% admitem valores acima de
+R$ 30.</p>
+
+<div class="destaque-caixa">
+<p><strong>Consequência sobre o modelo de negócios.</strong> O preço do plano
+Pro do Amperê é de R$ 19,90 mensais — valor que, segundo este instrumento,
+apenas uma minoria dos respondentes aceitaria. A conclusão extraída não foi
+ajustar a pesquisa ao preço, mas reformular o modelo: adotou-se estrutura híbrida
+em que a receita de hardware responde pela aquisição, um plano gratuito entrega o
+diagnóstico completo e a assinatura cobra pela prescrição, dirigida à minoria que
+já experimentou valor. O detalhamento consta das seções 7 e 8.</p>
+</div>
+
+<h3>4.3.4 Funcionalidade mais valorizada</h3>
+
+<p>Perguntados sobre a funcionalidade mais útil, os respondentes elegeram ver o
+gasto em reais em tempo real acima de ver o consumo por aparelho, com destaque
+também para alertas de consumo elevado. O achado determinou decisão de produto
+descrita em 2.2: toda grandeza apresentada pelo sistema é convertida em moeda, e
+a unidade técnica aparece apenas como informação secundária.</p>
+
+<h3>4.3.5 Achados de campo aberto</h3>
+
+<p>As respostas em campo aberto produziram cinco demandas não previstas no
+instrumento, relacionadas no quadro 3.</p>
+
+<figure>
+<p class="legenda">Quadro 3 — Demandas identificadas em campo aberto</p>
+<table class="quadro">
+<thead><tr><th style="width:30%">Demanda</th><th>Formulação e desdobramento</th></tr></thead>
+<tbody>
+<tr><td>Transparência da fatura</td><td>Respondentes pedem explicação dos tributos, não apenas o total cobrado.</td></tr>
+<tr><td>Notificação proativa</td><td>Desejo de ser alertado antes do fechamento da conta, o que originou a funcionalidade de projeção do mês.</td></tr>
+<tr><td>Comparação com vizinhos</td><td>Comparação social emergiu espontaneamente. A literatura registra que o retorno normativo produz reduções persistentes de consumo (SCHULTZ et al., 2019).</td></tr>
+<tr><td>Desconfiança quanto ao retorno</td><td>Formulações como “não sei se vai mesmo economizar” indicam que a demonstração de retorno precisa ser central na comunicação.</td></tr>
+<tr><td>Resistência à instalação</td><td>Moradores de apartamento questionaram quem realizaria a instalação no quadro elétrico. Barreira não dimensionada, retomada em H9.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: dados da pesquisa (2026).</p>
+</figure>
+
+<h2>4.4 Resultados das entrevistas</h2>
+
+<p>As oito entrevistas simuladas, com as ressalvas metodológicas estabelecidas em
+4.2, exploraram quatro dimensões que o formulário não alcança.</p>
+
+<p class="sem-recuo"><strong>Natureza da dor.</strong> As entrevistas
+reposicionaram o problema: a dor central não é pagar caro, mas não compreender a
+variação da conta nem saber como agir. Em um dos perfis, o valor atribuído ao
+produto esteve explicitamente na capacidade de mostrar quanto se economizou em
+reais ao alterar o uso do ar-condicionado — isto é, no retorno verificável da
+própria decisão, e não no número absoluto.</p>
+
+<p class="sem-recuo"><strong>Trabalho a ser realizado.</strong> O trabalho que o
+cliente contrata não é economizar energia, mas obter controle, compreender o
+consumo e decidir de forma consciente. Emergiram trabalhos complementares não
+previstos: separar consumo pessoal e profissional, no caso de profissionais
+autônomos; utilizar a informação como instrumento de educação financeira
+familiar; dirimir conflitos domésticos sobre responsabilidade pelo consumo; e
+empregar o monitoramento como etapa anterior à decisão de instalar geração
+solar.</p>
+
+<p class="sem-recuo"><strong>Barreiras de adoção.</strong> O preço não é a
+barreira principal. Apareceram com força a desconfiança quanto à eficácia, o
+receio de instalação complexa, a necessidade de prova social, a restrição em
+imóveis alugados e a preocupação com usabilidade para perfis menos técnicos.
+Validar o problema, portanto, não equivale a validar a compra.</p>
+
+<p class="sem-recuo"><strong>Disposição de pagamento por hardware.</strong> Para
+aquisição única, os valores admitidos pelos perfis distribuíram-se entre R$ 100 e
+R$ 600, com concentração entre R$ 200 e R$ 500 — intervalo substancialmente mais
+alto que o admitido para assinatura mensal. O contraste entre as duas
+disposições, medida uma pelo formulário e explorada a outra pelas entrevistas, é
+o fundamento do modelo híbrido.</p>
+
+<p>As entrevistas abriram, ainda, quatro frentes estratégicas incorporadas ao
+plano: síndicos e administradoras como canal <em>business-to-business</em>; o
+produto como etapa anterior ao investimento em energia solar; funcionalidade de
+retorno sobre investimento por aparelho; e demanda, no público técnico, por
+integração com plataformas de automação residencial e interface de programação
+aberta.</p>
+
+<h2>4.5 Reclassificação das hipóteses</h2>
+
+<p>Confrontadas as nove hipóteses com os resultados, obteve-se a classificação do
+quadro 4.</p>
+
+<figure>
+<p class="legenda">Quadro 4 — Situação das hipóteses após a validação</p>
+<table class="quadro">
+<thead><tr><th style="width:8%">Cód.</th><th style="width:20%">Situação</th><th>Evidência</th></tr></thead>
+<tbody>
+<tr><td>H1</td><td>Validada</td><td>78% não sabem quais aparelhos consomem mais; 89% não quantificam.</td></tr>
+<tr><td>H2</td><td>Validada</td><td>83% já se surpreenderam com a conta; predominam frustração e impotência.</td></tr>
+<tr><td>H3</td><td>Validada</td><td>78% manifestaram interesse direto na informação.</td></tr>
+<tr><td>H4</td><td>Validada</td><td>“Gasto em reais em tempo real” superou “consumo por aparelho”.</td></tr>
+<tr><td>H5</td><td>Validada</td><td>Recorrência, nas entrevistas, do controle e da explicação como motivação.</td></tr>
+<tr><td>H6</td><td>Parcialmente validada</td><td>Disposição firme de 39%, abaixo do critério de 70% do CSD.</td></tr>
+<tr><td>H7</td><td>Parcialmente validada</td><td>Perfis jovens e técnicos valorizam o aplicativo; perfis menos técnicos exigem simplicidade maior.</td></tr>
+<tr><td>H8</td><td><strong>Invalidada</strong></td><td>53% aceitam no máximo R$ 10 mensais; preferência declarada por compra única.</td></tr>
+<tr><td>H9</td><td><strong>Invalidada</strong></td><td>Instalação apareceu como objeção relevante em apartamentos e imóveis alugados.</td></tr>
+<tr><td>—</td><td><strong>Invalidada</strong></td><td>Percepção de que o chuveiro é o maior consumidor, sustentada por 71% dos respondentes, contrariada pela medição do sistema.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), a partir dos dados da pesquisa.</p>
+</figure>
+
+<h2>4.6 Conclusão da validação</h2>
+
+<p>O problema foi validado de forma consistente. A invisibilidade do consumo por
+aparelho é real, disseminada e emocionalmente onerosa, e o interesse pela
+informação que a solução entrega é majoritário. As cinco hipóteses relativas à
+existência e à natureza do problema foram confirmadas tanto pelo formulário
+quanto pelas fontes secundárias.</p>
+
+<p>A validação do problema, entretanto, não validou o modelo comercial
+originalmente previsto, e é esse o resultado de maior valor da etapa. A hipótese
+de aceitação natural da assinatura mensal foi invalidada; a disposição firme de
+pagamento ficou em 39% contra o critério de 70%; e a instalação, antes tratada
+como barreira secundária, revelou-se objeção relevante. Uma pesquisa que apenas
+confirmasse as intenções prévias do grupo teria valor reduzido: a utilidade desta
+está precisamente nas três hipóteses que derrubou, cada uma das quais produziu
+alteração no produto ou no modelo — a estrutura híbrida de receita, o plano
+gratuito e a prioridade dada à simplicidade de instalação.</p>
+
+<p>Permanecem como dúvidas abertas, a serem resolvidas com o produto em operação
+e não por nova pesquisa declaratória: a conversão efetiva do plano gratuito para
+o plano pago, a viabilidade de instalação sem apoio profissional e a receptividade
+do canal condominial.</p>
+
+<!-- ══════════════════ 5 MERCADO-ALVO ══════════════════ -->
+<h1>5 MERCADO-ALVO</h1>
+
+<p>O mercado-alvo do Amperê é o domicílio residencial brasileiro conectado à
+rede de distribuição, com recorte inicial nas regiões de maior consumo médio e
+nas faixas de renda em que a conta de energia é significativa sem ser
+restritiva. Esta seção dimensiona esse mercado a partir de fontes oficiais e
+delimita as parcelas endereçável e acessível.</p>
+
+<h2>5.1 Os números do mercado residencial brasileiro</h2>
+
+<p>A classe residencial responde por 31,0% do consumo total de energia elétrica
+do país. No primeiro semestre de 2025, esse consumo somou 90.861 GWh, contra
+90.024 GWh no mesmo período de 2024, variação de 0,9% (EPE, 2025). O número de
+unidades consumidoras residenciais alcançou 83.470.520 em junho de 2025, com
+acréscimo de 1.626.789 unidades em doze meses, equivalente a 2,0%. A tabela 1
+apresenta a distribuição regional.</p>
+
+<figure>
+<p class="legenda">Tabela 1 — Unidades consumidoras residenciais e consumo médio, por região (junho de 2025)</p>
+<table class="abnt">
+<thead>
+<tr><th>Região</th><th class="num">Consumidores</th><th class="num">Variação anual</th><th class="num">Consumo médio (kWh/mês)</th></tr>
+</thead>
+<tbody>
+<tr><td>Norte</td><td class="num">5.476.536</td><td class="num">+2,7%</td><td class="num">217,1</td></tr>
+<tr><td>Nordeste</td><td class="num">22.872.318</td><td class="num">+2,5%</td><td class="num">134,9</td></tr>
+<tr><td>Sudeste</td><td class="num">36.801.294</td><td class="num">+1,2%</td><td class="num">182,8</td></tr>
+<tr><td>Sul</td><td class="num">11.771.344</td><td class="num">+2,6%</td><td class="num">209,8</td></tr>
+<tr><td>Centro-Oeste</td><td class="num">6.549.028</td><td class="num">+2,9%</td><td class="num">214,4</td></tr>
+<tr class="total"><td>Brasil</td><td class="num">83.470.520</td><td class="num">+2,0%</td><td class="num">178,2</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: adaptado de EPE (2025).</p>
+</figure>
+
+<p>O consumo residencial médio nacional situou-se em 178,2 kWh mensais em junho
+de 2025, com leve retração de 0,2% em relação ao mesmo mês do ano anterior,
+atribuída pela própria publicação a clima mais ameno e consequente redução do
+uso de climatização (EPE, 2025). Cabe atenção metodológica: trata-se de medição
+mensal em mês de inverno, inferior à média anual. Para o ano-base 2024, o
+Anuário Estatístico registra consumo médio de 208 kWh mensais na região Sudeste
+e consumo residencial total de 176,5 TWh, com crescimento de 7,2% sobre 2023
+(EPE, 2025b).</p>
+
+<p>O crescimento do número de consumidores residenciais desacelerou ao longo da
+série histórica: de 3,3% ao ano no período 2010–2014 para 2,2% ao ano entre 2015
+e 2025 (EPE, 2025). Ainda assim, trata-se de base ampliando-se em cerca de 1,6
+milhão de unidades por ano, o que significa que o mercado endereçável cresce
+independentemente de conquista de participação.</p>
+
+<p>Quanto ao valor da fatura, as tarifas residenciais praticadas em São Paulo
+situaram-se entre R$ 0,64 e R$ 0,725 por quilowatt-hora antes de tributos no
+período 2025–2026, atingindo aproximadamente R$ 0,85 com tributos incidentes
+(CLARKE ENERGIA, 2025). Aplicando-se a tarifa efetiva de R$ 0,86885 adotada
+neste projeto — composta pela tarifa de R$ 0,85 acrescida da bandeira amarela —
+ao consumo médio nacional de 178,2 kWh, obtém-se conta média da ordem de
+R$ 154,80 mensais. O valor é inferior à âncora de R$ 187,04 utilizada no
+protótipo, o que é coerente: o perfil-alvo definido a seguir consome acima da
+média nacional.</p>
+
+<h2>5.2 O mercado de casa inteligente</h2>
+
+<p>O produto compete também por orçamento na categoria de automação residencial.
+O mercado brasileiro de <em>smart home</em> deve atingir aproximadamente
+US$ 2,9 bilhões até 2028, com crescimento anual composto da ordem de 12%
+(STATISTA, 2024). A penetração domiciliar, porém, é estimada em apenas 11,3%,
+cerca de 8 milhões de residências, contra 43,5% na América do Norte — indicando
+espaço de expansão, mas também mercado ainda não formado.</p>
+
+<p>Os dados de familiaridade são divergentes e merecem registro. Pesquisa YouGov
+de fevereiro de 2024 apurou que 30,1% dos consumidores brasileiros não são
+familiarizados com o termo <em>smart home</em>, a segunda maior taxa de
+desconhecimento entre os países pesquisados, e que 43,1% não possuem nenhum
+dispositivo da categoria (YOUGOV, 2024). Em sentido oposto, levantamento da GfK
+indica que 92% dos brasileiros sabem o que é uma casa inteligente e que quase
+60% acreditam que a tendência impactará suas vidas (TERRA, 2024). A divergência
+provavelmente decorre da formulação das perguntas — reconhecimento do conceito
+contra familiaridade com o termo em inglês — e sugere cautela ao tratar
+familiaridade como indicador de prontidão de compra.</p>
+
+<p>Há sinal consistente de intenção: a Confederação Nacional da Indústria apurou
+que 48% dos brasileiros consideram sistemas de monitoramento uma prioridade e
+declaram disposição a investir neles (EXAME, 2024). As barreiras de adoção
+identificadas pela associação setorial são, em ordem, a usabilidade e a
+complexidade, a percepção de custo elevado, a falta de conhecimento, as
+preocupações com privacidade e a infraestrutura de imóveis antigos — conjunto
+que dialoga diretamente com as barreiras levantadas na validação descrita na
+seção 4.</p>
+
+<h2>5.3 Mercado total, endereçável e acessível</h2>
+
+<p>O dimensionamento adota o preço do Amperê Node, de R$ 199,00, como unidade de
+receita de entrada, por ser a receita de aquisição efetivamente validada pela
+pesquisa. A receita recorrente não é considerada no dimensionamento, por
+depender de taxa de conversão ainda não observada em operação. As premissas de
+recorte estão explicitadas porque determinam o resultado.</p>
+
+<figure>
+<p class="legenda">Quadro 5 — Dimensionamento do mercado</p>
+<table class="quadro">
+<thead><tr><th style="width:12%">Camada</th><th style="width:30%">Definição e premissa</th><th class="num" style="width:18%">Domicílios</th><th class="num">Potencial de receita de hardware</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>TAM</strong><br>mercado total</td>
+  <td>Todas as unidades consumidoras residenciais do país (EPE, jun. 2025).</td>
+  <td class="num">83.470.520</td>
+  <td class="num">R$ 16,6 bilhões</td>
+</tr>
+<tr>
+  <td><strong>SAM</strong><br>mercado endereçável</td>
+  <td>Sudeste, Sul e Centro-Oeste, regiões cujo consumo médio supera a média nacional, restritas às classes B e C, estimadas em 54% dos domicílios da Grande São Paulo (ABEP, 2024), proporção aqui aplicada às três regiões.</td>
+  <td class="num">29.765.700</td>
+  <td class="num">R$ 5,9 bilhões</td>
+</tr>
+<tr>
+  <td><strong>SOM</strong><br>mercado acessível</td>
+  <td>Captura de 0,1% do SAM em cinco anos, compatível com estrutura de aquisição de startup em estágio inicial e sem aporte relevante.</td>
+  <td class="num">29.766</td>
+  <td class="num">R$ 5,9 milhões</td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), a partir de EPE (2025) e ABEP (2024).</p>
+</figure>
+
+<p>A premissa mais frágil do quadro 5 é a aplicação, às três regiões, da
+proporção de classes B e C observada na Grande São Paulo. Trata-se de
+extrapolação, adotada por ausência de distribuição de faixa de conta por região
+nas fontes consultadas, e que tende a superestimar o SAM nas regiões menos
+urbanizadas. O SOM, por sua vez, não é derivado do SAM por participação
+desejada, mas limitado pela capacidade de aquisição demonstrada na projeção
+financeira da seção 8.</p>
+
+<p>O perfil do domicílio-alvo, cruzando as fontes, caracteriza-se por conta
+mensal entre R$ 150 e R$ 400, consumo entre 180 e 400 kWh mensais, três ou mais
+moradores, posse de ar-condicionado — equipamento que diferencia o consumo das
+classes B e C do consumo médio — e localização em capital ou região
+metropolitana. Para contas acima de R$ 250 mensais, o consumo necessário
+aproxima-se de 290 a 310 kWh, de 40% a 50% acima da média do Sudeste.</p>
+
+<!-- ══════════════════ 6 ANÁLISE DE MERCADO ══════════════════ -->
+<h1>6 ANÁLISE DE MERCADO</h1>
+
+<h2>6.1 As cinco forças de Porter</h2>
+
+<p>A análise estrutural do setor segue o modelo de Porter (1979), que avalia a
+atratividade de um mercado pela intensidade de cinco forças competitivas. O
+quadro 6 sintetiza a avaliação, detalhada nos parágrafos seguintes.</p>
+
+<figure>
+<p class="legenda">Quadro 6 — Síntese das cinco forças competitivas</p>
+<table class="quadro">
+<thead><tr><th style="width:28%">Força</th><th style="width:14%">Intensidade</th><th>Fundamento</th></tr></thead>
+<tbody>
+<tr><td>Rivalidade entre concorrentes</td><td>Baixa a moderada</td><td>Não há marca brasileira dominante em monitoramento residencial; a maior empresa do setor atua apenas em comercial e industrial.</td></tr>
+<tr><td>Ameaça de novos entrantes</td><td><strong>Alta</strong></td><td>Barreira tecnológica baixa; protótipo acadêmico funcional foi construído por R$ 73,51.</td></tr>
+<tr><td>Poder dos fornecedores</td><td>Baixa</td><td>Componentes padronizados e múltiplas fontes; infraestrutura em nuvem substituível.</td></tr>
+<tr><td>Poder dos compradores</td><td><strong>Alta</strong></td><td>Custo de troca nulo, produto discricionário e disposição de pagamento medida em 39%.</td></tr>
+<tr><td>Ameaça de substitutos</td><td>Moderada a alta</td><td>Tomadas inteligentes, medidores de quadro, aplicativos da distribuidora e a própria inação.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), com base em Porter (1979).</p>
+</figure>
+
+<p class="sem-recuo"><strong>Rivalidade entre concorrentes existentes — baixa a
+moderada.</strong> Não se identificou marca brasileira dominante em
+monitoramento energético residencial de residência inteira. A maior empresa
+nacional do segmento de monitoramento atende exclusivamente os mercados
+comercial e industrial e declara não atender o residencial, apesar de
+identificar demanda. As soluções importadas enfrentam carga tributária de
+importação e disponibilidade limitada. A rivalidade é baixa porque o espaço
+está vazio — o que é oportunidade e alerta simultaneamente, pois mercado vazio
+pode significar mercado não validado.</p>
+
+<p class="sem-recuo"><strong>Ameaça de novos entrantes — alta.</strong> É a força
+mais desfavorável. A barreira tecnológica é baixa: um protótipo acadêmico
+brasileiro demonstrou monitor residencial funcional construído por R$ 73,51 com
+microcontrolador ESP32 e sensor de corrente. Os componentes são padronizados e a
+infraestrutura em nuvem é acessível a qualquer entrante. A defesa do Amperê não
+pode residir no hardware, e sim na qualidade do algoritmo de desagregação, na
+base de dados acumulada para treiná-lo e na marca — ativos que se constroem com
+tempo e operação, não com capital inicial.</p>
+
+<p class="sem-recuo"><strong>Poder de barganha dos fornecedores — baixo.</strong>
+O microcontrolador e o sensor de corrente são componentes de prateleira com
+múltiplos fornecedores. O provedor de banco de dados e hospedagem é
+substituível, embora a migração tenha custo: a dependência atual de um único
+provedor gerenciado constitui risco operacional registrado no planejamento de
+governança do projeto.</p>
+
+<p class="sem-recuo"><strong>Poder de barganha dos compradores — alto.</strong> O
+comprador é individual e não concentrado, o que isoladamente reduziria seu
+poder, mas três fatores o elevam: o produto é discricionário, não essencial; o
+custo de troca é praticamente nulo, pois abandonar o serviço não acarreta perda
+relevante; e a disposição de pagamento medida na validação é limitada, com 39%
+de disposição firme e 53% admitindo no máximo R$ 10 mensais. O comprador pode
+simplesmente não comprar, e essa é a alternativa mais provável.</p>
+
+<p class="sem-recuo"><strong>Ameaça de produtos substitutos — moderada a
+alta.</strong> O substituto mais relevante não é um produto, mas a inação: o
+morador pode continuar estimando o consumo por suposição, como 94% já fazem sem
+instrumento. Entre os produtos, as tomadas inteligentes com medição, a partir de
+R$ 79, resolvem parcialmente o problema a custo baixo; os medidores de quadro
+entregam o total da residência; e os aplicativos das distribuidoras oferecem,
+gratuitamente, a informação agregada. Nenhum substitui a desagregação por
+aparelho, mas todos competem pela mesma percepção de necessidade.</p>
+
+<h2>6.2 Concorrentes diretos e substitutos</h2>
+
+<p>O quadro 7 compara as alternativas disponíveis ao consumidor brasileiro,
+considerando preços de varejo consultados em novembro de 2026.</p>
+
+<figure>
+<p class="legenda">Quadro 7 — Quadro comparativo de concorrentes e substitutos</p>
+<table class="quadro">
+<thead>
+<tr><th style="width:17%">Solução</th><th style="width:13%">Preço</th><th style="width:17%">Método de medição</th><th style="width:20%">Entrega ao usuário</th><th>Limitação frente ao Amperê</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Amperê</strong></td>
+  <td>R$ 199 (único) + R$ 19,90/mês opcional</td>
+  <td>Um sensor no quadro; desagregação por software</td>
+  <td>Custo por aparelho, em reais, com indicação de ação</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Emporia Vue 3</td>
+  <td>US$ 99,99 a US$ 199,99, importado</td>
+  <td>Uma pinça por circuito monitorado</td>
+  <td>Consumo por circuito</td>
+  <td>Resolve por hardware: exige um sensor por circuito e intervenção maior no quadro. Circuito não equivale a aparelho.</td>
+</tr>
+<tr>
+  <td>Shelly EM / 3EM</td>
+  <td>R$ 650 a R$ 985</td>
+  <td>Um sensor no quadro</td>
+  <td>Consumo total da residência</td>
+  <td>Entrega o agregado, que é a informação que o usuário já possui pela fatura.</td>
+</tr>
+<tr>
+  <td>Módulos genéricos</td>
+  <td>R$ 94 a R$ 105</td>
+  <td>Um sensor no quadro</td>
+  <td>Consumo total</td>
+  <td>Mesma limitação, sem suporte nem garantia de marca.</td>
+</tr>
+<tr>
+  <td>Tomadas inteligentes</td>
+  <td>R$ 79 a R$ 149 por unidade</td>
+  <td>Medição na tomada</td>
+  <td>Consumo do aparelho conectado</td>
+  <td>Cobertura parcial: não alcança chuveiro, ar-condicionado embutido nem iluminação. Custo cresce com o número de aparelhos.</td>
+</tr>
+<tr>
+  <td>Aplicativo da distribuidora</td>
+  <td>Gratuito</td>
+  <td>Leitura do medidor</td>
+  <td>Consumo total, periodicidade mensal</td>
+  <td>Não desagrega e não é tempestivo.</td>
+</tr>
+<tr>
+  <td>Sense</td>
+  <td>Não comercializado no Brasil</td>
+  <td>Um sensor; desagregação por software</td>
+  <td>Consumo por aparelho</td>
+  <td>É o concorrente mais próximo em método, mas não há evidência de disponibilidade no mercado brasileiro.</td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), a partir de consulta a varejo e a material dos fabricantes em novembro de 2026.</p>
+</figure>
+
+<p>Duas observações qualificam o quadro. Primeira: a descrição do Emporia Vue
+informa identificação de aparelhos de alto consumo por meio de sensores em nível
+de circuito, método distinto da desagregação por software — a comparação direta
+entre as duas abordagens exigiria teste controlado, não realizado neste
+trabalho. Segunda: a faixa de preço dos substitutos de quadro, de R$ 580 a
+R$ 985, situa-se acima do preço proposto para o Amperê Node, o que converte o
+preço em argumento de posicionamento e não apenas em variável de custo.</p>
+
+<h2>6.3 Matriz SWOT</h2>
+
+<figure>
+<p class="legenda">Quadro 8 — Matriz SWOT do Amperê</p>
+<table class="quadro">
+<thead><tr><th style="width:50%">Forças</th><th>Fraquezas</th></tr></thead>
+<tbody>
+<tr>
+<td>
+<ul style="padding-left:.9cm; margin:0">
+<li>Desagregação por software com um único sensor, com <em>recall</em> de 93,6% e precisão de 99,0% medidos em 30 dias de dados.</li>
+<li>Apresentação monetária, validada como preferência dos usuários.</li>
+<li>Preço de entrada de R$ 199, inferior ao dos substitutos de quadro.</li>
+<li>Produto implementado e publicado, com ciclo completo em operação.</li>
+<li>Motor de desagregação isolado atrás de interface, permitindo substituição por modelo treinado sem alterar o restante do sistema.</li>
+</ul>
+</td>
+<td>
+<ul style="padding-left:.9cm; margin:0">
+<li>Hardware ainda não montado; a telemetria atual provém de simulador.</li>
+<li>Detector heurístico falha com três ou mais cargas simultâneas e com cargas de baixa potência.</li>
+<li>Equipe de três pessoas, com acúmulo de funções e sem dedicação integral.</li>
+<li>Controles de segurança pendentes, entre os quais limitação de taxa e trilha de auditoria.</li>
+<li>Ausência de base de clientes real, o que impede validar retenção e conversão.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+<thead><tr><th>Oportunidades</th><th>Ameaças</th></tr></thead>
+<tbody>
+<tr>
+<td>
+<ul style="padding-left:.9cm; margin:0">
+<li>Lacuna competitiva: ausência de marca nacional em monitoramento residencial de residência inteira.</li>
+<li>Base de 83,5 milhões de domicílios, crescendo 2,0% ao ano.</li>
+<li>Mercado de casa inteligente crescendo a 12% ao ano com penetração de apenas 11,3%.</li>
+<li>Canal condominial, identificado nas entrevistas como de maior valor por contato.</li>
+<li>Posicionamento como etapa anterior à decisão de investir em geração solar.</li>
+</ul>
+</td>
+<td>
+<ul style="padding-left:.9cm; margin:0">
+<li>Barreira de entrada baixa: protótipo funcional demonstrado por R$ 73,51.</li>
+<li>Resistência medida a assinatura: 53% aceitam no máximo R$ 10 mensais.</li>
+<li>Entrada de distribuidoras ou de fabricantes de eletrodomésticos com solução própria.</li>
+<li>Sensibilidade do produto a percepção de vigilância doméstica, dado o potencial inferencial da curva de consumo.</li>
+<li>Mercado vazio pode indicar demanda não formada, e não apenas oportunidade.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<p>O cruzamento das quadrantes orienta três decisões estratégicas. A combinação
+entre a lacuna competitiva e a baixa barreira de entrada indica que a janela de
+oportunidade é temporária, e que a vantagem defensável precisa ser construída no
+algoritmo e na base de dados, não no dispositivo. A combinação entre a
+resistência à assinatura e a ausência de base real de clientes recomenda
+priorizar a receita de hardware e tratar a recorrência como hipótese a validar
+em operação. E a sensibilidade à percepção de vigilância, somada ao tratamento
+de dados de rotina doméstica, torna a política de privacidade um elemento de
+produto, e não apenas de conformidade — razão pela qual a seção 9.5 a documenta.</p>
+
+<!-- ══════════════════ 7 MODELO DE NEGÓCIOS ══════════════════ -->
+<h1>7 MODELO DE NEGÓCIOS</h1>
+
+<h2>7.1 Business Model Canvas</h2>
+
+<p>O modelo de negócios é representado pelo <em>Business Model Canvas</em>
+proposto por Osterwalder e Pigneur (2011), cujos nove blocos descrevem a lógica
+pela qual a organização cria, entrega e captura valor. A figura 1 apresenta o
+quadro preenchido; os parágrafos seguintes explicam cada bloco e sua origem nas
+evidências levantadas.</p>
+
+<figure>
+<p class="legenda">Figura 1 — Business Model Canvas do Amperê</p>
+<table class="quadro" style="font-size:8.5pt">
+<tbody>
+<tr>
+  <td style="width:20%" rowspan="2"><strong>8. Parcerias-chave</strong><br><br>
+    Fornecedores de componentes (ESP32, sensor SCT-013)<br><br>
+    Montadora para o lote de produção<br><br>
+    Provedor de nuvem e banco gerenciado<br><br>
+    Síndicos e administradoras de condomínio<br><br>
+    Eletricistas e lojas de material elétrico, como canal de indicação<br><br>
+    Instaladores de energia solar</td>
+  <td style="width:20%"><strong>7. Atividades-chave</strong><br><br>
+    Desenvolvimento e melhoria do algoritmo de desagregação<br><br>
+    Operação da plataforma em nuvem<br><br>
+    Produção de conteúdo e aquisição<br><br>
+    Suporte à instalação</td>
+  <td style="width:20%" rowspan="2"><strong>2. Proposta de valor</strong><br><br>
+    <em>Descubra quanto cada aparelho custa na sua conta de luz — com um sensor
+    só, sem obra e sem trocar tomada.</em><br><br>
+    Custo por aparelho em reais, não em kWh<br><br>
+    Projeção do fechamento do mês<br><br>
+    Alerta de consumo fora do padrão<br><br>
+    Indicação de ação com retorno estimado</td>
+  <td style="width:20%"><strong>4. Relacionamento</strong><br><br>
+    Autosserviço pelo painel<br><br>
+    Relatório mensal automático<br><br>
+    Comunidade de usuários<br><br>
+    Suporte por canal autenticado<br><br>
+    Programa de indicação</td>
+  <td style="width:20%" rowspan="2"><strong>1. Segmentos de clientes</strong><br><br>
+    <strong>Núcleo:</strong> famílias de classe B e C em capitais e regiões
+    metropolitanas, conta de R$ 150 a R$ 400, três ou mais moradores, com
+    ar-condicionado<br><br>
+    <strong>Primeiros adotantes:</strong> perfil técnico-curioso, com automação
+    residencial<br><br>
+    <strong>Secundário:</strong> condomínios, via síndicos<br><br>
+    <strong>Fora do escopo:</strong> comércio e indústria</td>
+</tr>
+<tr>
+  <td><strong>6. Recursos-chave</strong><br><br>
+    Algoritmo de desagregação e a base de dados que o treina<br><br>
+    Plataforma publicada<br><br>
+    Equipe técnica<br><br>
+    Marca e conteúdo</td>
+  <td><strong>3. Canais</strong><br><br>
+    Busca orgânica e páginas por aparelho<br><br>
+    Vídeo curto em redes sociais<br><br>
+    Marketplaces<br><br>
+    Indicação entre vizinhos<br><br>
+    Assembleias de condomínio</td>
+</tr>
+<tr>
+  <td colspan="2"><strong>9. Estrutura de custos</strong><br><br>
+    <strong>Variáveis:</strong> custo do Node (R$ 118 por unidade); custo de
+    servir o assinante (R$ 2,38 ao mês, somando taxa de pagamento,
+    infraestrutura e suporte); aquisição de clientes (R$ 145 por cliente
+    adquirido por mídia paga)<br><br>
+    <strong>Fixos:</strong> infraestrutura em nuvem, contabilidade, ferramentas,
+    suporte em meio período e pró-labore a partir do sétimo mês</td>
+  <td colspan="3"><strong>5. Fontes de receita</strong><br><br>
+    <strong>Receita única:</strong> venda do Amperê Node. O preço proposto é de
+    R$ 299, situado dentro da faixa de disposição de pagamento medida nas
+    entrevistas e abaixo dos substitutos de quadro, que custam de R$ 580 a
+    R$ 985<br><br>
+    <strong>Receita recorrente:</strong> plano Pro a R$ 19,90 mensais, com
+    recomendação de retorno por aparelho, histórico estendido e exportação<br><br>
+    <strong>Plano gratuito:</strong> entrega o diagnóstico completo e não gera
+    receita direta; existe porque a pesquisa mediu resistência à assinatura</td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), com base em Osterwalder e Pigneur (2011).</p>
+</figure>
+
+<p class="sem-recuo"><strong>Segmentos de clientes.</strong> O recorte deriva do
+dimensionamento da seção 5 e do perfil dos respondentes: domicílios com três ou
+mais moradores, nos quais a posse de ar-condicionado eleva a conta acima da média
+regional. Os primeiros adotantes de perfil técnico foram identificados no teste
+de usabilidade, quando participantes desse perfil ignoraram o resumo e buscaram
+o inventário completo de cargas.</p>
+
+<p class="sem-recuo"><strong>Proposta de valor.</strong> Detalhada em 7.2. A
+formulação enfatiza o custo em reais porque essa foi a funcionalidade mais
+valorizada no formulário, e enfatiza a ausência de obra porque a instalação
+apareceu como barreira na validação.</p>
+
+<p class="sem-recuo"><strong>Canais e relacionamento.</strong> Os canais partem
+da constatação de que o público não busca pela tecnologia, e sim pela dor: as
+consultas registradas referem-se ao que consome mais em casa, não a
+monitoramento não intrusivo. O relacionamento apoia-se no relatório mensal, que
+é simultaneamente entrega de valor e mecanismo de retenção.</p>
+
+<p class="sem-recuo"><strong>Fontes de receita.</strong> A estrutura híbrida é a
+resposta direta ao achado da seção 4. A receita de hardware captura valor no
+momento em que a disposição de pagamento é maior, e a assinatura cobra pela
+prescrição, dirigida à parcela que já experimentou o diagnóstico.</p>
+
+<p class="sem-recuo"><strong>Recursos e atividades-chave.</strong> O recurso
+defensável não é o dispositivo, replicável a baixo custo, mas o algoritmo e a
+base de dados que permitem aprimorá-lo — conclusão extraída da análise de
+entrantes potenciais em 6.1.</p>
+
+<h2>7.2 Mapa da proposta de valor</h2>
+
+<p>O mapa da proposta de valor, instrumento complementar ao Canvas, confronta o
+perfil do cliente com a oferta (OSTERWALDER <em>et al.</em>, 2014). O quadro 9
+apresenta esse confronto, com cada item referenciado à evidência que o
+sustenta.</p>
+
+<figure>
+<p class="legenda">Quadro 9 — Mapa da proposta de valor</p>
+<table class="quadro">
+<thead><tr><th style="width:50%">Perfil do cliente</th><th>Oferta do Amperê</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Tarefas a realizar</strong>
+<ul style="padding-left:.9cm;margin:.2em 0">
+<li>Entender por que a conta variou</li>
+<li>Decidir onde reduzir sem perder conforto</li>
+<li>Verificar se a decisão tomada funcionou</li>
+<li>Resolver divergências domésticas sobre consumo</li>
+<li>Avaliar se vale investir em geração solar</li>
+</ul></td>
+<td><strong>Produtos e serviços</strong>
+<ul style="padding-left:.9cm;margin:.2em 0">
+<li>Sensor único instalado no quadro</li>
+<li>Painel com custo por aparelho em reais</li>
+<li>Projeção de fechamento do mês</li>
+<li>Relatório mensal comparativo</li>
+<li>Recomendação de retorno por aparelho (plano Pro)</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Dores</strong>
+<ul style="padding-left:.9cm;margin:.2em 0">
+<li>Não saber qual aparelho pesa (78%)</li>
+<li>Não conseguir quantificar o consumo (89%)</li>
+<li>Ser surpreendido pelo valor (83%)</li>
+<li>Frustração e impotência diante do aumento</li>
+<li>Receio de instalação complicada</li>
+<li>Desconfiança quanto ao retorno prometido</li>
+</ul></td>
+<td><strong>Analgésicos</strong>
+<ul style="padding-left:.9cm;margin:.2em 0">
+<li>Ranking de aparelhos por custo, no topo do painel</li>
+<li>Valor em reais, nunca apenas em kWh</li>
+<li>Alerta antes do fechamento do ciclo</li>
+<li>Instalação sem obra e sem troca de tomada</li>
+<li>Economia acumulada exibida no relatório, que torna o retorno verificável</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Ganhos esperados</strong>
+<ul style="padding-left:.9cm;margin:.2em 0">
+<li>Sensação de controle sobre a própria conta</li>
+<li>Recompensa visível por decisão consciente</li>
+<li>Argumento objetivo em conversas familiares</li>
+<li>Previsibilidade do orçamento doméstico</li>
+</ul></td>
+<td><strong>Criadores de ganho</strong>
+<ul style="padding-left:.9cm;margin:.2em 0">
+<li>Comparação entre ciclos, mostrando quanto se economizou</li>
+<li>Histórico por aparelho</li>
+<li>Indicação de ação com retorno estimado</li>
+<li>Programa de indicação entre vizinhos</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), com base em Osterwalder <em>et al.</em> (2014) e nos dados da pesquisa.</p>
+</figure>
+
+<h2>7.3 Mapa de empatia e perfil da persona</h2>
+
+<p>A persona foi construída a partir do perfil predominante no formulário —
+faixa de 25 a 50 anos, apartamento, três ou mais moradores — e dos elementos
+qualitativos levantados nas entrevistas simuladas descritas em 4.4.</p>
+
+<figure>
+<p class="legenda">Quadro 10 — Perfil social da persona</p>
+<table class="quadro">
+<tbody>
+<tr><th style="width:26%">Nome e idade</th><td>Mariana, 34 anos</td></tr>
+<tr><th>Ocupação</th><td>Analista de recursos humanos, contratada em regime integral, com trabalho remoto três dias por semana</td></tr>
+<tr><th>Composição familiar</th><td>Mora com o cônjuge e um filho de seis anos</td></tr>
+<tr><th>Moradia</th><td>Apartamento alugado de três dormitórios, em bairro residencial de São Paulo</td></tr>
+<tr><th>Classe</th><td>B2, conforme Critério Brasil</td></tr>
+<tr><th>Conta de energia</th><td>R$ 380 no verão e R$ 240 no inverno</td></tr>
+<tr><th>Equipamentos</th><td>Ar-condicionado no dormitório e na sala, geladeira <em>frost-free</em>, chuveiro elétrico, máquina de lavar</td></tr>
+<tr><th>Comportamento</th><td>Organizada financeiramente: registra os gastos domésticos em planilha e acompanha a variação mês a mês</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<figure>
+<p class="legenda">Quadro 11 — Mapa de empatia</p>
+<table class="quadro">
+<thead><tr><th style="width:50%">O que pensa e sente</th><th>O que vê</th></tr></thead>
+<tbody>
+<tr>
+<td>Sente que a conta de verão é sempre uma surpresa desagradável. Suspeita do
+ar-condicionado, mas não tem como confirmar. Incomoda-se por registrar os gastos
+com disciplina e, ainda assim, não conseguir explicar a variação da maior
+despesa variável da casa.</td>
+<td>Uma fatura com um único valor e nenhuma discriminação. Conteúdos genéricos na
+internet, que informam que o chuveiro é vilão e a geladeira consome muito, sem
+dizer quanto o seu chuveiro e a sua geladeira consomem.</td>
+</tr>
+</tbody>
+<thead><tr><th>O que ouve</th><th>O que fala e faz</th></tr></thead>
+<tbody>
+<tr>
+<td>Recomendações da família e de vizinhos para reduzir o banho e desligar
+aparelhos da tomada. Comparações informais do tipo “na minha casa veio mais
+barato”, sem base de cálculo.</td>
+<td>Reduz o uso do ar-condicionado por estimativa, sem saber o efeito. Observa a
+conta cair e não consegue distinguir o resultado da própria decisão da
+influência do clima.</td>
+</tr>
+</tbody>
+<thead><tr><th>Dores</th><th>Ganhos</th></tr></thead>
+<tbody>
+<tr>
+<td>Decidir no escuro. Não ter como verificar se a ação funcionou. Sensação de
+impotência diante de uma despesa relevante do orçamento familiar.</td>
+<td>Ver, em reais, quanto economizou ao alterar um hábito. Transformar uma
+suposição em número verificável. Recuperar a sensação de controle.</td>
+</tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026), a partir das entrevistas simuladas.</p>
+</figure>
+
+<h2>7.4 Mapa da jornada do usuário</h2>
+
+<figure>
+<p class="legenda">Quadro 12 — Mapa da jornada do usuário</p>
+<table class="quadro" style="font-size:9pt">
+<thead>
+<tr><th style="width:13%">Etapa</th><th style="width:21%">Ação</th><th style="width:19%">Ponto de contato</th><th style="width:21%">Emoção</th><th>Oportunidade</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Descoberta</strong></td><td>Recebe conta acima do esperado e procura na internet o que mais consome em casa</td><td>Busca orgânica; vídeo curto em rede social</td><td>Frustração e irritação</td><td>Responder exatamente à pergunta feita, com página por aparelho</td></tr>
+<tr><td><strong>Consideração</strong></td><td>Usa a calculadora gratuita e vê o custo estimado do próprio aparelho</td><td>Página pública do produto</td><td>Surpresa e curiosidade</td><td>Entregar valor antes de pedir cadastro</td></tr>
+<tr><td><strong>Decisão</strong></td><td>Compara com tomadas inteligentes e medidores de quadro; hesita quanto à instalação</td><td>Página de produto; avaliações; vídeo de instalação</td><td>Desconfiança</td><td>Demonstrar a instalação em dois minutos e exibir prova social</td></tr>
+<tr><td><strong>Compra</strong></td><td>Adquire o Node, com três meses de plano Pro incluídos</td><td>Comércio eletrônico próprio ou <em>marketplace</em></td><td>Expectativa</td><td>Prazo de entrega declarado, sem promessa que não se cumpra</td></tr>
+<tr><td><strong>Instalação</strong></td><td>Fixa o sensor no quadro e conecta à rede sem fio</td><td>Guia de instalação; suporte</td><td>Insegurança, depois alívio</td><td>Primeiro aparelho identificado em até 48 horas, que é a métrica de ativação</td></tr>
+<tr><td><strong>Primeiro valor</strong></td><td>Vê o ranking e descobre que o maior gasto não é o que supunha</td><td>Painel</td><td>Surpresa e satisfação</td><td>Momento de maior disposição para indicar o produto</td></tr>
+<tr><td><strong>Uso contínuo</strong></td><td>Acompanha a projeção do mês e recebe alertas</td><td>Painel; notificações</td><td>Controle</td><td>Converter em plano Pro com recomendação de retorno</td></tr>
+<tr><td><strong>Encantamento</strong></td><td>Recebe o relatório mensal com a economia acumulada e indica a vizinhos</td><td>Relatório; programa de indicação</td><td>Recompensa</td><td>Reduzir o custo de aquisição pelo canal de menor custo</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<!-- ══════════════════ 8 ANÁLISE FINANCEIRA ══════════════════ -->
+<h1>8 ANÁLISE FINANCEIRA E PROJEÇÃO DE CRESCIMENTO</h1>
+
+<p>Esta seção avalia a viabilidade econômica do modelo descrito na seção 7. A
+análise confronta dois cenários: o cenário base, que adota o preço e o mix de
+aquisição definidos na fase anterior do projeto, e o cenário ajustado, que
+incorpora a disposição de pagamento efetivamente medida na validação. A planilha
+completa consta do Apêndice A, preenchida com o cenário ajustado.</p>
+
+<h2>8.1 Premissas do modelo</h2>
+
+<p>Apenas dois valores deste capítulo estão fixados por evidência direta: o preço
+do plano Pro, de R$ 19,90 mensais, validado no teste de usabilidade, e a conta
+média do segmento, de R$ 187, levantada em campo. Os demais são premissas de
+trabalho, relacionadas no quadro 13 para que possam ser contestadas
+individualmente.</p>
+
+<figure>
+<p class="legenda">Quadro 13 — Premissas do modelo financeiro</p>
+<table class="quadro">
+<thead><tr><th style="width:38%">Premissa</th><th style="width:18%">Valor</th><th>Base e forma de validação</th></tr></thead>
+<tbody>
+<tr><td>Custo do Node</td><td>R$ 118,00</td><td>Estimativa de componentes, montagem, embalagem e frete. Validar com cotação e lote mínimo.</td></tr>
+<tr><td>Custo de servir o assinante</td><td>R$ 2,38/mês</td><td>Taxa de pagamento (R$ 1,18), infraestrutura (R$ 0,40) e suporte (R$ 0,80).</td></tr>
+<tr><td>Churn mensal da assinatura</td><td>4%</td><td>Referência de assinatura de consumo; implica vida média de 25 meses.</td></tr>
+<tr><td>Conversão para o plano Pro</td><td>12%</td><td>Meta definida no projeto. É a premissa mais exposta, pela resistência medida à assinatura.</td></tr>
+<tr><td>Custo de aquisição por mídia paga</td><td>R$ 145,00</td><td>Estimativa. Apenas campanha real mede.</td></tr>
+<tr><td>Curva de novos clientes (ano 1)</td><td>1.595 clientes</td><td>15, 25, 40, 60, 85 e 120 no primeiro semestre, conforme projeção anterior, e 150, 180, 205, 225, 240 e 250 no segundo. É a premissa mais frágil.</td></tr>
+<tr><td>Alíquota de tributos sobre a receita</td><td>5%</td><td>Simplificação: o modelo trata a operação como prestação de serviços. A venda de hardware teria tributação distinta.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<p>Registra-se uma correção em relação ao modelo da fase anterior, que não
+incluía retirada dos sócios e, por omissão, melhorava artificialmente o
+resultado. O modelo atual inclui pró-labore de R$ 3.000 mensais, para os três
+integrantes, a partir do sétimo mês.</p>
+
+<h2>8.2 Estrutura de custos e margem de contribuição</h2>
+
+<p>A margem de contribuição do hardware, ao preço de R$ 199, é de R$ 81,00 por
+unidade, equivalentes a 40,7% da receita. A margem da assinatura é de R$ 17,52
+mensais, ou 88,0% da receita, proporção típica de software, em que servir um
+assinante adicional custa pouco mais que a taxa de pagamento.</p>
+
+<h2>8.3 Indicadores de aquisição: CAC, LTV e payback</h2>
+
+<p>É neste ponto que os dois cenários divergem, e a divergência decorre de uma
+inconsistência identificada no modelo anterior. Aquele modelo projetava receita
+de assinatura sobre a totalidade dos clientes adquiridos, tratando cada
+comprador de hardware como assinante permanente, embora o mesmo documento
+estabelecesse meta de conversão de 12% do plano gratuito para o pago. As duas
+premissas não podem coexistir.</p>
+
+<p>Adotando-se a conversão de 12%, coerente com a resistência à assinatura medida
+na seção 4, e considerando que 30% dos clientes são adquiridos por canais
+orgânicos — o que produz custo de aquisição misto de R$ 101,50 —, o valor do
+cliente ao longo da vida passa a ser:</p>
+
+<blockquote>
+LTV = margem do hardware + conversão × margem da assinatura × vida média<br>
+LTV = 81,00 + 0,12 × 17,52 × 25 = R$ 133,56<br>
+LTV / CAC = 133,56 / 101,50 = 1,32
+</blockquote>
+
+<p>A relação de 1,32 situa-se muito abaixo da referência de mercado, usualmente
+fixada em 3,0, e o retorno do investimento em aquisição leva 9,8 meses. O
+cenário base, portanto, não remunera adequadamente o capital aplicado em
+crescimento.</p>
+
+<h2>8.4 Ponto de equilíbrio</h2>
+
+<p>A projeção do cenário base, apresentada na tabela 2, demonstra consequência
+mais severa do que a simples ausência de lucro: como a margem de contribuição
+por cliente é inferior ao custo de adquiri-lo, <strong>o prejuízo cresce à
+medida que a operação cresce</strong>. Não há ponto de equilíbrio a ser
+alcançado por volume; o volume afasta o equilíbrio.</p>
+
+<figure>
+<p class="legenda">Tabela 2 — Projeção de cinco anos no cenário base (Node a R$ 199)</p>
+<table class="abnt">
+<thead><tr><th>Ano</th><th class="num">Receita bruta</th><th class="num">Custo direto</th><th class="num">Despesas</th><th class="num">Resultado</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="num">332.469</td><td class="num">190.012</td><td class="num">205.438</td><td class="num">−79.603</td></tr>
+<tr><td>2</td><td class="num">664.939</td><td class="num">421.826</td><td class="num">380.394</td><td class="num">−170.528</td></tr>
+<tr><td>3</td><td class="num">1.097.149</td><td class="num">772.574</td><td class="num">587.335</td><td class="num">−317.618</td></tr>
+<tr><td>4</td><td class="num">1.371.436</td><td class="num">1.071.947</td><td class="num">709.270</td><td class="num">−478.352</td></tr>
+<tr><td>5</td><td class="num">1.440.008</td><td class="num">1.249.354</td><td class="num">737.216</td><td class="num">−618.563</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026). Valores em reais.</p>
+</figure>
+
+<p>Duas correções foram necessárias para chegar a esta projeção, ambas relativas
+ao template da disciplina. A primeira: o template reajusta custo direto e
+despesas por percentual único, concebido como inflação. Em um negócio em que o
+hardware representa 57% da receita e a aquisição responde por 78,8% das
+despesas, ambos acompanham o volume, não a inflação. As taxas foram recalculadas
+para incorporar o crescimento de vendas. A segunda: a receita do plano Pro passou
+a incidir sobre a base de assinantes efetiva, e não sobre a base de clientes.</p>
+
+<h2>8.5 Projeção de cinco anos e análise de sensibilidade</h2>
+
+<p>Identificado que o cenário base não se sustenta, a questão deixa de ser quanto
+o negócio lucra e passa a ser o que precisa mudar para que lucre. A análise de
+sensibilidade sobre o cenário base indica três caminhos:</p>
+
+<ul>
+<li>elevar a conversão para o plano Pro de 12% para <strong>51%</strong>, de modo
+a alcançar a relação de 3,0 — percentual implausível diante da resistência
+medida, em que 53% admitem no máximo R$ 10 mensais;</li>
+<li>reduzir o custo de aquisição misto de R$ 101,50 para <strong>R$ 44,52</strong>,
+o que exigiria participação do canal orgânico muito superior à projetada;</li>
+<li>elevar a margem do hardware, que é o caminho que a própria pesquisa de campo
+sustenta.</li>
+</ul>
+
+<p>As entrevistas mediram disposição de pagamento por aquisição única entre
+R$ 100 e R$ 600, concentrada entre R$ 200 e R$ 500, enquanto os substitutos de
+quadro custam de R$ 580 a R$ 985. O preço de R$ 199 situa-se, portanto, abaixo
+da disposição medida e muito abaixo da concorrência. O cenário ajustado eleva o
+preço do Node para R$ 299 — ainda inferior à mediana da disposição apurada — e
+reduz a participação da mídia paga de 70% para 50%, mediante intensificação do
+conteúdo orgânico e do programa de indicação. Os indicadores tornam-se:</p>
+
+<blockquote>
+LTV = 181,00 + 0,12 × 17,52 × 25 = R$ 233,56<br>
+CAC misto = 145,00 × 0,50 = R$ 72,50<br>
+LTV / CAC = 233,56 / 72,50 = 3,22
+</blockquote>
+
+<figure>
+<p class="legenda">Tabela 3 — Projeção de cinco anos no cenário ajustado (Node a R$ 299)</p>
+<table class="abnt">
+<thead><tr><th>Ano</th><th class="num">Receita bruta</th><th class="num">Custo direto</th><th class="num">Despesas</th><th class="num">Resultado</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="num">491.969</td><td class="num">190.012</td><td class="num">159.183</td><td class="num">118.177</td></tr>
+<tr><td>2</td><td class="num">983.939</td><td class="num">421.826</td><td class="num">287.884</td><td class="num">225.032</td></tr>
+<tr><td>3</td><td class="num">1.623.499</td><td class="num">772.574</td><td class="num">435.632</td><td class="num">334.118</td></tr>
+<tr><td>4</td><td class="num">2.029.373</td><td class="num">1.071.947</td><td class="num">520.706</td><td class="num">335.252</td></tr>
+<tr><td>5</td><td class="num">2.130.842</td><td class="num">1.249.354</td><td class="num">539.619</td><td class="num">235.327</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026). Valores em reais.</p>
+</figure>
+
+<p>No cenário ajustado o resultado é positivo desde o primeiro ano, e o ponto de
+equilíbrio operacional é alcançado com aproximadamente <strong>20 unidades
+mensais</strong>, volume suficiente para cobrir a média das despesas fixas. A
+retração do resultado no quinto ano não decorre de perda de mercado, e sim da
+estrutura de premissas: o crescimento de vendas desacelera para 5% enquanto o
+reajuste de custo direto permanece em 11% ao ano, de modo que a margem comprime.
+Trata-se de alerta do modelo, não de previsão: indica que, por volta do quarto
+ano, a operação precisará renegociar o custo do componente ou deslocar a receita
+para a assinatura, cuja margem é de 88%.</p>
+
+<div class="destaque-caixa">
+<p><strong>Conclusão da análise financeira.</strong> O produto é tecnicamente
+viável e o problema que resolve está validado, mas o modelo de receita concebido
+antes da pesquisa não se sustentava: ao preço de R$ 199 e com conversão de 12%
+para a assinatura, cada cliente adquirido custa mais do que a margem que gera, e
+o crescimento aprofunda o prejuízo. A correção não está em vender mais, e sim em
+capturar valor onde a pesquisa demonstrou que o cliente aceita pagar — na
+aquisição do equipamento. Esse é o resultado prático mais relevante da validação
+descrita na seção 4.</p>
+</div>
+
+<!-- ══════════════════ 9 PROTÓTIPO DO PRODUTO ══════════════════ -->
+<h1>9 PROTÓTIPO DO PRODUTO</h1>
+
+<p>O protótipo não é maquete: trata-se de aplicação publicada e operante, com
+ciclo completo entre a aquisição do sinal elétrico e a apresentação do custo por
+aparelho ao usuário autenticado. Esta seção descreve as funcionalidades
+essenciais, a arquitetura, o desempenho medido do motor de desagregação, as
+telas e os controles de privacidade e segurança.</p>
+
+<h2>9.1 Funcionalidades essenciais do MVP</h2>
+
+<p>O quadro 14 relaciona as funcionalidades do produto completo, indicando o que
+já está implementado e o que permanece no roteiro de evolução. A distinção é
+registrada porque condiciona o que a comunicação do produto pode prometer.</p>
+
+<figure>
+<p class="legenda">Quadro 14 — Funcionalidades do produto e situação de implementação</p>
+<table class="quadro">
+<thead><tr><th style="width:30%">Funcionalidade</th><th style="width:14%">Situação</th><th>Descrição</th></tr></thead>
+<tbody>
+<tr><td>Cadastro e autenticação</td><td>Implementada</td><td>Conta própria com sessão persistida e revalidada a cada requisição.</td></tr>
+<tr><td>Ingestão de telemetria</td><td>Implementada</td><td>Recebimento de leituras de potência agregadas em janelas de 15 minutos, com autenticação própria do dispositivo.</td></tr>
+<tr><td>Desagregação por aparelho</td><td>Implementada</td><td>Identificação de eventos de acionamento e desligamento por detecção de degraus de potência.</td></tr>
+<tr><td>Painel de consumo</td><td>Implementada</td><td>Gasto estimado do mês, consumo instantâneo e ranking de aparelhos por custo, com destaque para o maior gasto do ciclo.</td></tr>
+<tr><td>Detalhe por aparelho</td><td>Implementada</td><td>Custo estimado no mês, horas ativas e curva de potência do equipamento.</td></tr>
+<tr><td>Alertas</td><td>Implementada</td><td>Notificação de consumo fora do padrão, com limiar relativo ao ritmo de cada aparelho.</td></tr>
+<tr><td>Relatório mensal</td><td>Implementada</td><td>Fechamento do ciclo com economia acumulada frente à média dos ciclos anteriores.</td></tr>
+<tr><td>Recomendação de retorno</td><td>Implementada</td><td>Estimativa de economia por substituição ou mudança de hábito, restrita ao plano Pro.</td></tr>
+<tr><td>Dispositivo físico</td><td><strong>Pendente</strong></td><td>O equipamento está em montagem. A telemetria atual provém de simulador que publica no mesmo <em>endpoint</em>, com o mesmo formato e a mesma autenticação previstos para o firmware.</td></tr>
+<tr><td>Modelo treinado de desagregação</td><td><strong>Pendente</strong></td><td>Substituição do detector heurístico, prevista para elevar a acurácia em cargas simultâneas e de baixa potência.</td></tr>
+<tr><td>Aplicativo móvel nativo</td><td><strong>Pendente</strong></td><td>A interface atual é responsiva e acessível por navegador.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<h2>9.2 Arquitetura e desenvolvimento tecnológico</h2>
+
+<p>A arquitetura organiza-se em quatro camadas, descritas no quadro 15. A
+telemetria percorre o caminho do dispositivo à interface sem que o navegador
+acesse o banco de dados diretamente.</p>
+
+<figure>
+<p class="legenda">Quadro 15 — Camadas da arquitetura</p>
+<table class="quadro">
+<thead><tr><th style="width:18%">Camada</th><th style="width:24%">Tecnologia</th><th>Responsabilidade</th></tr></thead>
+<tbody>
+<tr><td>Dispositivo</td><td>ESP32 e sensor de corrente SCT-013-030</td><td>Medição da corrente total no quadro elétrico e publicação periódica das leituras agregadas.</td></tr>
+<tr><td>Interface de programação</td><td>Node.js, Express e TypeScript</td><td>Autenticação, validação de esquema das entradas, motor de desagregação, cálculo de tarifa e bandeira, projeção de fechamento do mês e regras de plano.</td></tr>
+<tr><td>Persistência</td><td>PostgreSQL gerenciado</td><td>Modelagem dimensional em esquema estrela, com seis dimensões e dois fatos, funções de agregação em linguagem de consulta e isolamento por usuário em nível de linha.</td></tr>
+<tr><td>Interface do usuário</td><td>React, Vite e TypeScript</td><td>Apresentação das telas, atualização periódica e gestão da sessão.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<p>Duas decisões de projeto merecem justificativa. A primeira é a existência da
+camada intermediária: o provedor de banco oferece interface de consulta direta,
+o que permitiria ao navegador acessar os dados sem intermediação, mas isso
+implicaria transportar para o cliente a regra de precificação e as regras de
+plano. A interface de programação existe para que a regra de negócio permaneça
+em um único lado. A segunda é o isolamento do motor de desagregação atrás de uma
+abstração: a substituição do detector heurístico por modelo treinado não exige
+alteração em rota, serviço ou esquema de dados.</p>
+
+<p>O armazenamento adota modelagem dimensional porque as consultas do produto são
+analíticas — custo por aparelho, por período, por ciclo — e beneficiam-se de
+funções de janela e de cálculo de percentis, recursos que um armazenamento não
+relacional não oferece com a mesma economia.</p>
+
+<h2>9.3 O motor de desagregação e seu desempenho</h2>
+
+<p>O detector analisa a série de potência agregada, identifica variações
+abruptas e associa cada variação à faixa de potência característica dos
+aparelhos catalogados. Quando duas cargas são acionadas em proximidade temporal,
+produz-se um degrau único correspondente à soma; o algoritmo testa também pares
+de assinaturas e emite dois eventos quando o par explica a variação de forma
+nitidamente melhor que uma carga isolada.</p>
+
+<p>O desempenho foi medido sobre janela de 30 dias, com 2.880 amostras. A tabela
+4 apresenta o resultado por aparelho.</p>
+
+<figure>
+<p class="legenda">Tabela 4 — Desempenho do detector por aparelho (30 dias, 2.880 amostras)</p>
+<table class="abnt">
+<thead><tr><th>Aparelho</th><th class="num">Recall</th></tr></thead>
+<tbody>
+<tr><td>Ar-condicionado</td><td class="num">100,0%</td></tr>
+<tr><td>Chuveiro elétrico</td><td class="num">100,0%</td></tr>
+<tr><td>Máquina de lavar</td><td class="num">100,0%</td></tr>
+<tr><td>Geladeira</td><td class="num">93,7%</td></tr>
+<tr><td>Televisor e eletrônicos</td><td class="num">80,0%</td></tr>
+<tr><td>Iluminação</td><td class="num">80,0%</td></tr>
+<tr class="total"><td>Geral</td><td class="num">93,6% (precisão de 99,0%)</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: dados do projeto (2026).</p>
+</figure>
+
+<p>Os limites conhecidos são registrados: três ou mais cargas simultâneas e o
+caso em que uma carga é acionada no instante exato em que outra é desligada —
+produzindo degraus de sinais opostos que se anulam — permanecem sem separação
+adequada. A superação desses casos exige desagregação por modelo treinado.</p>
+
+<p>A calibração do perfil foi conferida contra as âncoras levantadas em campo.
+O script de verificação reproduz a aritmética do painel e compara com os valores
+de referência, obtendo gasto mensal de R$ 187,04 contra âncora de R$ 187,00, com
+ar-condicionado em R$ 89,00, chuveiro em R$ 42,00 e geladeira em R$ 23,00,
+todos coincidentes com os respectivos alvos.</p>
+
+<h2>9.4 Telas do sistema</h2>
+
+<p>As figuras 2 a 4 apresentam capturas do sistema em operação contra o banco de
+dados em nuvem. A identidade visual adota referência de painel de controle, com
+tipografia monoespaçada e leitura em alto contraste, escolha orientada à
+legibilidade de números.</p>
+
+<figure>
+<p class="legenda">Figura 2 — Painel de controle: gasto do mês, consumo instantâneo e ranking por custo</p>
+<img src="_img/01-dashboard.jpg" alt="Painel de controle do Amperê">
+<p class="fonte">Fonte: captura do sistema em operação (2026).</p>
+</figure>
+
+<figure>
+<p class="legenda">Figura 3 — Inventário de cargas identificadas pelo motor de desagregação</p>
+<img src="_img/02-aparelhos.jpg" alt="Tela de inventário de aparelhos">
+<p class="fonte">Fonte: captura do sistema em operação (2026).</p>
+</figure>
+
+<figure>
+<p class="legenda">Figura 4 — Detalhe do aparelho, com recomendação de retorno restrita ao plano Pro</p>
+<img src="_img/06-detalhe-aparelho.jpg" alt="Tela de detalhe do aparelho">
+<p class="fonte">Fonte: captura do sistema em operação (2026).</p>
+</figure>
+
+<h2>9.5 Governança, privacidade e segurança</h2>
+
+<p>A curva de consumo elétrico de uma residência não constitui dado pessoal
+sensível na definição do art. 5º, inciso II, da Lei nº 13.709/2018 (BRASIL,
+2018), mas apresenta elevado potencial inferencial: permite deduzir rotina de
+sono, horário de banho, presença ou ausência de moradores e número aproximado de
+residentes. Por essa razão, o projeto trata esses dados como se sensíveis
+fossem, adotando minimização de granularidade — agregação em janelas de quinze
+minutos, nunca amostragem instantânea bruta —, vedação de compartilhamento com
+terceiros e proibição expressa de venda de dados de consumo.</p>
+
+<p>As bases legais adotadas são a execução de contrato, para o cadastro e a
+telemetria, por constituírem a função essencial do serviço; o legítimo
+interesse, para registros de acesso e medidas antifraude; e o consentimento
+específico e revogável, para comunicação de marketing. Foi designado encarregado
+de proteção de dados, com canal público de contato, e estabelecido que a
+comunicação de incidente de segurança é decisão colegiada dos três integrantes,
+medida destinada a mitigar o conflito de interesse descrito na seção 3.</p>
+
+<p>Entre os controles técnicos já implementados constam autenticação por token
+validado a cada requisição, isolamento por usuário em nível de linha em todas as
+tabelas, autenticação própria do dispositivo por chave dedicada, validação de
+esquema em toda entrada da interface de programação, tráfego cifrado e segredos
+mantidos fora do repositório. Permanecem pendentes a limitação de taxa nas rotas
+de autenticação e de ingestão, o registro de auditoria de acessos e operações
+sensíveis e o armazenamento da chave de dispositivo sob função de resumo
+criptográfico. Essas pendências foram levantadas por leitura do próprio código,
+relacionadas ao OWASP Top 10 e priorizadas no roteiro de evolução.</p>
+
+<!-- ══════════════════ 10 PLANO DE MARKETING ══════════════════ -->
+<h1>10 PLANO DE MARKETING</h1>
+
+<h2>10.1 Posicionamento e narrativa</h2>
+
+<p>O posicionamento deriva diretamente da validação: quem possui o problema não
+procura pela tecnologia que o resolve. As consultas registradas referem-se ao que
+consome mais energia em casa, e não a monitoramento não intrusivo de cargas. A
+comunicação, portanto, responde à dor, não descreve o método.</p>
+
+<p>A narrativa central do lançamento é enunciada como <em>a sua conta de luz é um
+número sem nomes, e o Amperê devolve os nomes</em>. O antagonista não é a energia
+nem a distribuidora, mas a opacidade da informação; o protagonista é o morador, e
+não o produto; e a transformação prometida é a passagem da surpresa diante da
+conta para a previsibilidade. A promessa escrita, empregada como título da página
+pública, é descobrir quanto cada aparelho custa na conta de luz, com um sensor
+apenas, sem obra e sem trocar tomada.</p>
+
+<p>Três limites são observados na comunicação, derivados das restrições técnicas
+reconhecidas na seção 9: não se afirma que o dispositivo físico está em
+produção; não se descreve o motor de desagregação como aprendizado de máquina; e
+não se promete percentual de economia, uma vez que o sistema mede e aponta,
+cabendo a decisão ao morador.</p>
+
+<h2>10.2 Jornada de atração e conversão</h2>
+
+<p>A estratégia de atração estrutura-se sobre o princípio de que a isca precisa
+entregar gratuitamente uma versão reduzida daquilo que o produto entrega. O
+instrumento é uma calculadora pública de custo por aparelho: o visitante informa
+o equipamento, o tempo de uso e a tarifa, e recebe o custo mensal estimado sem
+necessidade de cadastro. O endereço eletrônico só é solicitado após a entrega do
+valor, para envio do detalhamento, com consentimento específico para comunicação
+de marketing, separado do aceite dos termos de uso e revogável.</p>
+
+<p>As etapas seguintes compreendem sequência de quatro mensagens eletrônicas,
+que vai do cálculo solicitado até o convite ao plano gratuito, e a conversão para
+o plano pago, realizada dentro do produto, quando o usuário já dispõe do
+diagnóstico na tela e o que resta oferecer é a prescrição. A retenção apoia-se no
+relatório mensal e em programa de indicação, canal de menor custo em um produto
+cuja adoção depende de confiança para instalação no domicílio.</p>
+
+<p>Quanto à mídia orgânica, as frentes são páginas de busca dedicadas a cada
+aparelho de alto consumo, vídeo curto com medição real, conteúdo técnico sobre o
+método e participação em comunidades de automação residencial. Registra-se que
+essa frente não é gratuita: consome aproximadamente 23 horas mensais de trabalho
+dos fundadores, custo que o modelo financeiro reconhece como pró-labore a partir
+do sétimo mês.</p>
+
+<h2>10.3 Plano de mídia e retorno esperado</h2>
+
+<p>O investimento em mídia paga do primeiro ano, no cenário ajustado da seção 8,
+totaliza R$ 115.638, correspondentes ao custo de aquisição de R$ 145 aplicado
+sobre metade dos 1.595 clientes projetados. A redução da participação da mídia
+paga de 70% para 50% é parte da correção do modelo, e transfere esforço para
+conteúdo orgânico e indicação. O quadro 16 distribui o investimento por canal.</p>
+
+<figure>
+<p class="legenda">Quadro 16 — Distribuição do investimento em mídia paga</p>
+<table class="quadro">
+<thead><tr><th style="width:26%">Canal</th><th style="width:14%">Participação</th><th style="width:18%">Etapa do funil</th><th>Função</th></tr></thead>
+<tbody>
+<tr><td>Redes sociais de vídeo curto</td><td>42%</td><td>Topo e meio</td><td>Alcance por meio da demonstração do custo real de um aparelho, formato de maior potencial e menor custo por mil impressões.</td></tr>
+<tr><td>Rede de busca</td><td>26%</td><td>Fundo</td><td>Captura de intenção declarada, com termos de produto e preço.</td></tr>
+<tr><td>Vídeo em plataforma aberta</td><td>10%</td><td>Topo</td><td>Demonstração da instalação, dirigida à objeção de complexidade.</td></tr>
+<tr><td>Influenciadores</td><td>10%</td><td>Topo e meio</td><td>Prova social, com perfis de nicho e demonstração verificável.</td></tr>
+<tr><td>Rede profissional</td><td>8%</td><td>Meio e fundo</td><td>Canal condominial, ativado apenas após existir piloto a apresentar.</td></tr>
+<tr><td>Remarketing e marketplaces</td><td>4%</td><td>Fundo</td><td>Recuperação de visitantes e presença onde já há demanda por medidores.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<p>O funil projetado para o investimento do primeiro ano parte do número de
+clientes desejado e retrocede até as impressões necessárias, e não o contrário.
+Admitindo-se custo por clique de R$ 1,40, uso da calculadora por um quarto dos
+visitantes, conversão de um quarto dos usos em contato qualificado e conversão
+de dezesseis por cento desses contatos em compra, o investimento sustenta a
+captação projetada. Os indicadores de acompanhamento são a ativação em 48 horas,
+com meta de 70%, a conversão para o plano pago, com meta de 12%, a retenção no
+trigésimo dia, com meta de 40%, e o custo de aquisição por canal.</p>
+
+<p>Estabelecem-se, por fim, regras de corte escritas antes do início da
+campanha, para que a decisão não seja tomada sob o efeito de resultados
+parciais: conjunto de anúncios com custo de aquisição superior a uma vez e meia
+a meta é desligado; criativo com custo inferior a setenta por cento da meta tem
+orçamento ampliado; custo por contato qualificado acima do dobro da meta indica
+problema na página, e não na mídia; e ativação abaixo de cinquenta por cento
+suspende qualquer ampliação de orçamento, pois adquirir cliente que não ativa
+consome caixa sem gerar receita recorrente.</p>
+
+<!-- ══════════════════ REFERÊNCIAS ══════════════════ -->
+<div class="referencias">
+<h1>REFERÊNCIAS</h1>
+
+<p>AGÊNCIA BRASIL. <strong>Pesquisa aponta que 84% dos brasileiros consideram a
+energia elétrica cara</strong>. Brasília: Empresa Brasil de Comunicação, 2024.</p>
+
+<p>ALDO SOLAR. <strong>Brasil compromete 4,54% do PIB per capita com conta de
+luz</strong>. Maringá, 2024.</p>
+
+<p>ASSOCIAÇÃO BRASILEIRA DE EMPRESAS DE PESQUISA (ABEP). <strong>Critério de
+Classificação Econômica Brasil 2024</strong>. São Paulo: ABEP, 2024.</p>
+
+<p>BRASIL. <strong>Lei nº 13.709, de 14 de agosto de 2018</strong>. Lei Geral de
+Proteção de Dados Pessoais. Brasília: Presidência da República, 2018.</p>
+
+<p>BRASIL ENERGIA. <strong>Conta de luz passa de 2,1% para 4,4% do orçamento
+familiar entre 2012 e 2024</strong>. Rio de Janeiro, 2024.</p>
+
+<p>BULBE ENERGIA. <strong>Levantamento de buscas sobre consumo de energia
+residencial</strong>. São Paulo, 2025.</p>
+
+<p>CANAL SOLAR. <strong>Apenas 5,6% dos brasileiros utilizam aplicativos para
+acompanhar o consumo de energia</strong>. Campinas, 2025.</p>
+
+<p>CLARKE ENERGIA. <strong>Tarifas residenciais de energia elétrica no estado de
+São Paulo</strong>. São Paulo, 2025.</p>
+
+<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Fact sheet: posse e hábitos de uso de
+equipamentos</strong>. Rio de Janeiro: EPE, 2023.</p>
+
+<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Mercado de energia elétrica:
+resultados de 2025, 2º trimestre</strong>. Rio de Janeiro: EPE,
+Superintendência de Estudos Econômicos e Energéticos, set. 2025.</p>
+
+<p>EMPRESA DE PESQUISA ENERGÉTICA (EPE). <strong>Anuário estatístico de energia
+elétrica 2025</strong>: ano-base 2024. Rio de Janeiro: EPE, 2025b.</p>
+
+<p>EXAME. <strong>CNI: 48% dos brasileiros consideram sistemas de monitoramento
+uma prioridade</strong>. São Paulo, 2024.</p>
+
+<p>HUSE, C.; LUCINDA, C.; CARDOSO, A. R. Consumer response to energy label
+policies: evidence from the Brazilian energy label program.
+<strong>Energy Policy</strong>, v. 138, 2020.</p>
+
+<p>INSTITUTO DE ESTUDOS SOCIOECONÔMICOS (INESC). <strong>Desigualdade no acesso à
+energia elétrica no Brasil</strong>. Brasília: INESC, 2024.</p>
+
+<p>OSTERWALDER, A.; PIGNEUR, Y. <strong>Business model generation</strong>:
+inovação em modelos de negócios. Rio de Janeiro: Alta Books, 2011.</p>
+
+<p>OSTERWALDER, A.; PIGNEUR, Y.; BERNARDA, G.; SMITH, A. <strong>Value
+proposition design</strong>: como construir propostas de valor inovadoras. São
+Paulo: HSM, 2014.</p>
+
+<p>PORTAL GIRO. <strong>Metade dos brasileiros não entende as cobranças da conta
+de luz</strong>. São Paulo, 2025.</p>
+
+<p>PORTER, M. E. How competitive forces shape strategy. <strong>Harvard Business
+Review</strong>, v. 57, n. 2, p. 137-145, mar./abr. 1979.</p>
+
+<p>PROGRAMA NACIONAL DE CONSERVAÇÃO DE ENERGIA ELÉTRICA (PROCEL). <strong>Pesquisa de
+posse de equipamentos e hábitos de uso: ano base 2019</strong>. Rio de Janeiro:
+Procel; Eletrobras, 2019.</p>
+
+<p>SCHULTZ, P. W.; ESTRADA, M.; SCHMITT, J.; SOKOLOSKIE, R.; SILVA-SEND, N.
+Using in-home displays to provide smart meter feedback about household
+electricity consumption. <strong>Nature Energy</strong>, 2019.</p>
+
+<p>STATISTA. <strong>Smart home market in Brazil</strong>: revenue and household
+penetration forecast. Hamburgo, 2024.</p>
+
+<p>TERRA. <strong>Pesquisa GfK: 92% dos brasileiros sabem o que é uma casa
+inteligente</strong>. São Paulo, 2024.</p>
+
+<p>YOUGOV. <strong>Smart home device awareness and ownership survey</strong>.
+Londres, 2024.</p>
+</div>
+
+<!-- ══════════════════ APÊNDICE A ══════════════════ -->
+<h1>APÊNDICE A — PLANILHA FINANCEIRA</h1>
+
+<p>Este apêndice reproduz o conteúdo da planilha financeira elaborada no template
+da disciplina, preenchida com o cenário ajustado descrito na seção 8.5: Amperê
+Node a R$ 299,00 e metade dos clientes adquiridos por mídia paga. O arquivo
+eletrônico acompanha a entrega sob o nome
+<code>apendice-a-planilha-financeira.xlsx</code>, com as fórmulas do template
+preservadas.</p>
+
+<p>A tabela 5 apresenta a projeção mensal do primeiro ano. A coluna de
+assinantes registra a base ativa do plano Pro, calculada com conversão de 12%
+dos novos clientes e perda mensal de 4% da base existente; a coluna de
+resultado é líquida de tributos sobre a receita.</p>
+
+<figure>
+<p class="legenda">Tabela 5 — Projeção mensal do primeiro ano (cenário ajustado)</p>
+<table class="abnt" style="font-size:9pt">
+<thead>
+<tr>
+  <th class="centro">Mês</th><th class="num">Novos clientes</th><th class="num">Assinantes Pro</th>
+  <th class="num">Receita</th><th class="num">Custo direto</th><th class="num">Aquisição</th>
+  <th class="num">Fixos</th><th class="num">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr><td class="centro">1</td><td class="num">15</td><td class="num">2</td><td class="num">4.525</td><td class="num">1.775</td><td class="num">1.088</td><td class="num">465</td><td class="num">971</td></tr>
+<tr><td class="centro">2</td><td class="num">25</td><td class="num">5</td><td class="num">7.574</td><td class="num">2.962</td><td class="num">1.812</td><td class="num">465</td><td class="num">1.956</td></tr>
+<tr><td class="centro">3</td><td class="num">40</td><td class="num">9</td><td class="num">12.139</td><td class="num">4.741</td><td class="num">2.900</td><td class="num">465</td><td class="num">3.426</td></tr>
+<tr><td class="centro">4</td><td class="num">60</td><td class="num">16</td><td class="num">18.258</td><td class="num">7.118</td><td class="num">4.350</td><td class="num">1.850</td><td class="num">4.027</td></tr>
+<tr><td class="centro">5</td><td class="num">85</td><td class="num">26</td><td class="num">25.932</td><td class="num">10.092</td><td class="num">6.162</td><td class="num">1.850</td><td class="num">6.531</td></tr>
+<tr><td class="centro">6</td><td class="num">120</td><td class="num">39</td><td class="num">36.656</td><td class="num">14.253</td><td class="num">8.700</td><td class="num">1.850</td><td class="num">10.020</td></tr>
+<tr><td class="centro">7</td><td class="num">150</td><td class="num">56</td><td class="num">45.964</td><td class="num">17.833</td><td class="num">10.875</td><td class="num">6.100</td><td class="num">8.858</td></tr>
+<tr><td class="centro">8</td><td class="num">180</td><td class="num">75</td><td class="num">55.312</td><td class="num">21.418</td><td class="num">13.050</td><td class="num">6.100</td><td class="num">11.978</td></tr>
+<tr><td class="centro">9</td><td class="num">205</td><td class="num">97</td><td class="num">63.225</td><td class="num">24.421</td><td class="num">14.862</td><td class="num">6.100</td><td class="num">14.681</td></tr>
+<tr><td class="centro">10</td><td class="num">225</td><td class="num">120</td><td class="num">69.663</td><td class="num">26.836</td><td class="num">16.312</td><td class="num">6.100</td><td class="num">16.932</td></tr>
+<tr><td class="centro">11</td><td class="num">240</td><td class="num">144</td><td class="num">74.626</td><td class="num">28.663</td><td class="num">17.400</td><td class="num">6.100</td><td class="num">18.732</td></tr>
+<tr><td class="centro">12</td><td class="num">250</td><td class="num">168</td><td class="num">78.093</td><td class="num">29.900</td><td class="num">18.125</td><td class="num">6.100</td><td class="num">20.064</td></tr>
+<tr class="total"><td class="centro">Ano</td><td class="num">1.595</td><td class="num">168</td><td class="num">491.969</td><td class="num">190.012</td><td class="num">115.638</td><td class="num">43.545</td><td class="num">118.177</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026). Valores em reais.</p>
+</figure>
+
+<p>O investimento pré-operacional é de R$ 4.000,00, compostos por R$ 1.500,00 de
+documentação e constituição da pessoa jurídica e R$ 2.500,00 de bancada e
+instrumentos. O desenvolvimento da plataforma não figura como desembolso porque
+foi realizado pela própria equipe fundadora; o custo correspondente é
+reconhecido indiretamente, na forma do pró-labore lançado a partir do sétimo
+mês.</p>
+
+<p>Registra-se, por fim, a simplificação tributária adotada: a planilha trata a
+operação como prestação de serviços, com alíquota de 5% sobre a receita bruta,
+conforme parametrização do template. A venda do equipamento constitui
+circulação de mercadoria e teria tratamento tributário distinto, o que deve ser
+revisto com apoio contábil antes de qualquer decisão de investimento.</p>
+
+<!-- ══════════════════ APÊNDICE B ══════════════════ -->
+<h1>APÊNDICE B — DIAGRAMA DE CASOS DE USO</h1>
+
+<p>A figura 5 apresenta o diagrama de casos de uso principal do sistema,
+delimitando a fronteira da aplicação e os atores que com ela interagem. O
+morador é o ator primário; o Amperê Node é ator secundário, por iniciar a
+publicação de telemetria sem intervenção humana; e o provedor de pagamento é
+ator externo acionado pela contratação do plano Pro.</p>
+
+<figure>
+<p class="legenda">Figura 5 — Diagrama de casos de uso principal</p>
+<svg viewBox="0 0 700 540" xmlns="http://www.w3.org/2000/svg" width="470">
+  <style>
+    .lin  { stroke:#000; stroke-width:1; fill:none; }
+    .trac { stroke:#000; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+    .cu   { fill:#fff; stroke:#000; stroke-width:1; }
+    .tx   { font: 11px Arial, sans-serif; fill:#000; text-anchor:middle; }
+    .ator { font: bold 11px Arial, sans-serif; fill:#000; text-anchor:middle; }
+    .est  { font: italic 9px Arial, sans-serif; fill:#000; text-anchor:middle; }
+    .lim  { fill:none; stroke:#000; stroke-width:1.2; }
+    .titl { font: bold 11px Arial, sans-serif; fill:#000; text-anchor:middle; }
+  </style>
+
+  <!-- fronteira do sistema -->
+  <rect class="lim" x="185" y="20" width="330" height="500" rx="4"/>
+  <text class="titl" x="350" y="40">Amperê</text>
+
+  <!-- ator: Morador -->
+  <g>
+    <circle class="lin" cx="70" cy="180" r="12"/>
+    <line class="lin" x1="70" y1="192" x2="70" y2="232"/>
+    <line class="lin" x1="48" y1="206" x2="92" y2="206"/>
+    <line class="lin" x1="70" y1="232" x2="52" y2="262"/>
+    <line class="lin" x1="70" y1="232" x2="88" y2="262"/>
+    <text class="ator" x="70" y="282">Morador</text>
+  </g>
+
+  <!-- ator: Amperê Node -->
+  <g>
+    <circle class="lin" cx="625" cy="95" r="12"/>
+    <line class="lin" x1="625" y1="107" x2="625" y2="147"/>
+    <line class="lin" x1="603" y1="121" x2="647" y2="121"/>
+    <line class="lin" x1="625" y1="147" x2="607" y2="177"/>
+    <line class="lin" x1="625" y1="147" x2="643" y2="177"/>
+    <text class="ator" x="625" y="197">Amperê Node</text>
+    <text class="est" x="625" y="211">«sistema»</text>
+  </g>
+
+  <!-- ator: provedor de pagamento -->
+  <g>
+    <circle class="lin" cx="625" cy="400" r="12"/>
+    <line class="lin" x1="625" y1="412" x2="625" y2="452"/>
+    <line class="lin" x1="603" y1="426" x2="647" y2="426"/>
+    <line class="lin" x1="625" y1="452" x2="607" y2="482"/>
+    <line class="lin" x1="625" y1="452" x2="643" y2="482"/>
+    <text class="ator" x="625" y="502">Provedor de</text>
+    <text class="ator" x="625" y="515">pagamento</text>
+  </g>
+
+  <!-- casos de uso -->
+  <ellipse class="cu" cx="350" cy="70"  rx="128" ry="19"/><text class="tx" x="350" y="74">Autenticar-se</text>
+  <ellipse class="cu" cx="350" cy="116" rx="128" ry="19"/><text class="tx" x="350" y="120">Vincular dispositivo</text>
+  <ellipse class="cu" cx="350" cy="162" rx="128" ry="19"/><text class="tx" x="350" y="166">Registrar leituras de potência</text>
+  <ellipse class="cu" cx="350" cy="208" rx="128" ry="19"/><text class="tx" x="350" y="212">Consultar painel de consumo</text>
+  <ellipse class="cu" cx="350" cy="254" rx="128" ry="19"/><text class="tx" x="350" y="258">Consultar detalhe do aparelho</text>
+  <ellipse class="cu" cx="350" cy="312" rx="128" ry="19"/><text class="tx" x="350" y="316">Consultar recomendação de retorno</text>
+  <ellipse class="cu" cx="350" cy="358" rx="128" ry="19"/><text class="tx" x="350" y="362">Receber alerta de consumo</text>
+  <ellipse class="cu" cx="350" cy="404" rx="128" ry="19"/><text class="tx" x="350" y="408">Emitir relatório mensal</text>
+  <ellipse class="cu" cx="350" cy="450" rx="128" ry="19"/><text class="tx" x="350" y="454">Contratar plano Pro</text>
+  <ellipse class="cu" cx="350" cy="496" rx="128" ry="19"/><text class="tx" x="350" y="500">Exercer direitos do titular</text>
+
+  <!-- associações do morador. A recomendação de retorno não recebe associação
+       direta: o morador a alcança pela extensão do detalhe do aparelho. -->
+  <line class="lin" x1="95" y1="196" x2="222" y2="74"/>
+  <line class="lin" x1="95" y1="200" x2="222" y2="118"/>
+  <line class="lin" x1="95" y1="208" x2="222" y2="208"/>
+  <line class="lin" x1="95" y1="214" x2="222" y2="254"/>
+  <line class="lin" x1="95" y1="220" x2="222" y2="358"/>
+  <line class="lin" x1="95" y1="226" x2="222" y2="404"/>
+  <line class="lin" x1="95" y1="232" x2="222" y2="450"/>
+  <line class="lin" x1="95" y1="240" x2="222" y2="496"/>
+
+  <!-- associação do dispositivo -->
+  <line class="lin" x1="598" y1="140" x2="478" y2="162"/>
+
+  <!-- associação do provedor de pagamento -->
+  <line class="lin" x1="598" y1="420" x2="478" y2="450"/>
+
+  <!-- extensão: a recomendação estende a consulta ao detalhe do aparelho,
+       e a seta aponta para o caso de uso estendido -->
+  <line class="trac" x1="350" y1="293" x2="350" y2="277"/>
+  <path class="lin" d="M 344 285 L 350 275 L 356 285"/>
+  <text class="est" x="402" y="289">«extend»</text>
+</svg>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+<p>O quadro 17 descreve os casos de uso, com o ator que os inicia e a condição
+que os habilita.</p>
+
+<figure>
+<p class="legenda">Quadro 17 — Descrição dos casos de uso</p>
+<table class="quadro">
+<thead><tr><th style="width:28%">Caso de uso</th><th style="width:18%">Ator iniciador</th><th>Descrição e pré-condição</th></tr></thead>
+<tbody>
+<tr><td>Autenticar-se</td><td>Morador</td><td>Criação de conta ou início de sessão. Pré-condição de todos os demais casos de uso do morador.</td></tr>
+<tr><td>Vincular dispositivo</td><td>Morador</td><td>Associação do Amperê Node à conta, com geração da chave de ingestão própria do equipamento.</td></tr>
+<tr><td>Registrar leituras de potência</td><td>Amperê Node</td><td>Publicação periódica das leituras agregadas. Autenticado por chave de dispositivo, independente da sessão do morador. Dispara a desagregação.</td></tr>
+<tr><td>Consultar painel de consumo</td><td>Morador</td><td>Exibição do gasto estimado do mês, do consumo instantâneo e do ranking de aparelhos por custo.</td></tr>
+<tr><td>Consultar detalhe do aparelho</td><td>Morador</td><td>Custo no mês, horas ativas e curva de potência do equipamento selecionado.</td></tr>
+<tr><td>Receber alerta de consumo</td><td>Morador</td><td>Notificação de consumo fora do padrão, com limiar relativo ao ritmo de cada aparelho.</td></tr>
+<tr><td>Emitir relatório mensal</td><td>Morador</td><td>Fechamento do ciclo com economia acumulada frente à média dos ciclos anteriores.</td></tr>
+<tr><td>Contratar plano Pro</td><td>Morador</td><td>Contratação da assinatura, com acionamento do provedor de pagamento.</td></tr>
+<tr><td>Consultar recomendação de retorno</td><td>Morador</td><td>Estende a consulta ao detalhe do aparelho. Pré-condição: plano Pro ativo.</td></tr>
+<tr><td>Exercer direitos do titular</td><td>Morador</td><td>Solicitação de acesso, correção, portabilidade ou eliminação de dados pessoais, encaminhada ao encarregado.</td></tr>
+</tbody>
+</table>
+<p class="fonte">Fonte: elaborado pelos autores (2026).</p>
+</figure>
+
+</body>
+</html>
